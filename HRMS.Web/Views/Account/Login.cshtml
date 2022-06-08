@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Account/_Layout.cshtml";
+}
+
+@section Styles{
+    <style type="text/css">
+        body, html {
+            height: 100%;
+        }
+
+        .account-h-100 {
+            height: 100% !important;
+        }
+
+        .account-align-items-center {
+            -ms-flex-align: center !important;
+            align-items: center !important;
+        }
+
+        .account-container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .account-justify-content-center {
+            -ms-flex-pack: center !important;
+            justify-content: center !important;
+        }
+
+        .account-row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .accountcard {
+            min-width: 400px;
+            max-width: 400px;
+        }
+
+        .accountcard .pmd-checkbox [type=checkbox]:checked, .accountcard .pmd-checkbox [type=checkbox]:not(:checked) {
+            position: relative!important;
+            left: 0!important;
+            margin: 0!important;
+        }
+    </style>
+}
+<div class="account-container account-h-100">
+    <div class="account-row account-h-100 account-justify-content-center account-align-items-center">
+
+        <div id="accountcard" class="accountcard">
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script src="~/Scripts/Controller/Login.js"></script>
+    <script>
+        login.init();
+    </script>
+    <script id="login-template" type="text/x-jsrender">
+
+  	<div class="pmd-card card-default pmd-z-depth">
+		<div class="login-card">
+            <form id="form-login">
+                <div class="pmd-card-title card-header-border text-center">
+                    <a href="javascript:void(0);"><img width="100" height="100" src="/Resources/Images/SIGIN_LOGO.png" alt="Logo"></a>
+                    <h3>Sign In <span>with <strong>SILUPOST</strong></span></h3>
+                </div>
+
+                <div class="pmd-card-body">
+
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Username" name="Username" data-link="Username" placeholder=" " />
+                                <span>Username</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Password" name="Password" type="password" data-link="Password" placeholder=" " />
+                                <span>Password</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <div class="form-group clearfix">
+                        <div class="checkbox pull-left">
+                            <label class="pmd-checkbox checkbox-pmd-ripple-effect">
+                                <input type="checkbox" id="RememberLogin" name="RememberLogin" data-link="RememberLogin">
+                                <span class="pmd-checkbox"> Remember me</span>
+                            </label>
+                        </div>
+                        <span class="pull-right forgot-password">
+                            <a href="/Account/ResetPassword">Forgot password?</a>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" type="button" class="btn pmd-ripple-effect btn-primary btn-block" id="btn-login">Login</a>
+
+                    <p class="redirection-link">Don't have an account? <a href="/Account/Register" class="login-register">Sign Up</a>. </p>
+
+                </div>
+
+            </form>
+		</div>
+	</div>
+</script>
+
+
+}
+

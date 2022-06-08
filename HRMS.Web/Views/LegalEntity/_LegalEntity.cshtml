@@ -1,0 +1,63 @@
+﻿
+    <form id="form-legalentity">
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="FirstName" name="FirstName" data-link="FirstName" placeholder=" " />
+                    <span>FirstName</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="MiddleName" name="MiddleName" data-link="MiddleName" placeholder=" " />
+                    <span>MiddleName</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="LastName" name="LastName" data-link="LastName" placeholder=" " />
+                    <span>LastName</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-4">
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="BirthDate" class="control-label">Birth Date</label>
+                    <input type="text" id="BirthDate" name="BirthDate" data-link="{formatDate:BirthDate}" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-4">
+                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label>Gender</label>
+                    <select id="GenderId" name="GenderId" data-link="GenderId" class="select-simple form-control pmd-select2">
+                        {^{for lookup.EntityGender}}
+                        <option value="{{>Id}}">{{>Name}}</option>
+                        {{/for}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="EmailAddress" name="EmailAddress" data-link="EmailAddress" placeholder=" " />
+                    <span>Email Address</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="MobileNumber" name="MobileNumber" data-link="MobileNumber" placeholder=" " />
+                    <span>Mobile Number</span>
+                </label>
+            </div>
+        </div>
+    </form>

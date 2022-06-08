@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="SILUPOST WEB ADMIN">
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+    <title>@ViewBag.Page.Title - SILUPOST WEB ADMIN</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/plugins/Proppeller-Material-Design-Bootstrap/favicon.ico">
+
+    <!-- Google icon -->
+    @*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">*@
+    <link href="~/plugins/Proppeller-Material-Design-Bootstrap/assets/fonts/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/assets/css/bootstrap.min.css">
+
+    <!-- Propeller css -->
+    <!-- build:[href] assets/css/ -->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/assets/css/propeller.min.css">
+    <!-- /build -->
+    <!-- Propeller date time picker css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/css/pmd-datetimepicker.css" />
+
+    <!-- Propeller dataTables css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/data-table/css/pmd-datatable.css">
+    <!-- Bootstrap-Stepper css-->
+    <link href="~/plugins/bs-stepper-1.7.0/css/bs-stepper.min.css" rel="stylesheet" />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-select/css/select.bootstrap4.min.css">
+
+    <!-- Select2 css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/select2/css/select2-bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/select2/css/pmd-select2.css" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css">
+
+    <!-- Custom Scrollbar css -->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/custom-scrollbar/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/custom-scrollbar/css/pmd-scrollbar.css" />
+
+    <!-- Jquery Loading Indicator css -->
+    <link href="~/plugins/jquery.loading-indicator/jquery.loading-indicator.css" rel="stylesheet" />
+
+    <!-- Propeller theme css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/themes/css/propeller-theme.css" />
+
+    <!-- Propeller admin theme css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/themes/css/propeller-admin.css">
+    <!-- Propeller admin theme css-->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/tab/css/tab.css">
+
+    <!-- Propeller bootstrap datetimepicker -->
+    <link href="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/css/bootstrap-datetimepicker.css" type="text/css" rel="stylesheet" />
+
+    <!-- ProDatatable -->
+    <link href="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/css/pmd-datetimepicker.css" type="text/css" rel="stylesheet" />
+
+    <!-- Site Theme -->
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/assets/css/progress-circular.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/assets/css/site.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+</head>
+<body class="body-custom body-404page">
+    <!--content area start-->
+    <div class="errorpage">
+        <div class="wrapper">
+            <div class="container">
+                @RenderBody()
+
+            </div><!-- container -->
+        </div>
+    </div>
+
+    <!-- Scripts Starts -->
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/assets/js/jquery-1.12.2.min.js"></script>
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/assets/js/bootstrap.min.js"></script>
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/assets/js/propeller.min.js"></script>
+    <!-- Propeller tabs js -->
+    <script type="text/javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/tab/js/tab-scrollable.js"></script>
+    <!-- custom scrollbar plugin -->
+    <script type="text/javascript" language="javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/custom-scrollbar/js/jquery.mCustomScrollbar.js"></script>
+
+    <!--circle chart-->
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/themes/js/circles.min.js"></script>
+    <!--staked column chart for payment-->
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/themes/js/highcharts.js"></script>
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/themes/js/highcharts-more.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- jviews -->
+    <script src="~/plugins/jsviews/jsrender/jsrender.min.js"></script>
+    <script src="~/plugins/jsviews/jsviews/jsviews.min.js"></script>
+    <script src="~/plugins/jsviews/multiselect/multiselect.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/plugins/datatables-select/js/dataTables.select.min.js"></script>
+    <script src="~/plugins/datatables-select/js/select.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!-- Select2 js-->
+    <script type="text/javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/select2/js/select2.full.js"></script>
+    <!-- Propeller Select2 -->
+    <script type="text/javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/select2/js/pmd-select2.js"></script>
+    <!-- Scripts Ends -->
+    <!-- Bootstrap-Stepper js -->
+    <script src="~/plugins/bs-stepper-1.7.0/js/bs-stepper.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+    <!-- Javascript for Datepicker -->
+    <script type="text/javascript" language="javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/js/moment-with-locales.js"></script>
+    <script type="text/javascript" language="javascript" src="~/plugins/Proppeller-Material-Design-Bootstrap/components/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <!-- Jquery Loading Indicator -->
+    <script src="~/plugins/jquery.loading-indicator/jquery.loading-indicator.min.js"></script>
+    <!-- Jquery Loading Indicator Initialize -->
+    <script src="~/plugins/Proppeller-Material-Design-Bootstrap/assets/js/progress-circular.js"></script>
+    <!-- Jquery Loading Indicator Initialize -->
+    <script src="~/plugins/webcamjs-master/webcam.min.js" accesskey=""></script>
+
+    <script src="~/Scripts/App/app.js"></script>
+    <script src="~/Scripts/App/globalConfig.js"></script>
+    <script src="~/Scripts/App/static-enums.js"></script>
+    <script src="~/Scripts/App/modal.js"></script>
+    <script src="~/Scripts/App/jsrender.js"></script>
+    <script src="~/Scripts/App/select2.js"></script>
+    <script src="~/Scripts/App/dataFormat.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>app.init()</script>
+    @RenderSection("scripts", required: false)
+    <div class="lastDivTag"></div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\bin\Debug\HRMS.Domain.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\bin\Debug\HRMS.Domain.pdb
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\bin\Debug\Newtonsoft.Json.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\bin\Debug\Newtonsoft.Json.xml
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.pdb
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csprojAssemblyReference.cache
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csproj.CoreCompileInputs.cache
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csproj.CopyComplete

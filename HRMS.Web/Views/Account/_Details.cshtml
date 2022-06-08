@@ -1,0 +1,190 @@
+﻿<script id="systemUser-template" type="text/x-jsrender">
+
+    <div id="user-details-tab-control" class="pmd-tabs pmd-tabs-bg">
+        <ul id="user-details-tab-nav" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a id="tab-control-legalentity" href="#tab-page-legalentity" aria-controls="tab-legalentity" role="tab" data-toggle="tab">Personal Details</a></li>
+            <li role="presentation"><a id="tab-control-legalEntityAddress" href="#tab-page-legalEntityAddress" aria-controls="tab-legalEntityAddress" role="tab" data-toggle="tab">Address/Location</a></li>
+            <li role="presentation"><a id="tab-control-credentials" href="#tab-page-credentials" aria-controls="tab-credentials" role="tab" data-toggle="tab">Credentials</a></li>
+        </ul>
+    </div>
+    <div class="pmd-card-body">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab-page-legalentity">
+                <div class="row">
+                    <div data-provides="fileinput" class="center fileinput fileinput-new col-xs-3">
+                        <div data-trigger="fileinput" class="fileinput-preview thumbnail img-circle img-responsive">
+                            <img id="img-upload" data-link="src{:ProfilePicture.FileData}">
+                        </div>
+                        <div class="action-button">
+                            <span class="btn btn-default btn-raised btn-file ripple-effect">
+                                <span class="fileinput-new"><i class="material-icons md-light pmd-xs">add</i></span>
+                                <span class="fileinput-exists"><i class="material-icons md-light pmd-xs">mode_edit</i></span>
+                                <input type="file" id="ProfilePicturePicker" name="ProfilePicturePicker" data-link="ProfilePicturePicker">
+                            </span>
+                            <a data-dismiss="fileinput" class="btn btn-default btn-raised btn-file ripple-effect fileinput-exists" href="javascript:void(0);"><i class="material-icons md-light pmd-xs">close</i></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+                        @Html.Partial("~/Views/LegalEntity/_LegalEntity.cshtml")
+                        <div class="group-fields clearfix row">
+                            <div class="col-sm-12">
+                                <div class="pull-left">
+                                    <button id="btnSave" class="btn btn-primary pmd-ripple-effect">Update</button>
+                                    <button id="btnCancel" class="btn btn-default btn-link pmd-ripple-effect">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-page-legalEntityAddress">
+
+                <div class="group-fields clearfix row">
+                    <div class="col-xs-12">
+                        <button id="btnNewAddress" class="btn pmd-ripple-effect btn-primary"> New Address </button>
+                        <table id="table-legalEntityAddress" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Legal Entity Address Id</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-page-credentials">
+                <form id="form-systemUser">
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-11">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="UserName" name="UserName" disabled data-link="UserName" placeholder=" " />
+                                <span>User Name</span>
+                            </label>
+                        </div>
+                        <div class="col-xs-1">
+                            <div style="width:100%; padding:15px 0;">
+                                <button id="btnManageUsername" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="dropdownMenuBottomRight" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="material-icons md-dark">edit</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-11">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Password" name="Password" type="password" disabled="disabled" data-link="Password" placeholder=" " />
+                                <span>Password</span>
+                            </label>
+                        </div>
+                        <div class="col-xs-1">
+                            <div style="width:100%; padding:15px 0;">
+                                <button id="btnManagePassword" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="dropdownMenuBottomRight" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="material-icons md-dark">edit</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+<script id="legalEntityAddress-template" type="text/x-jsrender">
+    <form id="form-legalEntityAddress">
+        <div class="group-fields clearfix row hidden">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="LegalEntityAddressId" name="LegalEntityAddressId" data-link="LegalEntityAddressId" placeholder=" " />
+                    <span>LegalEntityAddressId</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="Address" name="Address" data-link="Address" placeholder=" " />
+                    <span>Address</span>
+                </label>
+            </div>
+        </div>
+    </form>
+</script>
+
+
+
+<script id="changeUsername-template" type="text/x-jsrender">
+    <div class="modal-body">
+        <form id="form-changeUsername">
+            <div class="group-fields clearfix row hidden">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="SystemUserId" name="SystemUserId" data-link="SystemUserId" placeholder=" " />
+                        <span>SystemUserId</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="UserName" name="UserName" data-link="UserName" placeholder=" " />
+                        <span>New UserName</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="btnSaveUsername" data-name="Save and Logout" class="btn btn-primary">Save and Logout</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+</script>
+
+<script id="changePassword-template" type="text/x-jsrender">
+    <div class="modal-body">
+        <form id="form-changePassword">
+            <div class="group-fields clearfix row hidden">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="SystemUserId" name="SystemUserId" data-link="SystemUserId" placeholder=" " />
+                        <span>SystemUserId</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="OldPassword" type="password" name="OldPassword" data-link="OldPassword" placeholder=" " />
+                        <span>Old Password</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="NewPassword" type="password" name="NewPassword" data-link="NewPassword" placeholder=" " />
+                        <span>New Password</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="ConfirmPassword" type="password" name="ConfirmPassword" data-link="ConfirmPassword" placeholder=" " />
+                        <span>ConfirmPassword</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="btnSavePassword" data-name="Save and Logout" class="btn btn-primary">Save and Logout</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+</script>

@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!--Start Nav bar -->
+@{
+    var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
+
+    if (appState != null)
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
+
+            <div class="container-fluid">
+
+                <div class="pull-right" style="margin-right:10px">
+                    <div class="row">
+                        <div class="pull-right">
+                            <span class="dropdown pmd-dropdown">
+                                <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="dropdownMenuBottomRight" data-toggle="dropdown" aria-expanded="true">
+                                    <div style="background-color: white;border-radius:100%;width:100%;height:100%;display:block;padding:2px">
+                                        <img src="@(appState.User.ProfilePictureSource)" style="border-radius:100%;width:100%;height:100%;" />
+                                    </div>
+                                </button>
+                                <ul aria-labelledby="dropdownMenuDivider" role="menu" class="dropdown-menu dropdown-menu-right">
+                                    <li role="presentation"><a href="/Account" tabindex="-1" role="menuitem">Account Settings</a></li>
+                                    <li role="presentation"><a href="javascript:void(0);" id="btnLogout" tabindex="-1" role="menuitem">Sign Out</a></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" data-target="basicSidebar" data-placement="left" data-position="slidepush" is-open="true" is-open-width="1200" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons md-light">menu</i></a>
+                    @if (ViewBag.Page.Title == "Dashboard")
+                    {
+                        <a href="#" class="navbar-brand">
+                            SILUPOST
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/" class="navbar-brand">
+                            @ViewBag.Page.Title
+                        </a>
+                    }
+                </div>
+            </div>
+
+        </nav>
+    }
+}
+<!--End Nav bar -->

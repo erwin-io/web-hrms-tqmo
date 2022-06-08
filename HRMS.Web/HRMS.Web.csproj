@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{917E7E85-0099-48C8-8D1F-7F2102EE7A10}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HRMS.Web</RootNamespace>
+    <AssemblyName>HRMS.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DataTables.Mvc">
+      <HintPath>ReferenceDll\DataTables.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Microsoft.Practices\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.5.0.0\lib\net461\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.5.0.0\lib\net45\SimpleInjector.Integration.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.5.0.0\lib\net45\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Global.asax" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-5.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-6.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-7.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\1-8.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\2-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\2-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\2-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\2-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\3-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\3-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\3-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\3-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\5-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\big\2-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\big\2-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\big\2-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\big\2-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\forkme-on-github-right.png" />
+    <Content Include="plugins\baguettebox.js\demo\img\medium\2-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\medium\2-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\medium\2-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\medium\2-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\2-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\2-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\2-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\2-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\4-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\4-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\4-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\small\4-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-5.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-6.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-7.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\1-8.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\2-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\2-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\2-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\2-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\3-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\3-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\3-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\3-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\4-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\4-2.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\4-3.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\4-4.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\img\thumbs\5-1.jpg" />
+    <Content Include="plugins\baguettebox.js\demo\index.html" />
+    <Content Include="plugins\baguettebox.js\demo\js\highlight.min.js" />
+    <Content Include="plugins\baguettebox.js\dist\baguetteBox.css" />
+    <Content Include="plugins\baguettebox.js\dist\baguetteBox.js" />
+    <Content Include="plugins\baguettebox.js\dist\baguetteBox.min.css" />
+    <Content Include="plugins\baguettebox.js\dist\baguetteBox.min.js" />
+    <Content Include="plugins\baguettebox.js\gulpfile.js" />
+    <Content Include="plugins\baguettebox.js\src\baguetteBox.js" />
+    <Content Include="plugins\bs-stepper-1.7.0\css\bs-stepper.min.css" />
+    <Content Include="plugins\bs-stepper-1.7.0\js\bs-stepper.min.js" />
+    <Content Include="plugins\datatables-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="plugins\datatables-bs4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="plugins\datatables-bs4\js\dataTables.bootstrap4.js" />
+    <Content Include="plugins\datatables-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="plugins\datatables-responsive\css\responsive.bootstrap4.css" />
+    <Content Include="plugins\datatables-responsive\css\responsive.bootstrap4.min.css" />
+    <Content Include="plugins\datatables-responsive\js\dataTables.responsive.js" />
+    <Content Include="plugins\datatables-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="plugins\datatables-responsive\js\responsive.bootstrap4.js" />
+    <Content Include="plugins\datatables-responsive\js\responsive.bootstrap4.min.js" />
+    <Content Include="plugins\datatables-select\css\select.bootstrap4.css" />
+    <Content Include="plugins\datatables-select\css\select.bootstrap4.min.css" />
+    <Content Include="plugins\datatables-select\js\dataTables.select.js" />
+    <Content Include="plugins\datatables-select\js\dataTables.select.min.js" />
+    <Content Include="plugins\datatables-select\js\select.bootstrap4.js" />
+    <Content Include="plugins\datatables-select\js\select.bootstrap4.min.js" />
+    <Content Include="plugins\datatables\jquery.dataTables.js" />
+    <Content Include="plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="plugins\jquery-ui\AUTHORS.txt" />
+    <Content Include="plugins\jquery-ui\external\jquery\jquery.js" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_444444_256x240.png" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_555555_256x240.png" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_777620_256x240.png" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_777777_256x240.png" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="plugins\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="plugins\jquery-ui\jquery-ui.css" />
+    <Content Include="plugins\jquery-ui\jquery-ui.js" />
+    <Content Include="plugins\jquery-ui\jquery-ui.min.css" />
+    <Content Include="plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="plugins\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="plugins\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="plugins\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="plugins\jquery-ui\jquery-ui.theme.min.css" />
+    <Content Include="plugins\jquery-ui\LICENSE.txt" />
+    <Content Include="plugins\jquery-validation\additional-methods.js" />
+    <Content Include="plugins\jquery-validation\additional-methods.min.js" />
+    <Content Include="plugins\jquery-validation\jquery.validate.js" />
+    <Content Include="plugins\jquery-validation\jquery.validate.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ar.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ar.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_az.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_az.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_bg.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_bg.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_bn_BD.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_bn_BD.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ca.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ca.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_cs.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_cs.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_da.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_da.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_de.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_de.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_el.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_el.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es_AR.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es_AR.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es_PE.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_es_PE.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_et.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_et.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_eu.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_eu.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fa.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fa.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fi.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fi.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fr.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_fr.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ge.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ge.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_gl.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_gl.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_he.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_he.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hr.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hr.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hu.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hu.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hy_AM.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_hy_AM.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_id.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_id.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_is.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_is.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_it.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_it.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ja.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ja.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ka.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ka.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_kk.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_kk.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ko.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ko.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_lt.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_lt.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_lv.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_lv.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_mk.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_mk.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_my.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_my.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_nl.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_nl.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_no.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_no.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pl.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pl.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pt_BR.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pt_BR.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pt_PT.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_pt_PT.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ro.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ro.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ru.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ru.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sd.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sd.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_si.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_si.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sk.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sk.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sl.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sl.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sr.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sr.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sr_lat.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sr_lat.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sv.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_sv.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_th.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_th.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_tj.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_tj.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_tr.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_tr.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_uk.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_uk.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ur.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_ur.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_vi.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_vi.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_zh.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_zh.min.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_zh_TW.js" />
+    <Content Include="plugins\jquery-validation\localization\messages_zh_TW.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_de.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_de.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_es_CL.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_es_CL.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_fi.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_fi.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_it.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_it.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_nl.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_nl.min.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_pt.js" />
+    <Content Include="plugins\jquery-validation\localization\methods_pt.min.js" />
+    <Content Include="plugins\jquery.loading-indicator\jquery.loading-indicator.css" />
+    <Content Include="plugins\jquery.loading-indicator\jquery.loading-indicator.js" />
+    <Content Include="plugins\jquery.loading-indicator\jquery.loading-indicator.min.js" />
+    <Content Include="plugins\jquery\core.js" />
+    <Content Include="plugins\jquery\jquery.js" />
+    <Content Include="plugins\jquery\jquery.min.js" />
+    <Content Include="plugins\jquery\jquery.slim.js" />
+    <Content Include="plugins\jquery\jquery.slim.min.js" />
+    <Content Include="plugins\jsviews\jsrender\jsrender.min.js" />
+    <Content Include="plugins\jsviews\jsviews\jsviews.min.js" />
+    <Content Include="plugins\jsviews\multiselect\multiselect.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\bootstrap.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\bootstrap.min.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\progress-circular.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\propeller-roboto.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\propeller.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\propeller.min.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\propeller.min.css.map" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\css\site.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\codepoints" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\LICENSE" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\material-icons.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\material-icons.css.map" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\material-icons_old.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\MaterialIcons-Regular.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\MaterialIcons-Regular.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff2" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\material-design-icons\iconfont\README.md" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Black-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Black-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Black-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Black-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BlackItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BlackItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BlackItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BlackItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Bold-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Bold-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Bold-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Bold-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BoldItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BoldItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BoldItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-BoldItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Italic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Italic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Italic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Italic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Light-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Light-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Light-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Light-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-LightItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-LightItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-LightItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-LightItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Medium-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Medium-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Medium-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Medium-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-MediumItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-MediumItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-MediumItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-MediumItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Regular-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Regular-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Regular-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Regular-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Thin-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Thin-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Thin-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-Thin-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-ThinItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-ThinItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-ThinItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\Roboto-ThinItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Bold-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Bold-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Bold-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Bold-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Italic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Italic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Italic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Italic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Light-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Light-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Light-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Light-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Regular-webfont.eot" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Regular-webfont.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Regular-webfont.ttf" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\fonts\roboto\RobotoCondensed-Regular-webfont.woff" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\avatar-icon-40x40.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\banner-propeller-logo.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\favicon.ico" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\profile-pic.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\propeller-logo.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\Propeller_FB_Covers.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\images\Twitter_Open_Graph.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\bootstrap.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\bootstrap.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\jquery-1.12.2.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\jquery.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\progress-circular.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\propeller.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\propeller.js.map" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\assets\js\propeller.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\accordion\accordion.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\accordion\css\accordion.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\accordion\js\accordion.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\alert\alerts.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\alert\css\alert.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\alert\js\alert.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\badge\badge.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\badge\css\badge.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\button\button.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\button\css\button.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\button\js\ripple-effect.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\card\card.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\card\css\card.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\card\js\jquery.masonry.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\checkbox\checkbox.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\checkbox\css\checkbox.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\checkbox\css\_notes\dwsync.xml" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\checkbox\js\checkbox.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\css\jquery.mCustomScrollbar.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\css\mCSB_buttons.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\css\pmd-scrollbar.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\custom-scroll-npm.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\custom-scroll.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\js\jquery.mCustomScrollbar.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\css\pmd-datatable.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\data-table-npm.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\data-table.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\css\pmd-datetimepicker.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\datetimepicker-npm.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\datetimepicker.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\js\moment-with-locales.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\dropdown\css\dropdown.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\dropdown\dropdown.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\dropdown\js\dropdown.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\file-upload\css\image-upload.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\file-upload\css\upload-file.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\file-upload\js\upload-image.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\form\form.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\global\js\global.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\icons\css\google-icons.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\icons\propeller-icons.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\index.php" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\list\css\list.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\list\img\40x40.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\list\index.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\modal\css\modal.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\modal\modal.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\css\navbar.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\js\navbar.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\basic-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\bootstrap-basic-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\collapsible-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\placement-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\search-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar-pages\sidebar-menu-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\navbar\navbar.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\pagination\css\pagination.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\pagination\css\_notes\dwsync.xml" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\popover\css\popover.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\popover\js\popover.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\popover\popover.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\progressbar\css\progressbar.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\progressbar\progressbar.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\radio\css\radio.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\radio\js\radio.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\radio\radio.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\css\jquery.nouislider.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\css\nouislider.min.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\css\range-slider.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\js\jquery.nouislider.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\js\nouislider.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\js\wNumb.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\range-slider-npm.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\range-slider.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\css\pmd-select2.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\css\select2-bootstrap.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\css\select2.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\css\select2.min.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\js\pmd-select2.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\js\select2.full.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\select2-npm.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\select2.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\shadow\css\shadow.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\shadow\shadow.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\css\sidebar.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\js\sidebar.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\sidebar-pages\basic-sidebar-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\sidebar-pages\fixed-sidebar-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\sidebar-pages\open-sidebar-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\sidebar-pages\right-sidebar-page.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\sidebar\sidebar.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\table\css\table.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\table\table.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tab\css\tab.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tab\js\tab-scrollable.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tab\tabs.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\textfield\css\textfield.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\textfield\js\textfield.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\textfield\textfield.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\toggle-switch\css\toggle-switch.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\toggle-switch\toggle-switch.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tooltip\css\tooltip.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tooltip\css\_notes\dwsync.xml" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\tooltip\tooltip.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\typography\css\typography.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\typography\typography.html" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\utilities\css\utilities.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\favicon.ico" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\css\propeller-admin.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\css\propeller-theme.css" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\avtar-b.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\child-table-collapse.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\child-table-expand.svg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\favicon.ico" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\grow-up-arrow.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\logo-icon.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\profile-1.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\profile-2.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\profile-3.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\profile-4.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\propeller-bg.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\Propeller-Logo-Inverse.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\propeller-logo.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-baykam.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-icon.png" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-jigen.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-john.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-keel.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-prathit.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-sergey.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-sinisa.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-stephen.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\images\user-valerii.jpg" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\js\circles.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\js\circles.min.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\js\highcharts-more.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\js\highcharts.js" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\themes\js\moment.min.js" />
+    <Content Include="plugins\select2-bootstrap4-theme\select2-bootstrap4.css" />
+    <Content Include="plugins\select2-bootstrap4-theme\select2-bootstrap4.min.css" />
+    <Content Include="plugins\select2\css\select2.css" />
+    <Content Include="plugins\select2\css\select2.min.css" />
+    <Content Include="plugins\select2\js\i18n\af.js" />
+    <Content Include="plugins\select2\js\i18n\ar.js" />
+    <Content Include="plugins\select2\js\i18n\az.js" />
+    <Content Include="plugins\select2\js\i18n\bg.js" />
+    <Content Include="plugins\select2\js\i18n\bn.js" />
+    <Content Include="plugins\select2\js\i18n\bs.js" />
+    <Content Include="plugins\select2\js\i18n\build.txt" />
+    <Content Include="plugins\select2\js\i18n\ca.js" />
+    <Content Include="plugins\select2\js\i18n\cs.js" />
+    <Content Include="plugins\select2\js\i18n\da.js" />
+    <Content Include="plugins\select2\js\i18n\de.js" />
+    <Content Include="plugins\select2\js\i18n\dsb.js" />
+    <Content Include="plugins\select2\js\i18n\el.js" />
+    <Content Include="plugins\select2\js\i18n\en.js" />
+    <Content Include="plugins\select2\js\i18n\es.js" />
+    <Content Include="plugins\select2\js\i18n\et.js" />
+    <Content Include="plugins\select2\js\i18n\eu.js" />
+    <Content Include="plugins\select2\js\i18n\fa.js" />
+    <Content Include="plugins\select2\js\i18n\fi.js" />
+    <Content Include="plugins\select2\js\i18n\fr.js" />
+    <Content Include="plugins\select2\js\i18n\gl.js" />
+    <Content Include="plugins\select2\js\i18n\he.js" />
+    <Content Include="plugins\select2\js\i18n\hi.js" />
+    <Content Include="plugins\select2\js\i18n\hr.js" />
+    <Content Include="plugins\select2\js\i18n\hsb.js" />
+    <Content Include="plugins\select2\js\i18n\hu.js" />
+    <Content Include="plugins\select2\js\i18n\hy.js" />
+    <Content Include="plugins\select2\js\i18n\id.js" />
+    <Content Include="plugins\select2\js\i18n\is.js" />
+    <Content Include="plugins\select2\js\i18n\it.js" />
+    <Content Include="plugins\select2\js\i18n\ja.js" />
+    <Content Include="plugins\select2\js\i18n\ka.js" />
+    <Content Include="plugins\select2\js\i18n\km.js" />
+    <Content Include="plugins\select2\js\i18n\ko.js" />
+    <Content Include="plugins\select2\js\i18n\lt.js" />
+    <Content Include="plugins\select2\js\i18n\lv.js" />
+    <Content Include="plugins\select2\js\i18n\mk.js" />
+    <Content Include="plugins\select2\js\i18n\ms.js" />
+    <Content Include="plugins\select2\js\i18n\nb.js" />
+    <Content Include="plugins\select2\js\i18n\ne.js" />
+    <Content Include="plugins\select2\js\i18n\nl.js" />
+    <Content Include="plugins\select2\js\i18n\pl.js" />
+    <Content Include="plugins\select2\js\i18n\ps.js" />
+    <Content Include="plugins\select2\js\i18n\pt-BR.js" />
+    <Content Include="plugins\select2\js\i18n\pt.js" />
+    <Content Include="plugins\select2\js\i18n\ro.js" />
+    <Content Include="plugins\select2\js\i18n\ru.js" />
+    <Content Include="plugins\select2\js\i18n\sk.js" />
+    <Content Include="plugins\select2\js\i18n\sl.js" />
+    <Content Include="plugins\select2\js\i18n\sq.js" />
+    <Content Include="plugins\select2\js\i18n\sr-Cyrl.js" />
+    <Content Include="plugins\select2\js\i18n\sr.js" />
+    <Content Include="plugins\select2\js\i18n\sv.js" />
+    <Content Include="plugins\select2\js\i18n\th.js" />
+    <Content Include="plugins\select2\js\i18n\tk.js" />
+    <Content Include="plugins\select2\js\i18n\tr.js" />
+    <Content Include="plugins\select2\js\i18n\uk.js" />
+    <Content Include="plugins\select2\js\i18n\vi.js" />
+    <Content Include="plugins\select2\js\i18n\zh-CN.js" />
+    <Content Include="plugins\select2\js\i18n\zh-TW.js" />
+    <Content Include="plugins\select2\js\select2.full.js" />
+    <Content Include="plugins\select2\js\select2.full.min.js" />
+    <Content Include="plugins\select2\js\select2.js" />
+    <Content Include="plugins\select2\js\select2.min.js" />
+    <Content Include="plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.css" />
+    <Content Include="plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css" />
+    <Content Include="plugins\sweetalert2\sweetalert2.all.js" />
+    <Content Include="plugins\sweetalert2\sweetalert2.all.min.js" />
+    <Content Include="plugins\sweetalert2\sweetalert2.css" />
+    <Content Include="plugins\sweetalert2\sweetalert2.js" />
+    <Content Include="plugins\sweetalert2\sweetalert2.min.css" />
+    <Content Include="plugins\sweetalert2\sweetalert2.min.js" />
+    <Content Include="plugins\toastr\toastr.css" />
+    <Content Include="plugins\toastr\toastr.min.css" />
+    <Content Include="plugins\toastr\toastr.min.js" />
+    <Content Include="plugins\webcamjs-master\demos\basic.html" />
+    <Content Include="plugins\webcamjs-master\demos\click-to-run.html" />
+    <Content Include="plugins\webcamjs-master\demos\combo.html" />
+    <Content Include="plugins\webcamjs-master\demos\constraints.html" />
+    <Content Include="plugins\webcamjs-master\demos\continuous.html" />
+    <Content Include="plugins\webcamjs-master\demos\crop-large.html" />
+    <Content Include="plugins\webcamjs-master\demos\crop.html" />
+    <Content Include="plugins\webcamjs-master\demos\events.html" />
+    <Content Include="plugins\webcamjs-master\demos\flash-disabled.html" />
+    <Content Include="plugins\webcamjs-master\demos\flash.html" />
+    <Content Include="plugins\webcamjs-master\demos\flip-flash.html" />
+    <Content Include="plugins\webcamjs-master\demos\flip.html" />
+    <Content Include="plugins\webcamjs-master\demos\hd.html" />
+    <Content Include="plugins\webcamjs-master\demos\ios-large.html" />
+    <Content Include="plugins\webcamjs-master\demos\large.html" />
+    <Content Include="plugins\webcamjs-master\demos\preview.html" />
+    <Content Include="plugins\webcamjs-master\demos\reset.html" />
+    <Content Include="plugins\webcamjs-master\demos\sfx.html" />
+    <Content Include="plugins\webcamjs-master\demos\shutter.mp3" />
+    <Content Include="plugins\webcamjs-master\demos\shutter.ogg" />
+    <Content Include="plugins\webcamjs-master\flash\README.txt" />
+    <Content Include="plugins\webcamjs-master\webcam.js" />
+    <Content Include="plugins\webcamjs-master\webcam.min.js" />
+    <Content Include="plugins\webcamjs-master\webcam.swf" />
+    <Content Include="Resources\Images\icons8_user_90_gray.png" />
+    <Content Include="Resources\Images\SIGIN_LOGO.png" />
+    <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\dataFormat.js" />
+    <Content Include="Scripts\App\globalConfig.js" />
+    <Content Include="Scripts\App\jsrender.js" />
+    <Content Include="Scripts\App\modal.js" />
+    <Content Include="Scripts\App\select2.js" />
+    <Content Include="Scripts\App\static-enums.js" />
+    <Content Include="Scripts\App\sweetAlert.js" />
+    <Content Include="Scripts\App\tempusdominus.js" />
+    <Content Include="Scripts\App\toast.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="plugins\.npmignore" />
+    <Content Include="plugins\jquery\jquery.min.map" />
+    <Content Include="plugins\jquery\jquery.slim.min.map" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\package.json" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\custom-scrollbar\README.md" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\package.json" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\README.md" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\package.json" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\datetimepicker\README.md" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\package.json" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\range-slider\README.md" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\package.json" />
+    <Content Include="plugins\Proppeller-Material-Design-Bootstrap\components\select2\README.md" />
+    <Content Include="plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
+    <Content Include="plugins\toastr\toastr.js.map" />
+    <Content Include="plugins\webcamjs-master\bower.json" />
+    <Content Include="plugins\webcamjs-master\build.sh" />
+    <Content Include="plugins\webcamjs-master\DOCS.md" />
+    <Content Include="plugins\webcamjs-master\flash\com\adobe\images\BitString.as" />
+    <Content Include="plugins\webcamjs-master\flash\com\adobe\images\JPGEncoder.as" />
+    <Content Include="plugins\webcamjs-master\flash\com\adobe\images\PNGEncoder.as" />
+    <Content Include="plugins\webcamjs-master\flash\mx\utils\Base64Encoder.as" />
+    <Content Include="plugins\webcamjs-master\flash\Webcam.as" />
+    <Content Include="plugins\webcamjs-master\flash\Webcam.fla" />
+    <Content Include="plugins\webcamjs-master\LICENSE" />
+    <Content Include="plugins\webcamjs-master\package.json" />
+    <Content Include="plugins\webcamjs-master\README.md" />
+    <Content Include="plugins\baguettebox.js\.bower.json" />
+    <Content Include="plugins\baguettebox.js\bower.json" />
+    <Content Include="plugins\baguettebox.js\CODE_OF_CONDUCT.md" />
+    <Content Include="plugins\baguettebox.js\CONTRIBUTING.md" />
+    <Content Include="plugins\baguettebox.js\LICENSE" />
+    <Content Include="plugins\baguettebox.js\package-lock.json" />
+    <Content Include="plugins\baguettebox.js\package.json" />
+    <Content Include="plugins\baguettebox.js\README.md" />
+    <Content Include="plugins\baguettebox.js\src\baguetteBox.scss" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controller\ItemType.js" />
+    <Content Include="Scripts\Controller\ResetPassword.js" />
+    <Content Include="Scripts\Controller\Register.js" />
+    <Content Include="Scripts\Controller\Login.js" />
+    <Content Include="Scripts\Controller\Account.js" />
+    <Content Include="Scripts\Controller\SystemWebAdminRolePrivileges.js" />
+    <Content Include="Scripts\Controller\SystemWebAdminMenuRoles.js" />
+    <Content Include="Scripts\Controller\SystemUser.js" />
+    <Content Include="Scripts\Controller\SystemWebAdminRole.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Widget\MapBox.js" />
+    <Content Include="Scripts\Widget\LegalEntity.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\LegalEntityController.cs" />
+    <Compile Include="Controllers\ItemTypeController.cs" />
+    <Compile Include="Controllers\SystemWebAdminRolePrivilegesController.cs" />
+    <Compile Include="Controllers\SystemWebAdminMenuRolesController.cs" />
+    <Compile Include="Controllers\SystemUserController.cs" />
+    <Compile Include="Controllers\SystemWebAdminRoleController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationStateModel.cs" />
+    <Compile Include="Models\AuthorizationPrivilegeFilter.cs" />
+    <Compile Include="Models\ExceptionModel.cs" />
+    <Compile Include="Models\Global.cs" />
+    <Compile Include="Models\JsonData.cs" />
+    <Compile Include="Models\PageModel.cs" />
+    <Compile Include="Models\SignalRHub.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\MD5ServiceProvider.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_ContentHeader.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Widget\_CircularProgress.cshtml" />
+    <Content Include="Views\Widget\_Modal.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\SystemWebAdminRole\Index.cshtml" />
+    <Content Include="Views\SystemWebAdminRole\_Table.cshtml" />
+    <Content Include="Views\SystemWebAdminMenuRoles\_Table.cshtml" />
+    <Content Include="Views\SystemWebAdminMenuRoles\Index.cshtml" />
+    <Content Include="Views\SystemUser\_Table.cshtml" />
+    <Content Include="Views\SystemUser\Index.cshtml" />
+    <Content Include="Views\LegalEntity\_LegalEntity.cshtml" />
+    <Content Include="Views\SystemUser\_Details.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\_Details.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\SystemWebAdminRolePrivileges\_Table.cshtml" />
+    <Content Include="Views\SystemWebAdminRolePrivileges\Index.cshtml" />
+    <Content Include="Views\ItemType\Index.cshtml" />
+    <Content Include="Views\ItemType\_Table.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="plugins\Proppeller-Material-Design-Bootstrap\components\data-table\extensions\Buttons\css\" />
+    <Folder Include="plugins\Proppeller-Material-Design-Bootstrap\components\get-started\" />
+    <Folder Include="plugins\Proppeller-Material-Design-Bootstrap\components\toggle-switch\js\" />
+    <Folder Include="plugins\Proppeller-Material-Design-Bootstrap\components\tooltip\js\" />
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8000</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

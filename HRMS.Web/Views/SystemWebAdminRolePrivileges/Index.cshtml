@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Title -->
+<h1 class="section-title" id="services"><span>@ViewBag.Page.Title</span></h1>
+<!-- End Title -->
+<!--breadcrum start-->
+<ol class="breadcrumb text-left">
+    <li>
+        @ViewBag.Page.Module
+    </li>
+    @if (ViewBag.Page.ParentName != null)
+    {
+        <li><a href="@ViewBag.Page.ParentName">@ViewBag.Page.ParentTitle</a></li>
+    }
+    <li>
+        @ViewBag.Page.Title
+    </li>
+</ol><!--breadcrum end-->
+
+<section class="row ">
+    <!-- table card code and example -->
+    <div class="col-md-12">
+        <div class="component-box">
+            <!-- table card example -->
+            <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                <div class="pmd-card-title">
+                    <h2 class="pmd-card-title-text">@ViewBag.Page.Title</h2>
+                </div>
+                <div class="pmd-card-body">
+                    <form id="form-systemWebAdminRolePrivileges">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="select-container"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="table-systemWebAdminRolePrivileges" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Privilege Id</th>
+                                            <th>Privilege Name</th>
+                                            <th>Allowed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- table card example end -->
+
+        </div>
+    </div>
+    <!-- table card code and example end -->
+    <div class="custom-floating-action">
+        <button id="btn-save" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary">
+            <i class="material-icons pmd-sm">save</i>
+        </button>
+
+    </div>
+</section>
+
+@section Scripts{
+
+    <script src="~/Scripts/Controller/SystemWebAdminRolePrivileges.js"></script>
+    <script>
+        systemWebAdminRolePrivileges.init(@Html.Raw(Json.Encode(ViewBag.Lookup)));
+    </script>
+    <script id="systemWebAdminRolePrivileges-select-template" type="text/x-jsrender">
+        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+            <label>System Web AdminRole</label>
+            <select id="SystemWebAdminRoleId" name="SystemWebAdminRoleId" data-link="SystemWebAdminRoleId" class="select-simple form-control pmd-select2">
+                {^{for SystemWebAdminRole}}
+                <option value="{{>Id}}">{{>Name}}</option>
+                {{/for}}
+            </select>
+        </div>
+    </script>
+}

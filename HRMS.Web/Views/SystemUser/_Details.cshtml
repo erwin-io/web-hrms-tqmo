@@ -1,0 +1,141 @@
+﻿<script id="systemUser-template" type="text/x-jsrender">
+
+    <div id="user-details-tab-control" class="pmd-tabs pmd-tabs-bg">
+        <ul id="user-details-tab-nav" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a id="tab-control-legalentity" href="#tab-page-legalentity" aria-controls="tab-legalentity" role="tab" data-toggle="tab">Details</a></li>
+            <li role="presentation"><a id="tab-control-legalEntityAddress" href="#tab-page-legalEntityAddress" aria-controls="tab-legalEntityAddress" role="tab" data-toggle="tab">Address/Location</a></li>
+            <li role="presentation"><a id="tab-control-credentials" href="#tab-page-credentials" aria-controls="tab-credentials" role="tab" data-toggle="tab">Credentials</a></li>
+            <li role="presentation"><a id="tab-control-roles" href="#tab-page-roles" aria-controls="tab-roles" role="tab" data-toggle="tab">Roles</a></li>
+        </ul>
+    </div>
+    <div class="pmd-card-body">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab-page-legalentity">
+
+                <div class="group-fields clearfix row">
+                    <div class="col-xs-12">
+                        <div class="pull-left">
+                            <label>Profile Picture</label>
+                            <div class="form-group pure-material-textfield-outlined">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <img id="img-upload" data-link="src{:ProfilePicture.FileData}" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary pmd-card pmd-z-depth pmd-card-custom-view" style="width: 100px;height: 100px;display: block;" class="" />
+                                    </div>
+                                </div>
+                                <br />
+                                <label class="btn pmd-ripple-effect btn-primary" for="ProfilePicturePicker"> UPLOAD IMAGE </label>
+                                <button id="btnOpenWebCam" class="btn pmd-ripple-effect btn-primary"> TAKE A PHOTO </button>
+                                <input type="file" class="hidden" id="ProfilePicturePicker" name="ProfilePicturePicker" data-link="ProfilePicturePicker">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.Partial("~/Views/LegalEntity/_LegalEntity.cshtml")
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-page-legalEntityAddress">
+
+                <div class="group-fields clearfix row">
+                    <div class="col-xs-12">
+                        <button id="btnNewAddress" class="btn pmd-ripple-effect btn-primary"> New Address </button>
+                        <table id="table-legalEntityAddress" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Legal Entity Address Id</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-page-credentials">
+                <form id="form-systemUser">
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            {^{if IsNew}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="UserName" name="UserName" data-link="UserName" placeholder=" " />
+                                <span>User Name</span>
+                            </label>
+                            {{else}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="UserName" name="UserName" disabled data-link="UserName" placeholder=" " />
+                                <span>User Name</span>
+                            </label>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            {^{if IsNew}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Password" name="Password" type="password" data-link="Password" placeholder=" " />
+                                <span>Password</span>
+                            </label>
+                            {{else}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Password" name="Password" type="password" disabled="disabled" data-link="Password" placeholder=" " />
+                                <span>Password</span>
+                            </label>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            {^{if IsNew}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="ConfirmPassword" name="ConfirmPassword" type="password" data-link="{:ConfirmPassword}" placeholder=" " />
+                                <span>Confirm Password</span>
+                            </label>
+                            {{else}}
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="ConfirmPassword" name="ConfirmPassword" type="password" disabled="disabled" data-link="{:ConfirmPassword}" placeholder=" " />
+                                <span>Confirm Password</span>
+                            </label>
+                            {{/if}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab-page-roles">
+                <form id="form-SystemWebAdminUserRoles">
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <div class="form-group pmd-textfield">
+                                <label>System User Roles</label>
+                                <select id="SystemWebAdminUserRoles" name="SystemWebAdminUserRoles" data-link="{multisel items=lookup.SystemWebAdminRole selected=SelectedSystemWebAdminUserRoles size=lookup.SystemWebAdminRole.length}" class="form-control select-tags pmd-select2-tags"></select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+<script id="legalEntityAddress-template" type="text/x-jsrender">
+    <form id="form-legalEntityAddress">
+        <div class="group-fields clearfix row hidden">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="LegalEntityAddressId" name="LegalEntityAddressId" data-link="LegalEntityAddressId" placeholder=" " />
+                    <span>LegalEntityAddressId</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="Address" name="Address" data-link="Address" placeholder=" " />
+                    <span>Address</span>
+                </label>
+            </div>
+        </div>
+    </form>
+</script>
