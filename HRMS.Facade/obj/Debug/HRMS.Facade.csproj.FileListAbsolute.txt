@@ -15,8 +15,8 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\bin\Debug\Newtonsoft.Json.xml
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\bin\Debug\AutoMapper.pdb
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\bin\Debug\AutoMapper.xml
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\bin\Debug\System.ValueTuple.xml
-C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.pdb
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.csprojAssemblyReference.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.csproj.CoreCompileInputs.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.csproj.CopyComplete
+C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.Facade\obj\Debug\HRMS.Facade.pdb

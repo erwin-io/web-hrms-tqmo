@@ -53,8 +53,7 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.Web\bin\System.Web.Razor.xml
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\bin\System.Web.WebPages.xml
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\bin\System.Web.WebPages.Deployment.xml
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\bin\System.Web.WebPages.Razor.xml
-C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.pdb
-C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csprojAssemblyReference.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csproj.CoreCompileInputs.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csproj.CopyComplete
+C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.pdb

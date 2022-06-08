@@ -251,9 +251,9 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.API\bin\pt\Microsoft.ReportViewer.WinF
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\bin\ru\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.csproj.ResolveComReference.cache
-C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.pdb
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.csprojAssemblyReference.cache
+C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.csproj.ResolveComReference.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.csproj.CoreCompileInputs.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.csproj.CopyComplete
+C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.API\obj\Debug\HRMS.API.pdb

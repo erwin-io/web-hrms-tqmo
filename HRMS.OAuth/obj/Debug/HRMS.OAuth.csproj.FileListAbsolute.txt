@@ -241,9 +241,9 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\bin\pt\Microsoft.ReportViewer.Wi
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\bin\ru\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.csproj.ResolveComReference.cache
-C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.dll
-C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.pdb
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.csprojAssemblyReference.cache
+C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.csproj.ResolveComReference.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.csproj.CoreCompileInputs.cache
 C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.csproj.CopyComplete
+C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.dll
+C:\Archive\Development\web-hrms-tqmo\HRMS.OAuth\obj\Debug\HRMS.OAuth.pdb
