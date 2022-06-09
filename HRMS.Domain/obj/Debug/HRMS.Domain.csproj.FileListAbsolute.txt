@@ -6,3 +6,4 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csproj.Co
 C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csproj.CopyComplete
 C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.pdb
+C:\Archive\Development\web-hrms-tqmo\HRMS.Domain\obj\Debug\HRMS.Domain.csprojAssemblyReference.cache
