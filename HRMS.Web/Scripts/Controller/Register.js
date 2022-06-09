@@ -403,12 +403,27 @@
         circleProgress.show(false);
         api.sendVerification(appSettings.confirmVerificationModel).done(function (result) {
             if (result.IsSuccess) {
-                initStepConfirmVerification();
+                //initStepConfirmVerification();
+                appSettings.confirmVerificationModel.VerificationCode = result.Data.VerificationCode;
+                api.getBySender(appSettings.confirmVerificationModel.VerificationSender, appSettings.confirmVerificationModel.VerificationCode).done(function (result) {
+                    if (result.IsSuccess) {
+                        if (result.Data.VerificationCode === appSettings.confirmVerificationModel.VerificationCode) {
+                            initStepCredentials();
+                        } else {
+                            Swal.fire('Error!', "Incorrect verification code! Please try again", 'error');
+                            initStepVerification();
+                        }
+                    }
+                    circleProgress.close();
+                }).error(function (result) {
+                    Swal.fire('Error!', "Incorrect verification code! Please try again", 'error');
+                    circleProgress.close();
+                });;
             }
-            circleProgress.close();
         }).error(function (result) {
             Swal.fire('Error!', result.responseJSON.Message, 'error');
             circleProgress.close();
+            initStepVerification();
         });;
     }
 
@@ -449,7 +464,6 @@
                         .done(function (result) {
                             if (result.IsSuccess) {
                                 $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                                circleProgress.close();
                                 console.log(result);
                                 var appState = {
                                     User: {
@@ -483,6 +497,7 @@
                                     if (result.Success) {
                                         window.location.replace("/");
                                     } else {
+                                        circleProgress.close();
                                         Swal.fire('Error!', result.Message, 'error');
                                     }
                                 });

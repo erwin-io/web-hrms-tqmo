@@ -107,13 +107,25 @@ namespace HRMS.API.Controllers
 
                     var result = _systemUserVerificationFacade.FindById(id);
 
-                    var success = EmailService.SendEmailVerification(model.VerificationSender, result.VerificationCode);
+                    //var success = EmailService.SendEmailVerification(model.VerificationSender, result.VerificationCode);
 
-                    if (success)
+                    //if (success)
+                    //{
+                    //    response.IsSuccess = true;
+                    //    response.Message = Messages.Created;
+                    //    response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
+                    //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                    //}
+                    //else
+                    //{
+                    //    response.Message = Messages.Failed;
+                    //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    //}
+                    if(result != null)
                     {
                         response.IsSuccess = true;
                         response.Message = Messages.Created;
-                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
+                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = result.VerificationSender, VerificationCode = result.VerificationCode };
                         return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     }
                     else

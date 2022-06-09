@@ -57,3 +57,4 @@ C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csproj.CoreComp
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csproj.CopyComplete
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.dll
 C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.pdb
+C:\Archive\Development\web-hrms-tqmo\HRMS.Web\obj\Debug\HRMS.Web.csprojAssemblyReference.cache
