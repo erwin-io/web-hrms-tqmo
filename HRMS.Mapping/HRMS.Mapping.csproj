@@ -53,9 +53,6 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="AutoMapperHelper.cs" />
-    <Compile Include="Profiles\ItemProfile.cs" />
-    <Compile Include="Profiles\ItemBrandProfile.cs" />
-    <Compile Include="Profiles\ItemTypeProfile.cs" />
     <Compile Include="Profiles\SystemConfigProfile.cs" />
     <Compile Include="Profiles\FIleProfile.cs" />
     <Compile Include="Profiles\LegalEntityAddressProfile.cs" />

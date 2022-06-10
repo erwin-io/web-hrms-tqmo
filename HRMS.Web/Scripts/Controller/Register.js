@@ -306,6 +306,7 @@
         appSettings.credentialsModel = {};
         appSettings.confirmVerificationModel = {};
 
+        $("input")[0].focus();
         $("#btn-verify").on("click", Verify);
         $("#btnRadioEmailVerification, #btnRadioMobileNumberVerification").on("change", function () {
             if ($(this).is(':checked') && $(this).val() === "MobileNumber") {
@@ -332,6 +333,7 @@
 
         $("#btn-step-confirmverification").on("click", ConfirmVerification);
         $("#btn-step-confirmverification-back").on("click", initStepVerification);
+
     }
 
     var initStepCredentials = function () {
@@ -346,6 +348,10 @@
 
         $("#btn-step-credentials").on("click", CreateCredentials);
         $("#btn-step-credentials-back").on("click", initStepVerification);
+
+        setTimeout(function () {
+            $("#Password").val("");
+        }, 1000);
     }
 
     var initStepBasicInfo = function () {

@@ -5,12 +5,12 @@
     .web-theme .navbar.navbar-fixed-top.pmd-navbar {
         /*background-color: #ff5252 !important;//RED THEME
         border-color: #ff5252 !important;*/
-        background-color: #4285f4 !important;
-        border-color: #4285f4 !important;
+        background-color: #EC407A !important;
+        border-color: #EC407A !important;
     }
     .web-theme .pmd-sidebar-left .nav > li > a.active {
         /*        background-color: #ff8a80 !important;*/ /* RED THEME */
-        background-color: #007bff !important;
+        background-color: #F50057 !important;
     }
     .web-theme .pmd-table .selected, .web-theme .pmd-table .selected td {
         /*        background-color: #ff8a80 !important;*/ /* RED THEME */
@@ -33,7 +33,10 @@
 	padding-left: 20px!important;
 }
 
-.pmd-sidebar-left .nav > li > a.active { background-color:#007bff!important; color:#fff!important;}
+.pmd-sidebar-left .nav > li > a.active {
+    background-color: #F50057!important;
+    color: #fff !important;
+}
 
 .pmd-sidebar-left .dropdown-menu > li > a.active { background-color:rgba(255,255,255,.9)!important; color:#343a40!important;}
 

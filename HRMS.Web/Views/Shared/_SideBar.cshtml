@@ -37,6 +37,45 @@
                         </li>
                     }
 
+                    if (appState.UserViewAccess.Any(x => x.ModuleName.Equals("Health Records")))
+                    {
+                        <li class="dropdown pmd-dropdown @(ViewBag.Page.Module.Equals("Health Records") ? "open" : "")">
+                            @if (ViewBag.Page.Module.Equals("Health Records"))
+                            {
+                                <a aria-expanded="true" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media active" data-sidebar="true" href="javascript:void(0);">
+                                    <i class="material-icons media-left pmd-sm">library_books</i> <span class="media-body">Health Records</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a aria-expanded="false" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+                                    <i class="material-icons media-left pmd-sm">library_books</i>
+                                    <span class="media-body">Health Records</span>
+                                </a>
+                            }
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Appointments")))
+                                    {
+                                        if (ViewBag.Page.MenuName.Equals("Appointments"))
+                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Appointments/Consultation</span></a>}
+                                        else
+                                        {<a class="pmd-ripple-effect" href="/Appointments"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Appointments/Consultation</span></a>}
+                                    }
+                                </li>
+                                <li>
+                                    @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Medical Records")))
+                                    {
+                                        if (ViewBag.Page.MenuName.Equals("Medical Records"))
+                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Medical Records</span></a>}
+                                        else
+                                        {<a class="pmd-ripple-effect" href="/MedicalRecords"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Medical Records</span></a>}
+                                    }
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
                     if (appState.UserViewAccess.Any(x => x.ModuleName.Equals("System Setup")))
                     {
                         <li class="dropdown pmd-dropdown @(ViewBag.Page.Module.Equals("System Setup") ? "open" : "")">
@@ -53,26 +92,26 @@
                                     <span class="media-body">System Setup</span>
                                 </a>
                             }
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Item Type")))
-                                        {
-                                            if (ViewBag.Page.MenuName.Equals("Item Type"))
-                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Item Type</span></a>}
-                                            else
-                                            {<a class="pmd-ripple-effect" href="/ItemType"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Item Type</span></a>}
-                                        }
-                                    </li>
-                                    <li>
-                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Item Brand")))
-                                        {
-                                            if (ViewBag.Page.MenuName.Equals("Item Brand"))
-                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Item Brand</span></a>}
-                                            else
-                                            {<a class="pmd-ripple-effect" href="/ItemBrand"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Item Brand</span></a>}
-                                        }
-                                    </li>
-                                </ul>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Patients")))
+                                    {
+                                        if (ViewBag.Page.MenuName.Equals("Patients"))
+                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Patients</span></a>}
+                                        else
+                                        {<a class="pmd-ripple-effect" href="/Patients"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Patients</span></a>}
+                                    }
+                                </li>
+                                <li>
+                                    @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Doctors")))
+                                    {
+                                        if (ViewBag.Page.MenuName.Equals("Doctors"))
+                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Doctors</span></a>}
+                                        else
+                                        {<a class="pmd-ripple-effect" href="/Doctors"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Doctors</span></a>}
+                                    }
+                                </li>
+                            </ul>
                         </li>
                     }
 

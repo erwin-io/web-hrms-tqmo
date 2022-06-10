@@ -68,9 +68,6 @@ namespace HRMS.API.App_Start
             container.Register<ILegalEntityAddressRepositoryDAC, LegalEntityAddressDAC>(Lifestyle.Scoped);
             container.Register<ISystemUserVerificationRepositoryDAC, SystemUserVerificationDAC>(Lifestyle.Scoped);
             container.Register<ISystemConfigRepositoryDAC, SystemConfigDAC>(Lifestyle.Scoped);
-            container.Register<IItemTypeRepositoryDAC, ItemTypeDAC>(Lifestyle.Scoped);
-            container.Register<IItemBrandRepositoryDAC, ItemBrandDAC>(Lifestyle.Scoped);
-            container.Register<IItemRepositoryDAC, ItemDAC>(Lifestyle.Scoped);
             #endregion
 
             #region Facade
@@ -84,9 +81,6 @@ namespace HRMS.API.App_Start
             container.Register<ILegalEntityAddressFacade, LegalEntityAddressFacade>(Lifestyle.Scoped);
             container.Register<ISystemUserVerificationFacade, SystemUserVerificationFacade>(Lifestyle.Scoped);
             container.Register<ISystemConfigFacade, SystemConfigFacade>(Lifestyle.Scoped);
-            container.Register<IItemTypeFacade, ItemTypeFacade>(Lifestyle.Scoped);
-            container.Register<IItemBrandFacade, ItemBrandFacade>(Lifestyle.Scoped);
-            container.Register<IItemFacade, ItemFacade>(Lifestyle.Scoped);
             #endregion
         }
     }

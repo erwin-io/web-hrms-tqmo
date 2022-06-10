@@ -286,11 +286,17 @@ var systemUserController = function() {
         $("#btnDelete").on("click", Delete);
         $("#table-systemUser tbody").on("click", "tr .dropdown-menu a.edit", function () {
             appSettings.currentId = $(this).attr("data-value");
-            Edit();
+            if (appSettings.AllowedToUpdateUser)
+                Edit();
+            else
+                Swal.fire('Error!', 'Not Allowed', 'error');
         });
         $("#table-systemUser tbody").on("click", "tr .dropdown-menu a.remove", function () {
             appSettings.currentId = $(this).attr("data-value");
-            Delete();
+            if (appSettings.AllowedToDeleteUser)
+                Delete();
+            else
+                Swal.fire('Error!', 'Not Allowed', 'error');
         });
 
         $('#table-systemUser tbody').on('click', 'tr', function () {

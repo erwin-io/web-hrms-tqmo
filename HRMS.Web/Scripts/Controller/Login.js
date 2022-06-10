@@ -77,6 +77,10 @@
 
     var initEvent = function () {
         $("#btn-login").on("click", Login);
+        setTimeout(function () {
+            $("#Username").val("");
+            $("#Password").val("");
+        }, 1000);
     };
 
     var Login = function(){

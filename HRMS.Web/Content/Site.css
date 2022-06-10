@@ -244,3 +244,6 @@
 .nav.nav-tabs{
     width: 100%!important;
 }
+.nav-tabs {
+    background-color: #EC407A !important;
+}

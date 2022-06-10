@@ -43,12 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IItemFacade.cs" />
-    <Compile Include="ItemFacade.cs" />
-    <Compile Include="ItemBrandFacade.cs" />
-    <Compile Include="ItemTypeFacade.cs" />
-    <Compile Include="Interface\IItemBrandFacade.cs" />
-    <Compile Include="Interface\IItemTypeFacade.cs" />
     <Compile Include="Interface\ISystemConfigFacade.cs" />
     <Compile Include="Interface\ISystemUserVerificationFacade.cs" />
     <Compile Include="Interface\ISystemWebAdminRolePrivilegesFacade.cs" />
