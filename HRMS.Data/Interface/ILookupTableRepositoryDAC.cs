@@ -7,6 +7,5 @@ namespace HRMS.Data.Interface
     public interface ILookupTableRepositoryDAC : IRepository<LookupTableModel>
     {
         List<LookupTableModel> FindLookupByTableNames(string TableNames);
-        List<LookupTableModel> FindEnforcementUnitByEnforcementStationId(string EnforcementStationId);
     }
 }

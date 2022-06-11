@@ -26,8 +26,6 @@ namespace HRMS.Web.Models
         public string FullName { get; set; }
         public string ProfilePictureSource { get; set; }
         public bool IsWebAdminGuestUser { get; set; }
-        public bool IsEnforcementUnit { get; set; }
-        public string EnforcementStationId { get; set; }
         public ApplicationUserConfigModel SystemUserConfig { get; set; }
     }
 

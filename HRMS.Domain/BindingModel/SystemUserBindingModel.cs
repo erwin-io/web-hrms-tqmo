@@ -26,7 +26,10 @@ namespace HRMS.Domain.BindingModel
     public class CreateAccountSystemUserBindingModel
     {
         public string VerificationCode { get; set; }
+        public string VerificationSender { get; set; }
+        public int VerificationTypeId { get; set; }
         public string EmailAddress { get; set; }
+        public string MobileNumber { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -37,7 +40,6 @@ namespace HRMS.Domain.BindingModel
 
     public class CreateWebAccountSystemUserBindingModel : CreateAccountSystemUserBindingModel
     {
-        public string EnforcementStationGuestCode { get; set; }
     }
     public class UpdateSystemUserBindingModel : SystemUserBindingModel
     {

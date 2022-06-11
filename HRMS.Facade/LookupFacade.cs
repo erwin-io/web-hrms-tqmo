@@ -23,6 +23,5 @@ namespace HRMS.Facade
         #endregion
 
         public List<LookupTableViewModel> FindLookupByTableNames(string TableNames) => AutoMapperHelper<LookupTableModel, LookupTableViewModel>.MapList(_lookupTableRepositoryDAC.FindLookupByTableNames(TableNames)).ToList();
-        public List<LookupTableViewModel> FindEnforcementUnitByEnforcementStationId(string EnforcementStationId) => AutoMapperHelper<LookupTableModel, LookupTableViewModel>.MapList(_lookupTableRepositoryDAC.FindEnforcementUnitByEnforcementStationId(EnforcementStationId)).ToList();
     }
 }

@@ -315,7 +315,7 @@ namespace HRMS.API.Controllers
                     return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
-                var verification = _systemUserVerificationFacade.FindBySender(model.EmailAddress, model.VerificationCode);
+                var verification = _systemUserVerificationFacade.FindBySender(model.VerificationSender, model.VerificationCode);
 
                 if (verification == null)
                 {
@@ -404,7 +404,7 @@ namespace HRMS.API.Controllers
                     return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
-                var verification = _systemUserVerificationFacade.FindBySender(model.EmailAddress, model.VerificationCode);
+                var verification = _systemUserVerificationFacade.FindBySender(model.VerificationSender, model.VerificationCode);
 
                 if (verification == null)
                 {
@@ -421,13 +421,6 @@ namespace HRMS.API.Controllers
                         return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                 }
-
-                //if (string.IsNullOrEmpty(model.EnforcementStationGuestCode))
-                //{
-                //    response.Message = string.Format(Messages.InvalidId, "Enforcement Station");
-                //    response.DeveloperMessage = response.Message;
-                //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
-                //}
 
                 FileBindingModel profilePic = null;
                 string fileName = HttpContext.Current.Server.MapPath(GlobalVariables.goDefaultSystemUserProfilePicPath);

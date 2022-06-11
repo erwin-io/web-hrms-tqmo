@@ -50,8 +50,15 @@ namespace HRMS.API.App_Start
             GlobalVariables.goEmailTempProfilePath = GlobalVariables.GetApplicationConfig("EmailTempProfilePath");
             GlobalVariables.goSiteSupportEmail = GlobalVariables.GetApplicationConfig("SiteSupportEmail");
             GlobalVariables.goSiteSupportEmailPassword = GlobalVariables.GetApplicationConfig("SiteSupportEmailPassword");
-
             GlobalVariables.goClientLandingPageWebsite = GlobalVariables.GetApplicationConfig("ClientLandingPageWebsite");
+
+            GlobalVariables.goITextMoAPIURL = GlobalVariables.GetApplicationConfig("ITextMoAPIURL");
+            GlobalVariables.goITextMoEmail = GlobalVariables.GetApplicationConfig("ITextMoEmail");
+            GlobalVariables.goITextMoPassword = GlobalVariables.GetApplicationConfig("ITextMoPassword");
+            GlobalVariables.goITextMoAPICode = GlobalVariables.GetApplicationConfig("ITextMoAPICode");
+            GlobalVariables.goITextMoSenderId = GlobalVariables.GetApplicationConfig("ITextMoSenderId");
+            GlobalVariables.goITextMoMessageFormat = GlobalVariables.GetApplicationConfig("ITextMoMessageFormat");
+
             #region DAL
             container.Register<IDbConnection>(() => new SqlConnection(connectionString), Lifestyle.Scoped);
             container.Register<ILookupTableRepositoryDAC, LookupTableDAC>(Lifestyle.Scoped);

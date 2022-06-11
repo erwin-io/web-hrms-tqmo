@@ -36,14 +36,6 @@
                 dataType: "json"
             });
         }
-        var getEnforcementByGuestCode = function (sender, code) {
-            return $.ajax({
-                url: apiURI + "SystemUserVerification/GetByGuestCode?sender=" + sender + "&code=" + code,
-                type: "GET",
-                contentType: 'application/json;charset=utf-8',
-                dataType: "json"
-            });
-        }
 
         
         var saveAccount = function (account) {
@@ -68,7 +60,6 @@
             setApplicationState: setApplicationState, 
             sendVerification: sendVerification, 
             getBySender: getBySender, 
-            getEnforcementByGuestCode: getEnforcementByGuestCode,
             saveAccount: saveAccount,
             getUserByCredentials: getUserByCredentials,
             getLookup: getLookup,
@@ -84,8 +75,8 @@
         initLookup();
         setTimeout(function () {
             appSettings.verificationModel = {
-                IsMobile: false,
-                IsEmail: true,
+                IsMobile: true,
+                IsEmail: false,
                 AccountVerification: "EmailVerification"
             };
             initStepVerification();
@@ -263,9 +254,6 @@
                 },
                 GenderId: {
                     required: true
-                },
-                EnforcementStationGuestCode: {
-                    required: true
                 }
             },
             messages: {
@@ -273,8 +261,7 @@
                 MiddleName: "Please enter Middlename",
                 LastName: "Please enter Lastname",
                 BirthDate: "Please select Birth Date",
-                GenderId: "Please select Gender",
-                EnforcementStationGuestCode: "Please Enter Guest Code",
+                GenderId: "Please select Gender"
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -299,8 +286,8 @@
 
         var verificationTemplate = $.templates('#verification-template');
         verificationTemplate.link("#accountcard", appSettings.verificationModel);
-        $("#form-verification-email").removeClass("hidden");
-        $("#form-verification-number").addClass("hidden");
+        $("#form-verification-email").addClass("hidden");
+        $("#form-verification-number").removeClass("hidden");
         initValidationVerification();
 
         appSettings.credentialsModel = {};
@@ -308,6 +295,8 @@
 
         $("input")[0].focus();
         $("#btn-verify").on("click", Verify);
+        appSettings.verificationModel.IsMobile = true;
+        appSettings.verificationModel.IsEmail = false;
         $("#btnRadioEmailVerification, #btnRadioMobileNumberVerification").on("change", function () {
             if ($(this).is(':checked') && $(this).val() === "MobileNumber") {
                 appSettings.verificationModel.IsMobile = true;
@@ -340,7 +329,8 @@
         appSettings.credentialsModel = {};
         appSettings.credentialsModel = appSettings.verificationModel;
         appSettings.credentialsModel.EmailAddress = appSettings.verificationModel.IsEmail ? appSettings.verificationModel.EmailVerification : "";
-        appSettings.credentialsModel.VerificationCode = appSettings.confirmVerificationModel.VerificationCode;
+        appSettings.credentialsModel.MobileNumber = appSettings.verificationModel.IsMobile ? appSettings.verificationModel.MobileNumberVerification : "";
+        appSettings.credentialsModel = $.extend(appSettings.credentialsModel, appSettings.confirmVerificationModel);
         var credentialsTemplate = $.templates('#credentials-template');
         credentialsTemplate.link("#accountcard", appSettings.credentialsModel);
         initValidationCredentials();
@@ -360,7 +350,9 @@
         } else {
             appSettings.model.Password = appSettings.credentialsModel.Password;
             appSettings.model.EmailAddress = appSettings.credentialsModel.EmailAddress;
+            appSettings.model.MobileNumber = appSettings.credentialsModel.MobileNumber;
             appSettings.model.VerificationCode = appSettings.confirmVerificationModel.VerificationCode;
+            appSettings.model.VerificationSender = appSettings.confirmVerificationModel.VerificationSender;
         }
         appSettings.model.lookup = {
             EntityGender: appSettings.lookup.EntityGender
@@ -409,27 +401,12 @@
         circleProgress.show(false);
         api.sendVerification(appSettings.confirmVerificationModel).done(function (result) {
             if (result.IsSuccess) {
-                //initStepConfirmVerification();
-                appSettings.confirmVerificationModel.VerificationCode = result.Data.VerificationCode;
-                api.getBySender(appSettings.confirmVerificationModel.VerificationSender, appSettings.confirmVerificationModel.VerificationCode).done(function (result) {
-                    if (result.IsSuccess) {
-                        if (result.Data.VerificationCode === appSettings.confirmVerificationModel.VerificationCode) {
-                            initStepCredentials();
-                        } else {
-                            Swal.fire('Error!', "Incorrect verification code! Please try again", 'error');
-                            initStepVerification();
-                        }
-                    }
-                    circleProgress.close();
-                }).error(function (result) {
-                    Swal.fire('Error!', "Incorrect verification code! Please try again", 'error');
-                    circleProgress.close();
-                });;
+                circleProgress.close();
+                initStepConfirmVerification();
             }
         }).error(function (result) {
             Swal.fire('Error!', result.responseJSON.Message, 'error');
             circleProgress.close();
-            initStepVerification();
         });;
     }
 
@@ -466,7 +443,7 @@
             .done(function (result) {
                 if (result.IsSuccess) {
                     $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                    api.getUserByCredentials(appSettings.model.EmailAddress, appSettings.model.Password)
+                    api.getUserByCredentials(appSettings.model.VerificationSender, appSettings.model.Password)
                         .done(function (result) {
                             if (result.IsSuccess) {
                                 $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
@@ -528,9 +505,6 @@
                 if (result.responseJSON.DeveloperMessage !== null && result.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
                     erroTitle = "Not Allowed!";
                     errormessage = "Already exist!";
-                } else if (result.responseJSON.DeveloperMessage !== null && result.responseJSON.DeveloperMessage.includes("Enforcement Station")) {
-                    erroTitle = "Not Allowed!";
-                    errormessage = "Invalid Guest Code!";
                 } else {
                     erroTitle = "Error!";
                     errormessage = result.responseJSON.Message;}

@@ -57,7 +57,6 @@ var appController = function () {
 
     var appSettings = {
         POSWebAPIURI: "http://localhost:8100/api/v1/",//api link
-        //POSWebAPIURI: "http://192.168.254.109:1100/api/v1/",//api link
         apiToken: "",
         authorized: false,
         apiRefreshToken: "",

@@ -121,11 +121,14 @@ namespace HRMS.API.Controllers
                     //    response.Message = Messages.Failed;
                     //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     //}
-                    if(result != null)
+
+                    var success = SMSService.SendVerification(model.VerificationSender, result.VerificationCode);
+
+                    if (success)
                     {
                         response.IsSuccess = true;
                         response.Message = Messages.Created;
-                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = result.VerificationSender, VerificationCode = result.VerificationCode };
+                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
                         return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     }
                     else

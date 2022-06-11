@@ -31,6 +31,14 @@ namespace HRMS.API.Helpers
         public static string goSiteSupportEmailPassword { get; set; }
         public static string goClientLandingPageWebsite { get; set; }
         //End Email Service 
+        //SMS Service
+        public static string goITextMoAPIURL { get; set; }
+        public static string goITextMoEmail { get; set; }
+        public static string goITextMoPassword { get; set; }
+        public static string goITextMoAPICode { get; set; }
+        public static string goITextMoSenderId { get; set; }
+        public static string goITextMoMessageFormat { get; set; }
+        //End SMS Service
 
         public static string GetApplicationConfig(string pConfigurationkey)
         {

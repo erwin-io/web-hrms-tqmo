@@ -68,45 +68,5 @@ namespace HRMS.Data
                 throw ex;
             }
         }
-
-        public List<LookupTableModel> FindEnforcementUnitByEnforcementStationId(string EnforcementStationId)
-        {
-            var results = new List<LookupTableModel>();
-            try
-            {
-                var lookup = new Dictionary<string, LookupTableModel>();
-
-                _dBConnection.Query("usp_enforcementunit_getLookupByEnforcementStationId",
-                new[]
-                {
-                    typeof(LookupTableModel),
-                    typeof(LookupModel),
-                }, obj =>
-                {
-                    LookupTableModel lt = obj[0] as LookupTableModel;
-                    LookupModel l = obj[1] as LookupModel;
-                    LookupTableModel model;
-                    if (!lookup.TryGetValue(lt.LookupName, out model))
-                        lookup.Add(lt.LookupName, model = lt);
-                    if (model.LookupData == null)
-                        model.LookupData = new List<LookupModel>();
-                    model.LookupData.Add(l);
-                    return model;
-                },
-                new
-                {
-                    EnforcementStationId = EnforcementStationId,
-                }, splitOn: "LookupName,Id", commandType: CommandType.StoredProcedure).ToList();
-                if (lookup.Values.Any())
-                {
-                    results.AddRange(lookup.Values);
-                }
-                return results;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

@@ -317,6 +317,7 @@
     <Compile Include="Models\AppToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\SMSService.cs" />
     <Compile Include="Utility\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>

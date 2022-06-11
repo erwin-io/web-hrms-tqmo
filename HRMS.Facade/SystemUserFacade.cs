@@ -201,7 +201,7 @@ namespace HRMS.Facade
                     //End Saving User Config
 
                     //Start Saving User Verification
-                    var verification = _systemUserVerificationRepositoryDAC.FindBySender(model.EmailAddress, model.VerificationCode);
+                    var verification = _systemUserVerificationRepositoryDAC.FindBySender(model.VerificationSender, model.VerificationCode);
                     if (!_systemUserVerificationRepositoryDAC.VerifyUser(verification.Id))
                     {
                         throw new Exception("Error Verifying User");
@@ -265,7 +265,7 @@ namespace HRMS.Facade
                     //end store file directory
 
                     //Start Saving User
-                    addModel.UserName = addModel.LegalEntity.EmailAddress;
+                    addModel.UserName = model.VerificationSender;
                     addModel.LegalEntity.LegalEntityId = legalEntityId;
                     addModel.SystemUserType.SystemUserTypeId = (int)SYSTEM_USER_TYPE_ENUMS.USER_WEBADMIN;
                     addModel.IsWebAdminGuestUser = true;
@@ -287,7 +287,7 @@ namespace HRMS.Facade
                     //End Saving User
 
                     //Start Saving User Verification
-                    var verification = _systemUserVerificationRepositoryDAC.FindBySender(model.EmailAddress, model.VerificationCode);
+                    var verification = _systemUserVerificationRepositoryDAC.FindBySender(model.VerificationSender, model.VerificationCode);
                     if (!_systemUserVerificationRepositoryDAC.VerifyUser(verification.Id))
                     {
                         throw new Exception("Error Verifying User");

@@ -48,6 +48,7 @@ namespace HRMS.Mapping.Profiles
                         LastName = src.LastName,
                         MiddleName = src.MiddleName,
                         EmailAddress = src.EmailAddress,
+                        MobileNumber = src.MobileNumber,
                         BirthDate = src.BirthDate,
                         Gender = new EntityGenderModel() { GenderId = src.GenderId },
                     }))
@@ -70,6 +71,7 @@ namespace HRMS.Mapping.Profiles
                         LastName = src.LastName,
                         MiddleName = src.MiddleName,
                         EmailAddress = src.EmailAddress,
+                        MobileNumber = src.MobileNumber,
                         Gender = new EntityGenderModel() { GenderId = src.GenderId },
                     }))
                 .ForPath(dest => dest.SystemUserConfig, opt => opt.MapFrom(src =>
