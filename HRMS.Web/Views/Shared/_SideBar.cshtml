@@ -58,9 +58,9 @@
                                     @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Appointments")))
                                     {
                                         if (ViewBag.Page.MenuName.Equals("Appointments"))
-                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Appointments/Consultation</span></a>}
+                                        {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Appointments</span></a>}
                                         else
-                                        {<a class="pmd-ripple-effect" href="/Appointments"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Appointments/Consultation</span></a>}
+                                        {<a class="pmd-ripple-effect" href="/Appointments"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Appointments</span></a>}
                                     }
                                 </li>
                                 <li>
@@ -99,7 +99,7 @@
                                         if (ViewBag.Page.MenuName.Equals("Patients"))
                                         {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Patients</span></a>}
                                         else
-                                        {<a class="pmd-ripple-effect" href="/Patients"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Patients</span></a>}
+                                        {<a class="pmd-ripple-effect" href="/Patient"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Patients</span></a>}
                                     }
                                 </li>
                                 <li>
@@ -108,7 +108,7 @@
                                         if (ViewBag.Page.MenuName.Equals("Doctors"))
                                         {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Doctors</span></a>}
                                         else
-                                        {<a class="pmd-ripple-effect" href="/Doctors"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Doctors</span></a>}
+                                        {<a class="pmd-ripple-effect" href="/Doctor"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Doctors</span></a>}
                                     }
                                 </li>
                             </ul>

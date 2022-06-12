@@ -45,9 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingModel\DoctorBindingModel.cs" />
     <Compile Include="BindingModel\SystemConfigBindingModel.cs" />
     <Compile Include="BindingModel\SystemRefreshTokenBindingModel.cs" />
     <Compile Include="BindingModel\FileBindingModel.cs" />
+    <Compile Include="BindingModel\PatientBindingModel.cs" />
     <Compile Include="BindingModel\SystemUserVerificationBindingModel.cs" />
     <Compile Include="BindingModel\SystemUserConfigBindingModel.cs" />
     <Compile Include="BindingModel\SystemWebAdminRolePrivilegesBindingModel.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="BindingModel\SystemWebAdminUserRolesBindingModel.cs" />
     <Compile Include="Enumerations\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CivilStatusViewModel.cs" />
+    <Compile Include="ViewModel\DoctorViewModel.cs" />
     <Compile Include="ViewModel\SystemConfigTypeViewModel.cs" />
     <Compile Include="ViewModel\SystemConfigViewModel.cs" />
     <Compile Include="ViewModel\ReportValidationStatusViewModel.cs" />
@@ -74,6 +78,7 @@
     <Compile Include="ViewModel\SystemRefreshTokenViewModel.cs" />
     <Compile Include="ViewModel\SystemUserConfigViewModel.cs" />
     <Compile Include="ViewModel\SystemUserVerificationViewModel.cs" />
+    <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\SystemWebAdminPrivilegesViewModel.cs" />
     <Compile Include="ViewModel\SystemWebAdminRolePrivilegesViewModel.cs" />
     <Compile Include="ViewModel\SystemWebAdminMenuRolesViewModel.cs" />

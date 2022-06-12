@@ -1,0 +1,107 @@
+﻿<script id="patient-template" type="text/x-jsrender">
+
+    <div id="patient-tab-control" class="pmd-tabs pmd-tabs-bg">
+        <ul id="patient-details-tab-nav" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a id="tab-control-legalentity" href="#tab-page-legalentity" aria-controls="tab-legalentity" role="tab" data-toggle="tab">Details</a></li>
+            @*<li role="presentation"><a id="tab-control-legalEntityAddress" href="#tab-page-legalEntityAddress" aria-controls="tab-legalEntityAddress" role="tab" data-toggle="tab">Address/Location</a></li>*@
+        </ul>
+    </div>
+    <div class="pmd-card-body">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab-page-legalentity">
+
+                @*<div class="group-fields clearfix row">
+                    <div class="col-xs-12">
+                        <label>Profile Picture</label>
+                        <div class="form-group pure-material-textfield-outlined">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img id="img-upload" data-link="src{:ProfilePicture.FileData}" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary pmd-card pmd-z-depth pmd-card-custom-view" style="width: 100px;height: 100px;display: block;" class="" />
+                                </div>
+                            </div>
+                            <br />
+                            <label class="btn pmd-ripple-effect btn-primary" for="ProfilePicturePicker"> UPLOAD IMAGE </label>
+                            <button id="btnOpenWebCam" class="btn pmd-ripple-effect btn-primary"> TAKE A PHOTO </button>
+                            <input type="file" class="hidden" id="ProfilePicturePicker" name="ProfilePicturePicker" data-link="ProfilePicturePicker">
+                        </div>
+                    </div>
+                </div>*@
+                @Html.Partial("~/Views/LegalEntity/_LegalEntity.cshtml")
+                
+
+                <form id="form-patient">
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="Occupation" name="Occupation" data-link="Occupation" placeholder=" " />
+                                <span>Occupation</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <label class="form-group pure-material-textfield-outlined">
+                                <input id="CompleteAddress" name="CompleteAddress" data-link="CompleteAddress" placeholder=" " />
+                                <span>CompleteAddress</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="group-fields clearfix row">
+                        <div class="col-xs-4">
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label>Civil Status</label>
+                                <select id="CivilStatusId" name="CivilStatusId" data-link="CivilStatusId" class="select-simple form-control pmd-select2">
+                                    {^{for lookup.CivilStatus}}
+                                    <option value="{{>Id}}">{{>Name}}</option>
+                                    {{/for}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @*<div role="tabpanel" class="tab-pane" id="tab-page-legalEntityAddress">
+
+                <div class="group-fields clearfix row">
+                    <div class="col-xs-12">
+                        <button id="btnNewAddress" class="btn pmd-ripple-effect btn-primary"> New Address </button>
+                        <table id="table-legalEntityAddress" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Legal Entity Address Id</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>*@
+        </div>
+    </div>
+</script>
+
+
+
+<script id="legalEntityAddress-template" type="text/x-jsrender">
+    <form id="form-legalEntityAddress">
+        <div class="group-fields clearfix row hidden">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="LegalEntityAddressId" name="LegalEntityAddressId" data-link="LegalEntityAddressId" placeholder=" " />
+                    <span>LegalEntityAddressId</span>
+                </label>
+            </div>
+        </div>
+        <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+                <label class="form-group pure-material-textfield-outlined">
+                    <input id="Address" name="Address" data-link="Address" placeholder=" " />
+                    <span>Address</span>
+                </label>
+            </div>
+        </div>
+    </form>
+</script>

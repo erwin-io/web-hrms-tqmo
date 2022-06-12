@@ -30,7 +30,7 @@ var systemWebAdminRolePrivilegesController = function() {
             getLookup: getLookup
         };
     }
-    var api = new apiService(app.appSettings.POSWebAPIURI);
+    var api = new apiService(app.appSettings.HRMSAPIURI);
 
     var dataTable,form;
     var appSettings = {
@@ -201,7 +201,7 @@ var systemWebAdminRolePrivilegesController = function() {
                     $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                     circleProgress.show(false);
                     $.ajax({
-                        url: app.appSettings.POSWebAPIURI + "SystemWebAdminRolePrivileges/SetSystemWebAdminRolePrivileges",
+                        url: app.appSettings.HRMSAPIURI + "SystemWebAdminRolePrivileges/SetSystemWebAdminRolePrivileges",
                         data: JSON.stringify(appSettings.model.SystemWebAdminRolePrivileges),
                         type: "PUT",
 		                contentType: 'application/json;charset=utf-8',

@@ -30,7 +30,7 @@ var systemWebAdminMenuRolesController = function() {
             getLookup: getLookup
         };
     }
-    var api = new apiService(app.appSettings.POSWebAPIURI);
+    var api = new apiService(app.appSettings.HRMSAPIURI);
 
     var dataTable,form,systemWebAdminMenuRolesTemplate;
     var appSettings = {
@@ -70,7 +70,7 @@ var systemWebAdminMenuRolesController = function() {
     var initPrivileges = function () {
         appSettings.AllowedToUpdateWebAdminMenuRole = false;
         if (app.appSettings.appState.Privileges !== undefined && app.appSettings.appState.Privileges !== null)
-            appSettings.AllowedToUpdateWebAdminMenuRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeId === 13).length > 0;
+            appSettings.AllowedToUpdateWebAdminMenuRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to update system web admin menu role")).length > 0;
 
         if (!appSettings.AllowedToUpdateWebAdminMenuRole) {
             $("#btn-save").addClass("hidden");
@@ -236,7 +236,7 @@ var systemWebAdminMenuRolesController = function() {
                     var targetName = target.attr("data-name");
                     circleProgress.show(false);
                     $.ajax({
-                        url: app.appSettings.POSWebAPIURI + "SystemWebAdminMenuRoles/SetSystemWebAdminMenuRoles",
+                        url: app.appSettings.HRMSAPIURI + "SystemWebAdminMenuRoles/SetSystemWebAdminMenuRoles",
                         data: JSON.stringify(appSettings.model.SystemWebAdminMenuRoles),
                         type: "PUT",
 		                contentType: 'application/json;charset=utf-8',

@@ -19,7 +19,7 @@ var systemWebAdminRoleController = function() {
             getById: getById
         };
     }
-    var api = new apiService(app.appSettings.POSWebAPIURI);
+    var api = new apiService(app.appSettings.HRMSAPIURI);
 
     var dataTable;
     var appSettings = {
@@ -43,9 +43,9 @@ var systemWebAdminRoleController = function() {
         appSettings.AllowedToDeleteWebAdminRole = false;
 
         if (app.appSettings.appState.Privileges !== undefined && app.appSettings.appState.Privileges !== null) {
-            appSettings.AllowedToAddWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeId === 10).length > 0;
-            appSettings.AllowedToUpdateWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeId === 11).length > 0;
-            appSettings.AllowedToDeleteWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeId === 12).length > 0;
+            appSettings.AllowedToAddWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to add system web admin role")).length > 0;
+            appSettings.AllowedToUpdateWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to update system web admin role")).length > 0;
+            appSettings.AllowedToDeleteWebAdminRole = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to delete system web admin role")).length > 0;
         }
 
 
@@ -145,7 +145,7 @@ var systemWebAdminRoleController = function() {
             bLengthChange: true,
             "serverSide": true,
             "ajax": {
-                "url": app.appSettings.POSWebAPIURI + "SystemWebAdminRole/GetPage",
+                "url": app.appSettings.HRMSAPIURI + "SystemWebAdminRole/GetPage",
                 "type": "GET",
                 "datatype": "json",
                 contentType: 'application/json;charset=utf-8',
@@ -266,7 +266,7 @@ var systemWebAdminRoleController = function() {
                     target.html(targetName+'&nbsp;<span class="spinner-border spinner-border-sm"></span>');
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.POSWebAPIURI + "/SystemWebAdminRole/",
+                        url: app.appSettings.HRMSAPIURI + "/SystemWebAdminRole/",
                         type: 'POST',
                         dataType: "json",
                         contentType: 'application/json;charset=utf-8',
@@ -337,7 +337,7 @@ var systemWebAdminRoleController = function() {
                     target.html(targetName+'&nbsp;<span class="spinner-border spinner-border-sm"></span>');
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.POSWebAPIURI + "/SystemWebAdminRole/",
+                        url: app.appSettings.HRMSAPIURI + "/SystemWebAdminRole/",
                         type: "PUT",
                         dataType: "json",
                         contentType: 'application/json;charset=utf-8',
@@ -408,7 +408,7 @@ var systemWebAdminRoleController = function() {
                     target.html(targetName+'&nbsp;<span class="spinner-border spinner-border-sm"></span>');
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.POSWebAPIURI + "/SystemWebAdminRole/" + $(this).attr("data-value"),
+                        url: app.appSettings.HRMSAPIURI + "/SystemWebAdminRole/" + $(this).attr("data-value"),
                         type: "DELETE",
                         contentType: 'application/json;charset=utf-8',
                         dataType: "json",

@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Archive\Deploy\HRMS</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Archive\Deploy\HRMS\WEB</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -19,10 +19,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/09/2022 00:13:31</publishTime>
     </File>
     <File Include="bin/HRMS.Web.dll">
-      <publishTime>06/10/2022 11:34:12</publishTime>
+      <publishTime>06/12/2022 16:33:11</publishTime>
     </File>
     <File Include="bin/HRMS.Web.pdb">
-      <publishTime>06/10/2022 11:34:12</publishTime>
+      <publishTime>06/12/2022 16:33:11</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>06/09/2022 00:13:40</publishTime>
@@ -118,7 +118,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/09/2022 00:13:31</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>06/10/2022 00:24:39</publishTime>
+      <publishTime>06/12/2022 12:59:19</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>06/09/2022 01:17:58</publishTime>
@@ -139,7 +139,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/09/2022 00:13:32</publishTime>
     </File>
     <File Include="plugins/baguettebox.js/CONTRIBUTING.md">
-      <publishTime>06/09/2022 00:13:32</publishTime>
+      <publishTime>06/12/2022 11:56:48</publishTime>
     </File>
     <File Include="plugins/baguettebox.js/demo/img/1-1.jpg">
       <publishTime>06/09/2022 00:13:32</publishTime>
@@ -2002,7 +2002,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/09/2022 00:13:31</publishTime>
     </File>
     <File Include="Scripts/App/app.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 15:14:57</publishTime>
     </File>
     <File Include="Scripts/App/dataFormat.js">
       <publishTime>06/09/2022 00:13:31</publishTime>
@@ -2038,31 +2038,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/09/2022 00:13:31</publishTime>
     </File>
     <File Include="Scripts/Controller/Account.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 02:30:30</publishTime>
+    </File>
+    <File Include="Scripts/Controller/Doctor.js">
+      <publishTime>06/12/2022 13:34:29</publishTime>
     </File>
     <File Include="Scripts/Controller/ItemType.js">
       <publishTime>06/09/2022 00:13:31</publishTime>
     </File>
     <File Include="Scripts/Controller/Login.js">
-      <publishTime>06/09/2022 23:49:38</publishTime>
+      <publishTime>06/12/2022 02:30:30</publishTime>
+    </File>
+    <File Include="Scripts/Controller/Patient.js">
+      <publishTime>06/12/2022 13:38:00</publishTime>
     </File>
     <File Include="Scripts/Controller/Register.js">
-      <publishTime>06/09/2022 23:52:58</publishTime>
+      <publishTime>06/12/2022 02:30:30</publishTime>
     </File>
     <File Include="Scripts/Controller/ResetPassword.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 02:30:30</publishTime>
     </File>
     <File Include="Scripts/Controller/SystemUser.js">
-      <publishTime>06/10/2022 00:31:00</publishTime>
+      <publishTime>06/12/2022 16:08:22</publishTime>
     </File>
     <File Include="Scripts/Controller/SystemWebAdminMenuRoles.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 16:19:47</publishTime>
     </File>
     <File Include="Scripts/Controller/SystemWebAdminRole.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 16:22:49</publishTime>
     </File>
     <File Include="Scripts/Controller/SystemWebAdminRolePrivileges.js">
-      <publishTime>06/09/2022 00:13:31</publishTime>
+      <publishTime>06/12/2022 02:30:32</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>06/09/2022 00:13:31</publishTime>
@@ -2122,7 +2128,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/10/2022 11:19:55</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>06/10/2022 11:21:34</publishTime>
+      <publishTime>06/11/2022 13:20:59</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>06/10/2022 11:21:40</publishTime>
@@ -2132,6 +2138,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Account/_Layout.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>
+    </File>
+    <File Include="Views/Doctor/Index.cshtml">
+      <publishTime>06/12/2022 11:55:13</publishTime>
+    </File>
+    <File Include="Views/Doctor/_Details.cshtml">
+      <publishTime>06/12/2022 12:00:15</publishTime>
+    </File>
+    <File Include="Views/Doctor/_Table.cshtml">
+      <publishTime>06/12/2022 11:58:45</publishTime>
     </File>
     <File Include="Views/Error/Index.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>
@@ -2150,6 +2165,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/LegalEntity/_LegalEntity.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>
+    </File>
+    <File Include="Views/Patient/Index.cshtml">
+      <publishTime>06/12/2022 12:41:32</publishTime>
+    </File>
+    <File Include="Views/Patient/_Details.cshtml">
+      <publishTime>06/12/2022 12:42:16</publishTime>
+    </File>
+    <File Include="Views/Patient/_Table.cshtml">
+      <publishTime>06/12/2022 13:37:57</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>
@@ -2170,16 +2194,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/10/2022 10:51:30</publishTime>
     </File>
     <File Include="Views/Shared/_SideBar.cshtml">
-      <publishTime>06/10/2022 11:00:15</publishTime>
+      <publishTime>06/12/2022 14:24:51</publishTime>
     </File>
     <File Include="Views/SystemUser/Index.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>
     </File>
     <File Include="Views/SystemUser/_Details.cshtml">
-      <publishTime>06/09/2022 00:13:32</publishTime>
+      <publishTime>06/12/2022 01:56:00</publishTime>
     </File>
     <File Include="Views/SystemUser/_Table.cshtml">
-      <publishTime>06/09/2022 00:13:32</publishTime>
+      <publishTime>06/12/2022 02:14:52</publishTime>
     </File>
     <File Include="Views/SystemWebAdminMenuRoles/Index.cshtml">
       <publishTime>06/09/2022 00:13:32</publishTime>

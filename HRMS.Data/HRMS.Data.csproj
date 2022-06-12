@@ -47,10 +47,13 @@
   <ItemGroup>
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\RepositoryBase.cs" />
+    <Compile Include="Entity\CivilStatusModel.cs" />
     <Compile Include="Entity\EntityApprovalStatusModel.cs" />
     <Compile Include="Entity\LegalEntityAddressModel.cs" />
     <Compile Include="Entity\LookupModel.cs" />
     <Compile Include="Entity\LookupTableModel.cs" />
+    <Compile Include="Entity\DoctorModel.cs" />
+    <Compile Include="Entity\PatientModel.cs" />
     <Compile Include="Entity\SystemConfigTypeModel.cs" />
     <Compile Include="Entity\SystemConfigModel.cs" />
     <Compile Include="Entity\SystemTokenModel.cs" />
@@ -71,12 +74,15 @@
     <Compile Include="Entity\SystemWebAdminRolePrivilegesModel.cs" />
     <Compile Include="Entity\SystemUserModel.cs" />
     <Compile Include="Entity\SystemWebAdminUserRolesModel.cs" />
+    <Compile Include="Interface\IDoctorRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemConfigRepositoryDAC.cs" />
+    <Compile Include="Interface\IPatientRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemUserVerificationRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemUserConfigRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemWebAdminMenuRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemWebAdminMenuModuleRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemWebAdminRolePrivilegesRepositoryDAC.cs" />
+    <Compile Include="DoctorDAC.cs" />
     <Compile Include="SystemConfigDAC.cs" />
     <Compile Include="SystemTokenDAC.cs" />
     <Compile Include="FileDAC.cs" />
@@ -92,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LegalEntityDAC.cs" />
     <Compile Include="LookupTableDAC.cs" />
+    <Compile Include="PatientDAC.cs" />
     <Compile Include="SystemUserVerificationDAC.cs" />
     <Compile Include="SystemUserConfigDAC.cs" />
     <Compile Include="SystemWebAdminMenuDAC.cs" />

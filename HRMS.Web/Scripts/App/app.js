@@ -3,7 +3,7 @@ var appController = function () {
     var apiService = function () {
         var getRefreshToken = function (refreshToken) {
             return $.ajax({
-                url: appSettings.POSWebAPIURI + "SystemUser/GetRefreshToken?RefreshToken=" + refreshToken,
+                url: appSettings.HRMSAPIURI + "SystemUser/GetRefreshToken?RefreshToken=" + refreshToken,
                 type: "GET",
                 contentType: 'application/json;charset=utf-8',
                 dataType: "json",
@@ -56,7 +56,8 @@ var appController = function () {
     var api = new apiService();
 
     var appSettings = {
-        POSWebAPIURI: "http://localhost:8100/api/v1/",//api link
+        HRMSAPIURI: "http://localhost:8100/api/v1/",//api link
+        //HRMSAPIURI: "http://api-web-hrms.somee.com/api/v1/",
         apiToken: "",
         authorized: false,
         apiRefreshToken: "",
@@ -71,7 +72,8 @@ var appController = function () {
             if (!appSettings.AllowAnonymous)
                 initAppUser();
         }
-        removeSomeDiv();
+        setTimeout(removeSomeDiv(), 1000);
+        //removeSomeDiv();
         initEvent();
     }
 

@@ -76,7 +76,7 @@ var accountUserController = function() {
             setApplicationState: setApplicationState,
         };
     }
-    var api = new apiService(app.appSettings.POSWebAPIURI);
+    var api = new apiService(app.appSettings.HRMSAPIURI);
 
     var formLegalEntityAddress, dataTableLegalEntityAddress, formChangeUsername, formChangePassword;
     var appSettings = {
@@ -618,7 +618,7 @@ var accountUserController = function() {
                             if (result.value) {
                             circleProgress.show(true);
                             $.ajax({
-                                    url: app.appSettings.POSWebAPIURI + "/SystemUser/RemoveSystemUserAddress/" + $(this).attr("data-value"),
+                                    url: app.appSettings.HRMSAPIURI + "/SystemUser/RemoveSystemUserAddress/" + $(this).attr("data-value"),
                                     type: 'DELETE',
                                     dataType: "json",
                                     contentType: 'application/json;charset=utf-8',
@@ -668,7 +668,7 @@ var accountUserController = function() {
                             circleProgress.show(true);
                             if(appSettings.LegalEntityAddressModel.IsNew){
                                 $.ajax({
-                                        url: app.appSettings.POSWebAPIURI + "/SystemUser/createSystemUserAddress",
+                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/createSystemUserAddress",
                                         type: 'POST',
                                         dataType: "json",
                                         contentType: 'application/json;charset=utf-8',
@@ -710,7 +710,7 @@ var accountUserController = function() {
                             else{
 
                                 $.ajax({
-                                        url: app.appSettings.POSWebAPIURI + "/SystemUser/UpdateSystemUserAddress",
+                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdateSystemUserAddress",
                                         type: 'PUT',
                                         dataType: "json",
                                         contentType: 'application/json;charset=utf-8',
@@ -856,7 +856,7 @@ var accountUserController = function() {
                 $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                 circleProgress.show(true);
                 $.ajax({
-                    url: app.appSettings.POSWebAPIURI + "/SystemUser/UpdatePersonalDetails",
+                    url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdatePersonalDetails",
                     type: "PUT",
                     dataType: "json",
                     contentType: 'application/json;charset=utf-8',
@@ -915,7 +915,7 @@ var accountUserController = function() {
                 $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                 circleProgress.show(true);
                 $.ajax({
-                    url: app.appSettings.POSWebAPIURI + "/SystemUser/UpdateUsername",
+                    url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdateUsername",
                     type: "PUT",
                     dataType: "json",
                     contentType: 'application/json;charset=utf-8',
@@ -978,7 +978,7 @@ var accountUserController = function() {
                 $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                 circleProgress.show(true);
                 $.ajax({
-                    url: app.appSettings.POSWebAPIURI + "/SystemUser/UpdatePassword",
+                    url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdatePassword",
                     type: "PUT",
                     dataType: "json",
                     contentType: 'application/json;charset=utf-8',

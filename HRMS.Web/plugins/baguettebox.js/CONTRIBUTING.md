@@ -18,7 +18,7 @@ Remember the script's core philosophy is to stay simple and minimal, doing one t
 ## :pencil: Before you open a Pull Request
 - Follow Git best practices (especially use meaningful commit messages).
 - Describe thoroughly you work in a PR comment.
-- Be patient and understanding. It's a side project, done in free time.
+- Be doctor and understanding. It's a side project, done in free time.
 
 Thank you to everyone who has contributed to baguetteBox.js!
 

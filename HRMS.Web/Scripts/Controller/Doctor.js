@@ -1,10 +1,10 @@
 ﻿
-var systemUserController = function() {
+var doctorController = function() {
 
     var apiService = function (apiURI) {
         var getById = function (Id) {
             return $.ajax({
-                url: apiURI + "SystemUser/" + Id + "/detail",
+                url: apiURI + "Doctor/" + Id + "/detail",
                 type: "GET",
                 contentType: 'application/json;charset=utf-8',
                 dataType: "json",
@@ -15,7 +15,7 @@ var systemUserController = function() {
         }
         var getAddressByLegalEntityId = function (legalEntityId) {
             return $.ajax({
-                url: apiURI + "SystemUser/GetAddressByLegalEntityId?legalEntityId=" + legalEntityId,
+                url: apiURI + "Doctor/GetAddressByLegalEntityId?legalEntityId=" + legalEntityId,
                 type: "GET",
                 contentType: 'application/json;charset=utf-8',
                 dataType: "json",
@@ -36,7 +36,7 @@ var systemUserController = function() {
                 }
             });
         }
-        var getDefaultProfilePic = function (Id) {
+        var getDefaultProfilePic = function () {
             return $.ajax({
                 url: apiURI + "File/getDefaultSystemUserProfilePic",
                 data: null,
@@ -58,7 +58,7 @@ var systemUserController = function() {
     }
     var api = new apiService(app.appSettings.HRMSAPIURI);
 
-    var form, formSystemWebAdminUserRoles, formLegalEntityAddress, dataTableSystemUser, dataTableLegalEntityAddress;
+    var form,formLegalEntityAddress,dataTableDoctor,dataTableLegalEntityAddress;
     var appSettings = {
         model: {},
         status:{ IsNew:false},
@@ -66,14 +66,13 @@ var systemUserController = function() {
     };
     var init = function (obj) {
 
+        initEvent();
         setTimeout(function () {
-            initPrivileges();
             initDefaultProfilePic();
-            initLookup();
-            initFilter();
             initGrid();
-            initEvent();
+            initLookup();
         }, 1000);
+
 
         legalEntity.appSettings.forms = {
 	        Rules: {
@@ -110,11 +109,11 @@ var systemUserController = function() {
                 BirthDate: "Please select Birth Date",
                 GenderId: "Please select Gender",
                 EmailAddress: {
-                	required: "Please enter Email Address",
+                    required: "Please enter Email Address",
                     emailCheck : "Please enter valid email",
                 },
                 MobileNumber: {
-                	required: "Please enter Mobile Number",
+                    required: "Please enter Mobile Number",
                     digits : "Please enter valid Mobile Number",
                 }
             },
@@ -122,7 +121,7 @@ var systemUserController = function() {
 
 
         $(window).resize(function () {
-            if ($("#table-systemUser").hasClass('collapsed')) {
+            if ($("#table-doctor").hasClass('collapsed')) {
                 $("#btnDelete").removeClass("hidden");
                 $("#btnEdit").removeClass("hidden");
             } else {
@@ -131,7 +130,7 @@ var systemUserController = function() {
             }
         });
         $(document).ready(function () {
-            if ($("#table-systemUser").hasClass('collapsed')) {
+            if ($("#table-doctor").hasClass('collapsed')) {
                 $("#btnDelete").removeClass("hidden");
                 $("#btnEdit").removeClass("hidden");
             } else {
@@ -141,40 +140,6 @@ var systemUserController = function() {
         });
     };
 
-    var initPrivileges = function () {
-
-        appSettings.AllowedToAddUser = false;
-        appSettings.AllowedToUpdateUser = false;
-        appSettings.AllowedToDeleteUser = false;
-        if (app.appSettings.appState.Privileges !== undefined && app.appSettings.appState.Privileges !== null) {
-            appSettings.AllowedToAddUser = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to add user")).length > 0;
-            appSettings.AllowedToUpdateUser = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to update user")).length > 0;
-            appSettings.AllowedToDeleteUser = app.appSettings.appState.Privileges.filter(p => p.SystemWebAdminPrivilegeName.includes("Allowed to delete user")).length > 0;
-        }
-
-        if (!appSettings.AllowedToAddUser) {
-            $("#btnAdd").addClass("hidden");
-            $("#btnAdd").attr("disabled", "true");
-        } else {
-            $("#btnAdd").removeClass("hidden");
-            $("#btnAdd").removeAttr("disabled");
-        }
-        if (!appSettings.AllowedToUpdateUser) {
-            $("#btnEdit").addClass("hidden");
-            $("#btnEdit").attr("disabled", "true");
-        } else {
-            $("#btnEdit").removeClass("hidden");
-            $("#btnEdit").removeAttr("disabled");
-        }
-        if (!appSettings.AllowedToDeleteUser) {
-            $("#btnDelete").addClass("hidden");
-            $("#btnDelete").attr("disabled", "true");
-        } else {
-            $("#btnDelete").removeClass("hidden");
-            $("#btnDelete").removeAttr("disabled");
-        }
-    }
-
     var initDefaultProfilePic = function () {
         api.getDefaultProfilePic().done(function (data) {
             appSettings.DefaultProfilePic = data.Data;
@@ -182,7 +147,7 @@ var systemUserController = function() {
     }
 
     var initLookup = function(){
-        api.getLookup("SystemWebAdminRole,EntityGender").done(function (data) {
+        api.getLookup("EntityGender").done(function (data) {
         	appSettings.lookup = $.extend(appSettings.lookup, data.Data);
         });
     }
@@ -191,44 +156,13 @@ var systemUserController = function() {
         form.validate({
             ignore:[],
             rules: {
-                UserName: {
-                    required: true,
-                    minlength: 4,
-                },
-                Password: {
-                    required: function(){
-                        return appSettings.model.IsNew;
-                    },
-                    minlength: function(){
-                        var min = appSettings.model.IsNew ? 6 : 0;
-                        return min;
-                    },
-                    pwcheck: function(){
-                        return appSettings.model.IsNew;
-                    }
-                },
-                ConfirmPassword: {
-                    required: function(){
-                        return appSettings.model.IsNew;
-                    },
-                    equalTo: function(){
-                        return appSettings.model.IsNew ? "#Password" : "";
-                    }
+                CompleteAddress: {
+                    required: true
                 }
             },
             messages: {
-                UserName: {
-                    required: "Please enter Username",
-                    minlength: $.validator.format("Please enter at least {0} characters."),
-                },
-                Password : {
-                    required : "Please enter Password",
-                    minlength : $.validator.format("Please enter at least {0} characters."),
-                    pwcheck : "This field must consists of the following : uppercase, uowercase, digit and special characters",
-                },
-                ConfirmPassword: {
-                    required: "Please Confirm Password",
-                    equalTo: "Password not match"
+                CompleteAddress: {
+                    required: "Please enter Complete Address"
                 }
             },
             errorElement: 'span',
@@ -242,37 +176,6 @@ var systemUserController = function() {
             unhighlight: function (element, errorClass, validClass) {
                 $(element).closest('.form-group').removeClass('has-error');
             },
-        });
-        formSystemWebAdminUserRoles.validate({
-            ignore:[],
-            rules: {
-                SystemWebAdminUserRoles: {
-                    required: true,
-                    minlength: 1
-                }
-            },
-            messages: {
-                SystemWebAdminUserRoles: {
-                    required: "Please select System Web Admin Role"
-                }
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('help-block');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-        });
-        $.validator.addMethod("pwcheck", function(value) {
-           return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-               && /[a-z]/.test(value) // has a lowercase letter
-               && /[A-Z]/.test(value) // has a uppercase letter
-               && /\d/.test(value) // has a digit
         });
         $.validator.addMethod("emailCheck", function(value) {
            return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value) // consists of only these
@@ -284,26 +187,20 @@ var systemUserController = function() {
         $("#btnSave").on("click", Save);
         $("#btnEdit").on("click", Edit);
         $("#btnDelete").on("click", Delete);
-        $("#table-systemUser tbody").on("click", "tr .dropdown-menu a.edit", function () {
+        $("#table-doctor tbody").on("click", "tr .dropdown-menu a.edit", function () {
             appSettings.currentId = $(this).attr("data-value");
-            if (appSettings.AllowedToUpdateUser)
-                Edit();
-            else
-                Swal.fire('Error!', 'Not Allowed', 'error');
+            Edit();
         });
-        $("#table-systemUser tbody").on("click", "tr .dropdown-menu a.remove", function () {
+        $("#table-doctor tbody").on("click", "tr .dropdown-menu a.remove", function () {
             appSettings.currentId = $(this).attr("data-value");
-            if (appSettings.AllowedToDeleteUser)
-                Delete();
-            else
-                Swal.fire('Error!', 'Not Allowed', 'error');
+            Delete();
         });
 
-        $('#table-systemUser tbody').on('click', 'tr', function () {
-            if(dataTableSystemUser.row(this).data()){
-                appSettings.currentId = dataTableSystemUser.row(this).data().SystemUserId;
+        $('#table-doctor tbody').on('click', 'tr', function () {
+            if(dataTableDoctor.row(this).data()){
+                appSettings.currentId = dataTableDoctor.row(this).data().DoctorId;
                 var isSelected = !$(this).hasClass('selected');
-                if (isSelected && $("#table-systemUser").hasClass('collapsed')) {
+                if (isSelected && $("#table-doctor").hasClass('collapsed')) {
                     $("#btnDelete").removeClass("hidden");
                     $("#btnEdit").removeClass("hidden");
                 } else {
@@ -312,37 +209,8 @@ var systemUserController = function() {
                 }
             }
         });
-
-        $("#ApprovalStatus").on("change", function () {
-            dataTableSystemUser.ajax.reload();
-        });
-
-        $(".select-tags").select2({
-            tags: false,
-            theme: "bootstrap",
-        });
     }
-    var initFilter = function(){
-        var systemUserFilterTemplate = $.templates('#systemUserFilter-select-template');
-        appSettings.FilterList = {
-            ApprovalStatusList : [
-                {
-                    Id:0,
-                    Name: "Pending"
-                },
-                {
-                    Id: 1,
-                    Name: "Approved"
-                },
-                {
-                    Id: 2,
-                    Name: "Show All"
-                },
-            ],
-            ApprovalStatus: 2
-        }
-        systemUserFilterTemplate.link("#filterView", appSettings.FilterList);
-    }
+
     var OpenWebCam = function(){
         $("#camera_View").removeClass("hidden");
         $("#modal-dialog-webcam #btnCapture").removeClass("hidden");
@@ -352,11 +220,11 @@ var systemUserController = function() {
          Webcam.set({
           width: 320,
           height: 240,
-          // // device capture size
+          // device capture size
           dest_width: 320,
           dest_height: 240,
 
-          // // final cropped size
+          // final cropped size
           crop_width: 240,
           crop_height: 240,
 
@@ -422,10 +290,10 @@ var systemUserController = function() {
             var sizeInKb=sizeInBytes/1000;
 
             
-            appSettings.model.ProfilePicture.FileName = "SILUPOST_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") + ".jpeg";
+            appSettings.model.ProfilePicture.FileName = "SILUPOST_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss");
             appSettings.model.ProfilePicture.MimeType = "image/jpeg";
             appSettings.model.ProfilePicture.FileSize = parseInt(sizeInKb);
-            // appSettings.model.ProfilePicture.IsDefault = false;
+            appSettings.model.ProfilePicture.IsDefault = false;
             appSettings.model.ProfilePicture.FileFromBase64String = base64String;
             appSettings.model.ProfilePicture.FileData = cameraCapture.data;
             $("#img-upload").attr("src", appSettings.model.ProfilePicture.FileData);
@@ -451,90 +319,51 @@ var systemUserController = function() {
                 appSettings.model.ProfilePicture.MimeType = file.type;
                 appSettings.model.ProfilePicture.FileSize = file.size;
                 appSettings.model.ProfilePicture.FileFromBase64String = fileFromBase64String;
-                // if(!appSettings.model.ProfilePicture.IsDefault)
-                // 	appSettings.model.ProfilePicture.IsDefault = false;
+                appSettings.model.ProfilePicture.IsDefault = false;
             }
         }
         reader.readAsDataURL(file);
     }
 
     var initGrid = function() {
-        dataTableSystemUser = $("#table-systemUser").DataTable({
+        dataTableDoctor = $("#table-doctor").DataTable({
             processing: true,
-			responsive: {
-				details: {
-					type: 'column',
-					target: 'tr'
-				}
-			},
+            responsive: {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
             columnDefs: [
                 {
-                    targets: [0,10], width:1
+                    targets: [0,6], width:1
                 },
                 {
-                    targets: [1], visible: false
-                },
-                {
-					className: 'control',
-					orderable: false,
-					targets:   0
-				}
+                    className: 'control',
+                    orderable: false,
+                    targets:   0
+                }
             ],
             "columns": [
                 { "data": "","sortable":false, "orderable": false, "searchable": false,
                     render: function (data, type, full, meta) {
-                    	return '';
+                        return '';
                     }
                 },
-                { "data": "SystemUserId","sortable":true, "orderable": true, "searchable": true},
-                {
-                    "data": null, "searchable": true, "orderable": false,
-                    render: function (data, type, full, meta) {
-                        var src = 'data:' + appSettings.DefaultProfilePic.MimeType + ';base64,' + appSettings.DefaultProfilePic.FileContent;
-                        if (data.ProfilePicture !== null && data.ProfilePicture !== undefined) {
-                            if (data.ProfilePicture.IsFromStorage) {
-                                src = app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + data.ProfilePicture.FileId;
-                            } else if (data.ProfilePicture.FileContent !== null && data.ProfilePicture.FileContent !== undefined && data.ProfilePicture.FileContent !== "") {
-                                src = 'data:' + data.ProfilePicture.MimeType + ';base64,' + data.ProfilePicture.FileContent;
-                            }
-                        }
-                        return '<image class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" style="width:50px;height:50px" src="' + src + '"></image>';
-                    }
-                },
-                { "data": "UserName" },
+                { "data": "DoctorId","sortable":false, "orderable": false, "searchable": false},
                 { "data": "LegalEntity.FullName" },
-                {
-                    "data": null, "searchable": true, "orderable": false,
-                    render: function (data, type, full, meta) {
-                        if (data.IsWebAdminGuestUser) {
-                            return '<span class="badge badge-warning" style="padding: 10px">Pending fro approval</span>';
-                        } else {
-                            return '<span class="badge badge-info" style="padding: 10px">Approved</span>';
-                        }
-                    }
-                },
-                {
-                    "data": null, "searchable": true, "orderable": false,
-                    render: function (data, type, full, meta) {
-                        var userRoles = [];
-                        for(var i in data.SystemWebAdminUserRoles){
-                            userRoles.push(data.SystemWebAdminUserRoles[i].SystemWebAdminRole.RoleName);
-                        }
-                        return userRoles.toString();
-                    }
-                },
+                { "data": "LegalEntity.Gender.GenderName" },
                 { "data": "LegalEntity.EmailAddress" },
                 { "data": "LegalEntity.MobileNumber" },
-                { "data": "LegalEntity.Gender.GenderName" },
                 { "data": null, "searchable": false, "orderable": false, 
                     render: function(data, type, full, meta){
                         return '<span class="dropdown pmd-dropdown dropup clearfix">'
-                                +'<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="drop-role-'+full.SystemUserId+'" data-toggle="dropdown" aria-expanded="true">'
+                                +'<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="drop-role-'+full.DoctorId+'" data-toggle="dropdown" aria-expanded="true">'
                                     +'<i class="material-icons pmd-sm">more_vert</i>'
                                 +'</button>'
-                                +'<ul aria-labelledby="drop-role-'+full.SystemUserId+'" role="menu" class="dropdown-menu pmd-dropdown-menu-top-right">'
-                                    +'<li role="presentation"><a class="edit" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.SystemUserId+'" role="menuitem">Edit</a></li>'
-                                    +'<li role="presentation"><a class="remove" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.SystemUserId+'" role="menuitem">Remove</a></li>'
+                                +'<ul aria-labelledby="drop-role-'+full.DoctorId+'" role="menu" class="dropdown-menu pmd-dropdown-menu-top-right">'
+                                    +'<li role="presentation"><a class="edit" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.DoctorId+'" role="menuitem">Edit</a></li>'
+                                    +'<li role="presentation"><a class="remove" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.DoctorId+'" role="menuitem">Remove</a></li>'
                                 +'</ul>'
                                 +'</span>'
                     }
@@ -548,7 +377,7 @@ var systemUserController = function() {
             bLengthChange: true,
             "serverSide": true,
             "ajax": {
-                "url": app.appSettings.HRMSAPIURI + "SystemUser/GetPage",
+                "url": app.appSettings.HRMSAPIURI + "Doctor/GetPage",
                 "type": "GET",
                 "datatype": "json",
                 contentType: 'application/json;charset=utf-8',
@@ -558,8 +387,6 @@ var systemUserController = function() {
                 data: function (data) {
                     var dataFilter = {
                         Draw: data.draw,
-                        SystemUserType: 1,//default for web admin user
-                        ApprovalStatus: $("#ApprovalStatus").val(),//default is 2(all) | show pending and approved user
                         Search: data.search.value,
                         PageNo: data.start <= 0 ? data.start + 1 : (data.start / data.length) + 1,//must be added to 1
                         PageSize: data.length,
@@ -574,7 +401,7 @@ var systemUserController = function() {
             "searching": true,
             "language": {
                 "info": " _START_ - _END_ of _TOTAL_ ",
-                "sLengthMenu": "<div class='systemUser-lookup-table-length-menu form-group pmd-textfield pmd-textfield-floating-label'><label>Rows per page:</label>_MENU_</div>",
+                "sLengthMenu": "<div class='doctor-lookup-table-length-menu form-group pmd-textfield pmd-textfield-floating-label'><label>Rows per page:</label>_MENU_</div>",
                 "sSearch": "",
                 "sSearchPlaceholder": "Search",
                 "paginate": {
@@ -586,15 +413,15 @@ var systemUserController = function() {
                  "<'row'<'col-sm-12'tr>>" +
                  "<'pmd-card-footer' <'pmd-datatable-pagination' l i p>>",
             "initComplete": function (settings, json) {
-                $(".systemUser-lookup-table-length-menu select").select2({
+                $(".doctor-lookup-table-length-menu select").select2({
                     theme: "bootstrap",
                     minimumResultsForSearch: Infinity,
                 });
                 circleProgress.close();
             }
         });
-		$(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
-        dataTableSystemUser.columns.adjust();
+        $(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
+        dataTableDoctor.columns.adjust();
     };
 
     var initGridLegalEntityAddress = function() {
@@ -607,12 +434,7 @@ var systemUserController = function() {
                 },
                 {
                     targets: [2], width:1
-                }, 
-                {
-                	className: 'control',
-					orderable: false,
-					targets:   1
-				}
+                }
             ],
             "columns": [
                 { "data": "LegalEntityAddressId","sortable":false, "orderable": false, "searchable": false},
@@ -676,8 +498,8 @@ var systemUserController = function() {
     var Add = function(){
         appSettings.status.IsNew = true;
         legalEntity.appSettings.status.IsNew = true;
-        var systemUserTemplate = $.templates('#systemUser-template');
-        $("#modal-dialog").find('.modal-title').html('New System Web User');
+        var doctorTemplate = $.templates('#doctor-template');
+        $("#modal-dialog").find('.modal-title').html('New Enforcement Unit');
         $("#modal-dialog").find('.modal-footer #btnSave').html('Save');
         $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Save");
 
@@ -693,21 +515,14 @@ var systemUserController = function() {
             }
         };
         appSettings.model.IsNew = true;
-        appSettings.model.SystemUserTypeId = 1;
         appSettings.model.BirthDate = moment(new Date()).format("MM/DD/YYYY");
-        //appSettings.model.SystemWebAdminUserRoles = [];
-        appSettings.model.SelectedSystemWebAdminUserRoles = [];
         appSettings.model.lookup = {
             EntityGender: appSettings.lookup.EntityGender,
-            SystemWebAdminRole: []
+            EnforcementStation: appSettings.lookup.EnforcementStation
         };
-        for (var i in appSettings.lookup.SystemWebAdminRole) {
-            if (appSettings.lookup.SystemWebAdminRole[i].Id != undefined)
-                appSettings.model.lookup.SystemWebAdminRole.push({ id: appSettings.lookup.SystemWebAdminRole[i].Id, name: appSettings.lookup.SystemWebAdminRole[i].Name });
-        }
         //end reset model
         //render template
-        systemUserTemplate.link("#modal-dialog .modal-body", appSettings.model);
+        doctorTemplate.link("#modal-dialog .modal-body", appSettings.model);
 
         $(".select-tags").select2({
             tags: false,
@@ -717,8 +532,7 @@ var systemUserController = function() {
 
         //init form validation
         legalEntity.init();
-        form = $('#form-systemUser');
-        formSystemWebAdminUserRoles = $("#form-SystemWebAdminUserRoles");
+        form = $('#form-doctor');
         iniValidation();
         //end init form
 
@@ -734,77 +548,73 @@ var systemUserController = function() {
 
         $("#btnOpenWebCam").on("click", OpenWebCam);
 
+
         appSettings.model.LegalEntityAddress = [];
-        initGridLegalEntityAddress();
-        $('#table-legalEntityAddress tbody').on('click', 'tr button', function () {
-            for(var i in appSettings.model.LegalEntityAddress){
-                if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
-                    appSettings.model.LegalEntityAddress.splice(i, 1);
-                    dataTableLegalEntityAddress.row($(this).parents("tr")).remove().draw();
-                }
-            }
-        });
+        //initGridLegalEntityAddress();
+        //$('#table-legalEntityAddress tbody').on('click', 'tr button', function () {
+        //    for(var i in appSettings.model.LegalEntityAddress){
+        //        if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
+        //            appSettings.model.LegalEntityAddress.splice(i, 1);
+        //            dataTableLegalEntityAddress.row($(this).parents("tr")).remove().draw();
+        //        }
+        //    }
+        //});
 
 
-        $("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
-            if (!formLegalEntityAddress.valid()) {
-                return;
-            }
-            if(appSettings.status.IsNew){
-                appSettings.model.LegalEntityAddress.push(appSettings.LegalEntityAddressModel);
-                dataTableLegalEntityAddress.row.add(
-                    {
-                        LegalEntityAddressId :appSettings.LegalEntityAddressModel.LegalEntityAddressId, 
-                        Address: appSettings.LegalEntityAddressModel.Address 
-                    }).draw();
-                dataTableLegalEntityAddress.columns.adjust();
-                $("#modal-dialog-legalEntityAddress").modal("hide");
-            }
-        });
-        $("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
-            var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-            $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
-            $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
-            $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
+        //$("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
+        //    if (!formLegalEntityAddress.valid()) {
+        //        return;
+        //    }
+        //    if(appSettings.status.IsNew){
+        //        appSettings.model.LegalEntityAddress.push(appSettings.LegalEntityAddressModel);
+        //        dataTableLegalEntityAddress.row.add(
+        //            {
+        //                LegalEntityAddressId :appSettings.LegalEntityAddressModel.LegalEntityAddressId, 
+        //                Address: appSettings.LegalEntityAddressModel.Address 
+        //            }).draw();
+        //        dataTableLegalEntityAddress.columns.adjust();
+        //        $("#modal-dialog-legalEntityAddress").modal("hide");
+        //    }
+        //});
+        //$("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
+        //    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
 
-            appSettings.LegalEntityAddressModel = { LegalEntityAddressId :moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") };
-            appSettings.LegalEntityAddressModel.IsNew = true;
-            appSettings.LegalEntityAddressModel.LegalEntityId = appSettings.model.LegalEntityId;
-            legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+        //    appSettings.LegalEntityAddressModel = { LegalEntityAddressId :moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") };
+        //    appSettings.LegalEntityAddressModel.IsNew = true;
+        //    appSettings.LegalEntityAddressModel.LegalEntityId = appSettings.model.LegalEntityId;
+        //    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-            //show modal
-            $("#modal-dialog-legalEntityAddress").modal('show');
-            $("body").addClass("modal-open");
+        //    //show modal
+        //    $("#modal-dialog-legalEntityAddress").modal('show');
+        //    $("body").addClass("modal-open");
 
-            formLegalEntityAddress = $("#form-legalEntityAddress");
+        //    formLegalEntityAddress = $("#form-legalEntityAddress");
 
-            initValidationLegalEntityAddress();
-        });
+        //    initValidationLegalEntityAddress();
+        //});
 
     }
     var Edit = function () {
         if (appSettings.currentId !== null || appSettings.currentId !== undefined || appSettings.currentId !== "") {
             appSettings.status.IsNew = false;
-            var systemUserTemplate = $.templates('#systemUser-template');
-            $("#modal-dialog").find('.modal-title').html('Update System Web User');
+            var doctorTemplate = $.templates('#doctor-template');
+            $("#modal-dialog").find('.modal-title').html('Update Enforcement Unit');
             $("#modal-dialog").find('.modal-footer #btnSave').html('Update');
             $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Update");
             circleProgress.show(true);
             api.getById(appSettings.currentId).done(function (data) {
-                appSettings.model = {
-                    SystemUserId: data.Data.SystemUserId,
-                    UserName: data.Data.UserName,
-                    Password: data.Data.Password,
-                    ConfirmPassword: data.Data.Password,
-                };
+                appSettings.model = $.extend(appSettings.model, data.Data);
                 appSettings.model = $.extend(appSettings.model, data.Data.LegalEntity);
                 appSettings.model.BirthDate = moment(data.Data.LegalEntity.BirthDate).format("MM/DD/YYYY");
                 appSettings.model.GenderId = data.Data.LegalEntity.Gender.GenderId;
-                appSettings.model.ProfilePicture = data.Data.ProfilePicture;
+                //appSettings.model.ProfilePicture = data.Data.ProfilePicture;
+                appSettings.model.ProfilePicture = null;
                 if (appSettings.model.ProfilePicture === null){
 
                     appSettings.model.ProfilePicture = {
-                        FileId: appSettings.DefaultProfilePic.FileId,
                         FileName: appSettings.DefaultProfilePic.FileName,
                         MimeType: appSettings.DefaultProfilePic.MimeType,
                         FileSize: appSettings.DefaultProfilePic.FileSize,
@@ -820,22 +630,10 @@ var systemUserController = function() {
                 appSettings.model.ProfilePicture.FileData = 'data:' + appSettings.model.ProfilePicture.MimeType + ';base64,' + appSettings.model.ProfilePicture.FileContent;
 
                 appSettings.model.lookup = {
-                    EntityGender: appSettings.lookup.EntityGender,
-                    SystemWebAdminRole : []
+                    EntityGender: appSettings.lookup.EntityGender
                 };
-
-                for (var i in appSettings.lookup.SystemWebAdminRole) {
-                    if (appSettings.lookup.SystemWebAdminRole[i].Id != undefined)
-                        appSettings.model.lookup.SystemWebAdminRole.push({ id: appSettings.lookup.SystemWebAdminRole[i].Id, name: appSettings.lookup.SystemWebAdminRole[i].Name });
-                }
-                var selectedSystemWebAdminUserRoles = [];
-                for(var i in data.Data.SystemWebAdminUserRoles){
-                    if (data.Data.SystemWebAdminUserRoles[i].SystemWebAdminRole.SystemWebAdminRoleId != undefined)
-                        selectedSystemWebAdminUserRoles.push({id:data.Data.SystemWebAdminUserRoles[i].SystemWebAdminRole.SystemWebAdminRoleId, name:data.Data.SystemWebAdminUserRoles[i].SystemWebAdminRole.RoleName});
-                }
-                appSettings.model.SelectedSystemWebAdminUserRoles = selectedSystemWebAdminUserRoles;
                 //render template
-                systemUserTemplate.link("#modal-dialog .modal-body", appSettings.model);
+                doctorTemplate.link("#modal-dialog .modal-body", appSettings.model);
                 //end render template
 
                 $(".select-tags").select2({
@@ -845,19 +643,16 @@ var systemUserController = function() {
 
 		        //init form validation
 		        legalEntity.init();
-		        form = $('#form-systemUser');
-		        formSystemWebAdminUserRoles = $("#form-SystemWebAdminUserRoles");
+		        form = $('#form-doctor');
 		        iniValidation();
 		        //end init form
                 circleProgress.close();
 
                 $("#modal-dialog").modal('show');
                 $("body").addClass("modal-open");
-
                 setTimeout(1000, function()
                 {
                     $("body").addClass("modal-open");
-                    $("#user-details-tab-nav").css("width", "100%");
                     
                 })
                 $("#ProfilePicturePicker").on("change", OpeFile);
@@ -865,209 +660,209 @@ var systemUserController = function() {
                 $("#btnOpenWebCam").on("click", OpenWebCam);
 
                 appSettings.model.LegalEntityAddress = [];
-                initGridLegalEntityAddress();
-                LoadSystemUserAddress();
-                $('#table-legalEntityAddress tbody').on('click', 'tr a.edit', function () {
+                /*initGridLegalEntityAddress();*/
+                //LoadDoctorAddress();
+                //$('#table-legalEntityAddress tbody').on('click', 'tr a.edit', function () {
 
 
-                    for(var i in appSettings.model.LegalEntityAddress){
-                        if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
+                //    for(var i in appSettings.model.LegalEntityAddress){
+                //        if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
 
-                            appSettings.LegalEntityAddress = appSettings.model.LegalEntityAddress[i];
-                        }
-                    }
+                //            appSettings.LegalEntityAddress = appSettings.model.LegalEntityAddress[i];
+                //        }
+                //    }
 
-                    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('Update Address');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Update');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Update");
+                //    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('Update Address');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Update');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Update");
 
-                    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+                //    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-                    //show modal
-                    $("#modal-dialog-legalEntityAddress").modal('show');
-                    $("body").addClass("modal-open");
+                //    //show modal
+                //    $("#modal-dialog-legalEntityAddress").modal('show');
+                //    $("body").addClass("modal-open");
 
                     
-                    formLegalEntityAddress = $("#form-legalEntityAddress");
+                //    formLegalEntityAddress = $("#form-legalEntityAddress");
 
-                    initValidationLegalEntityAddress();
+                //    initValidationLegalEntityAddress();
 
-                });
-                $('#table-legalEntityAddress tbody').on('click', 'tr a.remove', function () {
+                //});
+                //$('#table-legalEntityAddress tbody').on('click', 'tr a.remove', function () {
 
-                    Swal.fire({
-                        title: 'Save',
-                        text: "Do you want to continue!",
-                        type: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',  
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes',
-                        allowOutsideClick: false
-                    })
-                        .then((result) => {
-                            if (result.value) {
-                            circleProgress.show(true);
-                            $.ajax({
-                                    url: app.appSettings.HRMSAPIURI + "/SystemUser/RemoveSystemUserAddress/" + $(this).attr("data-value"),
-                                    type: 'DELETE',
-                                    dataType: "json",
-                                    contentType: 'application/json;charset=utf-8',
-                                    headers: {
-                                        Authorization: 'Bearer ' + app.appSettings.apiToken
-                                    },
-                                    data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                    success: function (result) {
-                                        if (result.IsSuccess) {
-                                            circleProgress.close();
-                                            Swal.fire('Success!',result.Message,'success');
-                                            LoadSystemUserAddress();
-                                        } else {
-                                            Swal.fire('Error!',result.Message,'error');
-                                        }
-                                    },
-                                    failure: function (response) {
-                                        alert(response.responseText);
-                                    },
-                                    error: function (errormessage) {
-                                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                                        Swal.fire('Error!',errormessage.Message,'error');
-                                        circleProgress.close();
-                                    }
-                                });
-                        }
-                    });
-                });
+                //    Swal.fire({
+                //        title: 'Save',
+                //        text: "Do you want to continue!",
+                //        type: 'question',
+                //        showCancelButton: true,
+                //        confirmButtonColor: '#3085d6',  
+                //        cancelButtonColor: '#d33',
+                //        confirmButtonText: 'Yes',
+                //        allowOutsideClick: false
+                //    })
+                //        .then((result) => {
+                //            if (result.value) {
+                //            circleProgress.show(true);
+                //            $.ajax({
+                //                    url: app.appSettings.HRMSAPIURI + "/Doctor/RemoveDoctorAddress/" + $(this).attr("data-value"),
+                //                    type: 'DELETE',
+                //                    dataType: "json",
+                //                    contentType: 'application/json;charset=utf-8',
+                //                    headers: {
+                //                        Authorization: 'Bearer ' + app.appSettings.apiToken
+                //                    },
+                //                    data: JSON.stringify(appSettings.LegalEntityAddressModel),
+                //                    success: function (result) {
+                //                        if (result.IsSuccess) {
+                //                            circleProgress.close();
+                //                            Swal.fire('Success!',result.Message,'success');
+                //                            LoadDoctorAddress();
+                //                        } else {
+                //                            Swal.fire('Error!',result.Message,'error');
+                //                        }
+                //                    },
+                //                    failure: function (response) {
+                //                        alert(response.responseText);
+                //                    },
+                //                    error: function (errormessage) {
+                //                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                //                        Swal.fire('Error!',errormessage.Message,'error');
+                //                        circleProgress.close();
+                //                    }
+                //                });
+                //        }
+                //    });
+                //});
 
-                $("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
-                    if (!formLegalEntityAddress.valid()) {
-                        return;
-                    }
+                //$("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
+                //    if (!formLegalEntityAddress.valid()) {
+                //        return;
+                //    }
                     
-                    Swal.fire({
-                        title: 'Save',
-                        text: "Do you want to continue!",
-                        type: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',  
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes',
-                        allowOutsideClick: false
-                    })
-                    .then((result) => {
-                        if (result.value){
-                            circleProgress.show(true);
-                            if(appSettings.LegalEntityAddressModel.IsNew){
-                                $.ajax({
-                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/createSystemUserAddress",
-                                        type: 'POST',
-                                        dataType: "json",
-                                        contentType: 'application/json;charset=utf-8',
-                                        headers: {
-                                            Authorization: 'Bearer ' + app.appSettings.apiToken
-                                        },
-                                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                        success: function (result) {
-                                            if (result.IsSuccess) {
-                                                circleProgress.close();
-                                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
-                                                    $("#modal-dialog-legalEntityAddress").modal("hide");
-                                                    LoadSystemUserAddress();
-                                                });
-                                            } else {
-                                                Swal.fire("Error!", result.Message, "error").then((result) => {
-                                                });
-                                            }
-                                        },
-                                        failure: function (response) {
-                                            alert(response.responseText);
-                                        },
-                                        error: function (data) {
-                                            var errormessage = "";
-                                            var errorTitle = "";
-                                            if (data.responseJSON.Message != null) {
-                                                erroTitle = "Error!";
-                                                errormessage = data.responseJSON.Message;
-                                            }
-                                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
-                                                erroTitle = "Not Allowed!";
-                                                errormessage = "Already exist!";
-                                            }
-                                            Swal.fire(erroTitle, errormessage, 'error');
-                                            circleProgress.close();
-                                        }
-                                    });
-                            }
-                            else{
+                //    Swal.fire({
+                //        title: 'Save',
+                //        text: "Do you want to continue!",
+                //        type: 'question',
+                //        showCancelButton: true,
+                //        confirmButtonColor: '#3085d6',  
+                //        cancelButtonColor: '#d33',
+                //        confirmButtonText: 'Yes',
+                //        allowOutsideClick: false
+                //    })
+                //    .then((result) => {
+                //        if (result.value){
+                //            circleProgress.show(true);
+                //            if(appSettings.LegalEntityAddressModel.IsNew){
+                //                $.ajax({
+                //                        url: app.appSettings.HRMSAPIURI + "/Doctor/createDoctorAddress",
+                //                        type: 'POST',
+                //                        dataType: "json",
+                //                        contentType: 'application/json;charset=utf-8',
+                //                        headers: {
+                //                            Authorization: 'Bearer ' + app.appSettings.apiToken
+                //                        },
+                //                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
+                //                        success: function (result) {
+                //                            if (result.IsSuccess) {
+                //                                circleProgress.close();
+                //                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
+                //                                    $("#modal-dialog-legalEntityAddress").modal("hide");
+                //                                    LoadDoctorAddress();
+                //                                });
+                //                            } else {
+                //                                Swal.fire("Error!", result.Message, "error").then((result) => {
+                //                                });
+                //                            }
+                //                        },
+                //                        failure: function (response) {
+                //                            alert(response.responseText);
+                //                        },
+                //                        error: function (data) {
+                //                            var errormessage = "";
+                //                            var errorTitle = "";
+                //                            if (data.responseJSON.Message != null) {
+                //                                erroTitle = "Error!";
+                //                                errormessage = data.responseJSON.Message;
+                //                            }
+                //                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+                //                                erroTitle = "Not Allowed!";
+                //                                errormessage = "Already exist!";
+                //                            }
+                //                            Swal.fire(erroTitle, errormessage, 'error');
+                //                            circleProgress.close();
+                //                        }
+                //                    });
+                //            }
+                //            else{
 
-                                $.ajax({
-                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdateSystemUserAddress",
-                                        type: 'PUT',
-                                        dataType: "json",
-                                        contentType: 'application/json;charset=utf-8',
-                                        headers: {
-                                            Authorization: 'Bearer ' + app.appSettings.apiToken
-                                        },
-                                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                        success: function (result) {
-                                            if (result.IsSuccess) {
-                                                circleProgress.close();
-                                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
-                                                    $("#modal-dialog-legalEntityAddress").modal("hide");
-                                                    LoadSystemUserAddress();
-                                                });
-                                            } else {
-                                                Swal.fire("Error!", result.Message, "error").then((result) => {
-                                                });
-                                            }
-                                        },
-                                        failure: function (response) {
-                                            alert(response.responseText);
-                                        },
-                                        error: function (data) {
-                                            var errormessage = "";
-                                            var errorTitle = "";
-                                            if (data.responseJSON.Message != null) {
-                                                erroTitle = "Error!";
-                                                errormessage = data.responseJSON.Message;
-                                            }
-                                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
-                                                erroTitle = "Not Allowed!";
-                                                errormessage = "Already exist!";
-                                            }
-                                            Swal.fire(erroTitle, errormessage, 'error');
-                                            circleProgress.close();
-                                        }
-                                    });
-                            }
+                //                $.ajax({
+                //                        url: app.appSettings.HRMSAPIURI + "/Doctor/UpdateDoctorAddress",
+                //                        type: 'PUT',
+                //                        dataType: "json",
+                //                        contentType: 'application/json;charset=utf-8',
+                //                        headers: {
+                //                            Authorization: 'Bearer ' + app.appSettings.apiToken
+                //                        },
+                //                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
+                //                        success: function (result) {
+                //                            if (result.IsSuccess) {
+                //                                circleProgress.close();
+                //                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
+                //                                    $("#modal-dialog-legalEntityAddress").modal("hide");
+                //                                    LoadDoctorAddress();
+                //                                });
+                //                            } else {
+                //                                Swal.fire("Error!", result.Message, "error").then((result) => {
+                //                                });
+                //                            }
+                //                        },
+                //                        failure: function (response) {
+                //                            alert(response.responseText);
+                //                        },
+                //                        error: function (data) {
+                //                            var errormessage = "";
+                //                            var errorTitle = "";
+                //                            if (data.responseJSON.Message != null) {
+                //                                erroTitle = "Error!";
+                //                                errormessage = data.responseJSON.Message;
+                //                            }
+                //                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+                //                                erroTitle = "Not Allowed!";
+                //                                errormessage = "Already exist!";
+                //                            }
+                //                            Swal.fire(erroTitle, errormessage, 'error');
+                //                            circleProgress.close();
+                //                        }
+                //                    });
+                //            }
                                 
-                        }
-                    });
-                });
-                $("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
-                    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
+                //        }
+                //    });
+                //});
+                //$("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
+                //    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
+                //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
 
-                    appSettings.LegalEntityAddressModel = { LegalEntityId: appSettings.model.LegalEntityId};
-                    appSettings.LegalEntityAddressModel.IsNew = true;
-                    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+                //    appSettings.LegalEntityAddressModel = { LegalEntityId: appSettings.model.LegalEntityId};
+                //    appSettings.LegalEntityAddressModel.IsNew = true;
+                //    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-                    //show modal
-                    $("#modal-dialog-legalEntityAddress").modal('show');
-                    $("body").addClass("modal-open");
+                //    //show modal
+                //    $("#modal-dialog-legalEntityAddress").modal('show');
+                //    $("body").addClass("modal-open");
 
-                    formLegalEntityAddress = $("#form-legalEntityAddress");
+                //    formLegalEntityAddress = $("#form-legalEntityAddress");
 
-                    initValidationLegalEntityAddress();
-                });
+                //    initValidationLegalEntityAddress();
+                //});
             });
         }
     }
 
-    var LoadSystemUserAddress = function(){
+    var LoadDoctorAddress = function(){
         appSettings.model.LegalEntityAddress = [];
         dataTableLegalEntityAddress.clear().draw();
         api.getAddressByLegalEntityId(appSettings.model.LegalEntityId).done(function (data) {
@@ -1111,7 +906,6 @@ var systemUserController = function() {
             });
     }
 
-
     var fileValid = function (file) {
         var max_size = 10000000;
         if (file.size > max_size) {
@@ -1135,20 +929,9 @@ var systemUserController = function() {
             return;
         }
         if (!form.valid()) {
-            $("#tab-control-credentials").trigger('click');
+            $("#tab-control-legalentity").trigger('click');
             return;
         }
-        if (!formSystemWebAdminUserRoles.valid()) {
-            $("#tab-control-roles").trigger('click');
-            return;
-        }
-        var systemWebAdminUserRoles = [];
-        for (var i in appSettings.model.SelectedSystemWebAdminUserRoles) {
-            if (appSettings.model.SelectedSystemWebAdminUserRoles[i].id != undefined)
-                systemWebAdminUserRoles.push({ SystemWebAdminRoleId: appSettings.model.SelectedSystemWebAdminUserRoles[i].id });
-        }
-
-        appSettings.model.SystemWebAdminUserRoles = systemWebAdminUserRoles;
         if(appSettings.status.IsNew){
             Swal.fire({
                 title: 'Save',
@@ -1168,7 +951,7 @@ var systemUserController = function() {
                     target.html(targetName+'&nbsp;<span class="spinner-border spinner-border-sm"></span>');
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.HRMSAPIURI + "/SystemUser/",
+                        url: app.appSettings.HRMSAPIURI + "/Doctor/",
                         type: 'POST',
                         dataType: "json",
                         contentType: 'application/json;charset=utf-8',
@@ -1184,7 +967,7 @@ var systemUserController = function() {
                                     $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
                                     target.empty();
                                     target.html(targetName);
-                                    dataTableSystemUser.ajax.reload();
+                                    dataTableDoctor.ajax.reload();
                                     circleProgress.close();
                                     $("#modal-dialog").modal('hide');
                                 });
@@ -1239,7 +1022,7 @@ var systemUserController = function() {
                     target.html(targetName+'&nbsp;<span class="spinner-border spinner-border-sm"></span>');
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.HRMSAPIURI + "/SystemUser/",
+                        url: app.appSettings.HRMSAPIURI + "/Doctor/",
                         type: "PUT",
                         dataType: "json",
                         contentType: 'application/json;charset=utf-8',
@@ -1255,7 +1038,7 @@ var systemUserController = function() {
                                     $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
                                     target.empty();
                                     target.html(targetName);
-                                    dataTableSystemUser.ajax.reload();
+                                    dataTableDoctor.ajax.reload();
                                     circleProgress.close();
                                     $("#modal-dialog").modal('hide');
                                 });
@@ -1307,7 +1090,7 @@ var systemUserController = function() {
                     $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                     circleProgress.show(true);
                     $.ajax({
-                        url: app.appSettings.HRMSAPIURI + "/SystemUser/" + appSettings.currentId,
+                        url: app.appSettings.HRMSAPIURI + "/Doctor/" + appSettings.currentId,
                         type: "DELETE",
                         contentType: 'application/json;charset=utf-8',
                         dataType: "json",
@@ -1320,7 +1103,7 @@ var systemUserController = function() {
                                 Swal.fire("Success!", result.Message, "success").then((prompt) => {
                                     circleProgress.show(true);
                                     $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                                    dataTableSystemUser.ajax.reload();
+                                    dataTableDoctor.ajax.reload();
                                     circleProgress.close();
                                 });
                             } else {
@@ -1329,9 +1112,19 @@ var systemUserController = function() {
                                 });
                             }
                         },
-                        error: function (errormessage) {
+                        error: function (result) {
+                            var errormessage = "";
+                            var errorTitle = "";
+                            if (result.responseJSON.Message != null) {
+                                erroTitle = "Error!";
+                                errormessage = result.responseJSON.Message;
+                            }
+                            if (result.responseJSON.DeveloperMessage != null && result.responseJSON.DeveloperMessage.includes("Cannot delete")) {
+                                erroTitle = "Not Allowed!";
+                                errormessage = "Data in used!";
+                            }
                             $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                            Swal.fire('Error!',errormessage.Message,'error');
+                            Swal.fire('Error!',errormessage,'error');
                             circleProgress.close();
                         }
                     });
@@ -1345,4 +1138,4 @@ var systemUserController = function() {
         init: init
     };
 }
-var systemUser = new systemUserController;
+var doctor = new doctorController;

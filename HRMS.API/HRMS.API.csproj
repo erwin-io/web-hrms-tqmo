@@ -295,8 +295,10 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\SystemConfigController.cs" />
     <Compile Include="Controllers\SystemLookupTableController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\SystemUserVerificationController.cs" />
     <Compile Include="Controllers\SystemUserController.cs" />
     <Compile Include="Controllers\SystemWebAdminRolePrivilegesController.cs" />

@@ -43,10 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IDoctorFacade.cs" />
     <Compile Include="Interface\ISystemConfigFacade.cs" />
+    <Compile Include="Interface\IPatientFacade.cs" />
     <Compile Include="Interface\ISystemUserVerificationFacade.cs" />
     <Compile Include="Interface\ISystemWebAdminRolePrivilegesFacade.cs" />
+    <Compile Include="DoctorFacade.cs" />
     <Compile Include="SystemConfigFacade.cs" />
+    <Compile Include="PatientFacade.cs" />
     <Compile Include="SystemUserVerificationFacade.cs" />
     <Compile Include="SystemTokenFacade.cs" />
     <Compile Include="Interface\ISystemTokenFacade.cs" />

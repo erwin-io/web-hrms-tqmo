@@ -53,11 +53,13 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="AutoMapperHelper.cs" />
+    <Compile Include="Profiles\DoctorProfile.cs" />
     <Compile Include="Profiles\SystemConfigProfile.cs" />
     <Compile Include="Profiles\FIleProfile.cs" />
     <Compile Include="Profiles\LegalEntityAddressProfile.cs" />
     <Compile Include="Profiles\LookupTableProfile.cs" />
     <Compile Include="Profiles\SystemTokenProfile.cs" />
+    <Compile Include="Profiles\PatientProfile.cs" />
     <Compile Include="Profiles\SystemUserVerificationProfile.cs" />
     <Compile Include="Profiles\SystemUserConfigProfile.cs" />
     <Compile Include="Profiles\SystemWebAdminMenuProfile.cs" />

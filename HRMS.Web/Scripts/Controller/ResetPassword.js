@@ -62,7 +62,7 @@
         model : {}
     }
     var init = function () {
-        api = new apiService(app.appSettings.POSWebAPIURI);
+        api = new apiService(app.appSettings.HRMSAPIURI);
         initLookup();
 
         
@@ -271,7 +271,7 @@
                 $(".content").find("input,button,a").prop("disabled", true).addClass("disabled");
                 circleProgress.show(true);
                 $.ajax({
-                    url: app.appSettings.POSWebAPIURI + "/SystemUser/ResetPassword",
+                    url: app.appSettings.HRMSAPIURI + "/SystemUser/ResetPassword",
                     type: "PUT",
                     dataType: "json",
                     contentType: 'application/json;charset=utf-8',

@@ -31,7 +31,7 @@
         model : {}
     }
     var init = function () {
-        api = new apiService(app.appSettings.POSWebAPIURI);
+        api = new apiService(app.appSettings.HRMSAPIURI);
         setTimeout(function () {
             var loginTemplate = $.templates('#login-template');
             loginTemplate.link("#accountcard", appSettings.model);
@@ -115,12 +115,12 @@
                             Privileges: result.Data.SystemWebAdminPrivileges,
                         };
                         //if (result.Data.ProfilePicture.IsFromStorage) {
-                        //    appState.User.ProfilePictureSource = app.appSettings.POSWebAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId;
+                        //    appState.User.ProfilePictureSource = app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId;
                         //} else {
                         //    appState.User.ProfilePictureSource = 'data:' + result.Data.ProfilePicture.MimeType + ';base64,' + result.Data.ProfilePicture.FileContent;
                         //}
                         if (result.Data?.ProfilePicture !== undefined && result.Data?.ProfilePicture !== null && result.Data?.ProfilePicture?.FileId !== undefined) {
-                            appState.User.ProfilePictureSource = app.appSettings.POSWebAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId;
+                            appState.User.ProfilePictureSource = app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId;
                         }
                         for (var i in result.Data.SystemWebAdminMenus) {
                             appState.UserViewAccess.push({

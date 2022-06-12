@@ -40,7 +40,7 @@
         
         var saveAccount = function (account) {
             return $.ajax({
-                url: app.appSettings.POSWebAPIURI + "/SystemUser/CreateWebAdminAccount",
+                url: app.appSettings.HRMSAPIURI + "/SystemUser/CreateWebAdminAccount",
                 type: "POST",
                 dataType: "json",
                 contentType: 'application/json;charset=utf-8',
@@ -71,7 +71,7 @@
         model : {}
     }
     var init = function () {
-        api = new apiService(app.appSettings.POSWebAPIURI);
+        api = new apiService(app.appSettings.HRMSAPIURI);
         initLookup();
         setTimeout(function () {
             appSettings.verificationModel = {
@@ -458,7 +458,7 @@
                                         Middlename: result.Data.LegalEntity.FirstName,
                                         Lastname: result.Data.LegalEntity.LastName,
                                         FullName: result.Data.LegalEntity.MiddleName,
-                                        ProfilePictureSource: app.appSettings.POSWebAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId,
+                                        ProfilePictureSource: app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId,
                                         IsWebAdminGuestUser: result.Data.IsWebAdminGuestUser
                                     },
                                     ApplicationToken: {
