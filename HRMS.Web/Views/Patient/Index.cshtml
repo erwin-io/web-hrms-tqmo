@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 @section Styles
@@ -18,11 +18,12 @@
         #table-legalEntityAddress tbody td:nth-child(0), #table-legalEntityAddress tbody td:last-child {
             width: 1px !important;
         }
+
+        .hidden {
+            display:none!important;
+        }
     </style>
 }
-<!-- Title -->
-<h1 class="section-title" id="services"><span>@ViewBag.Page.Title</span></h1>
-<!-- End Title -->
 <!--breadcrum start-->
 <ol class="breadcrumb text-left">
     <li>
@@ -56,7 +57,7 @@
         </div>
     </div>
     <!-- table card code and example end -->
-    <div class="custom-floating-action">
+    <div class="custom-floating-action hidden">
         <button id="btnDelete" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary">
             <i class="material-icons pmd-sm">delete</i>
         </button>

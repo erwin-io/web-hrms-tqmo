@@ -53,7 +53,9 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="AutoMapperHelper.cs" />
+    <Compile Include="Profiles\AppointmentProfile.cs" />
     <Compile Include="Profiles\DoctorProfile.cs" />
+    <Compile Include="Profiles\DiagnosisProfile.cs" />
     <Compile Include="Profiles\SystemConfigProfile.cs" />
     <Compile Include="Profiles\FIleProfile.cs" />
     <Compile Include="Profiles\LegalEntityAddressProfile.cs" />

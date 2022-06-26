@@ -8,7 +8,6 @@ namespace HRMS.Domain.ViewModel
         public string PatientId { get; set; }
         public string IsNew { get; set; }
         public string Occupation { get; set; }
-        public string CompleteAddress { get; set; }
         public CivilStatusViewModel CivilStatus { get; set; }
         public LegalEntityViewModel LegalEntity { get; set; }
         public SystemRecordManagerViewModel SystemRecordManager { get; set; }

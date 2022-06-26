@@ -7,6 +7,7 @@ using HRMS.Web.Models;
 
 namespace HRMS.Web.Controllers
 {
+    [RoutePrefix("Admin/Error")]
     public class ErrorController : Controller
     {
 

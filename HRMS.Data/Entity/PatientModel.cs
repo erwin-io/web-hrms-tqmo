@@ -10,8 +10,9 @@ namespace HRMS.Data.Entity
     {
         public string PatientId { get; set; }
         public string IsNew { get; set; }
+        public bool IsUser { get; set; }
+        public string SystemUserId { get; set; }
         public string Occupation { get; set; }
-        public string CompleteAddress { get; set; }
         public CivilStatusModel CivilStatus { get; set; }
         public LegalEntityModel LegalEntity { get; set; }
         public SystemRecordManagerModel SystemRecordManager { get; set; }

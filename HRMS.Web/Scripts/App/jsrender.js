@@ -7,7 +7,10 @@
     },
     formatYear: function(value){
         return moment(value).format("YYYY");
-    }
+     },
+     text: function (value) {
+         return value;
+     }
  });
 
 

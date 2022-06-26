@@ -8,5 +8,7 @@ namespace HRMS.Data.Interface
     {
         List<PatientModel> GetPage(string Search, long PageNo, long PageSize, string OrderColumn, string OrderDir);
         bool Remove(string id, string LastUpdatedBy);
+
+        PatientModel GetBySystemUserId(string SystemUserId);
     }
 }

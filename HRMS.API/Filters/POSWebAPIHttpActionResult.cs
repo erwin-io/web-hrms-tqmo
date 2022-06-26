@@ -14,7 +14,7 @@ namespace HRMS.API.Filters
     /// Jinisys implementation of IHttpActionResult to return custom content
     /// </summary>
     /// <typeparam name="T">Return content data type</typeparam>
-    public class SilupostAPIHttpActionResult<T> : IHttpActionResult
+    public class HRMSAPIHttpActionResult<T> : IHttpActionResult
     {
         private T content;
         private HttpStatusCode status;
@@ -25,7 +25,7 @@ namespace HRMS.API.Filters
         /// <param name="request">HttpRequestMessage of current ApiController</param>
         /// <param name="status">Response status code</param>
         /// <param name="content">Response content</param>
-        public SilupostAPIHttpActionResult(HttpRequestMessage request, HttpStatusCode status, T content)
+        public HRMSAPIHttpActionResult(HttpRequestMessage request, HttpStatusCode status, T content)
         {
             this.request = request;
             this.status = status;

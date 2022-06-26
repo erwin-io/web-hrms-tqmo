@@ -100,6 +100,9 @@ var doctorController = function() {
                 MobileNumber: {
                     required: true,
                     digits: true
+                },
+                CompleteAddress: {
+                    required: true
                 }
             },
             Messages: {
@@ -115,6 +118,9 @@ var doctorController = function() {
                 MobileNumber: {
                     required: "Please enter Mobile Number",
                     digits : "Please enter valid Mobile Number",
+                },
+                CompleteAddress: {
+                    required: "Please enter Complete Address"
                 }
             },
         }
@@ -156,14 +162,8 @@ var doctorController = function() {
         form.validate({
             ignore:[],
             rules: {
-                CompleteAddress: {
-                    required: true
-                }
             },
             messages: {
-                CompleteAddress: {
-                    required: "Please enter Complete Address"
-                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -290,7 +290,7 @@ var doctorController = function() {
             var sizeInKb=sizeInBytes/1000;
 
             
-            appSettings.model.ProfilePicture.FileName = "SILUPOST_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss");
+            appSettings.model.ProfilePicture.FileName = "HRMS_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss");
             appSettings.model.ProfilePicture.MimeType = "image/jpeg";
             appSettings.model.ProfilePicture.FileSize = parseInt(sizeInKb);
             appSettings.model.ProfilePicture.IsDefault = false;
@@ -499,7 +499,7 @@ var doctorController = function() {
         appSettings.status.IsNew = true;
         legalEntity.appSettings.status.IsNew = true;
         var doctorTemplate = $.templates('#doctor-template');
-        $("#modal-dialog").find('.modal-title').html('New Enforcement Unit');
+        $("#modal-dialog").find('.modal-title').html('New Doctor');
         $("#modal-dialog").find('.modal-footer #btnSave').html('Save');
         $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Save");
 
@@ -601,7 +601,7 @@ var doctorController = function() {
         if (appSettings.currentId !== null || appSettings.currentId !== undefined || appSettings.currentId !== "") {
             appSettings.status.IsNew = false;
             var doctorTemplate = $.templates('#doctor-template');
-            $("#modal-dialog").find('.modal-title').html('Update Enforcement Unit');
+            $("#modal-dialog").find('.modal-title').html('Update Doctor');
             $("#modal-dialog").find('.modal-footer #btnSave').html('Update');
             $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Update");
             circleProgress.show(true);

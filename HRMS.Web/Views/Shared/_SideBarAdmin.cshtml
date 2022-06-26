@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+ <!-- Sidebar Starts -->
+<div class="pmd-sidebar-overlay"></div>
+
+<!-- Left sidebar -->
+<aside id="basicSidebar" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons basic-sub-menu-1" role="navigation">
+    <ul class="nav pmd-sidebar-nav">
+
+        @*@Html.Partial("~/Views/Account/_UserNavigationInfo.cshtml")*@
+        @{
+            var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
+
+            if (appState != null && appState.User != null)
+            {
+                if (appState.User.SystemUserTypeId == 1)
+                {
+                    if (appState.User.IsWebAdminGuestUser)
+                    {
+                        <li>
+                            @if (ViewBag.Page.MenuName.Equals("Dashboard"))
+                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-sm">dashboard</i><span class="media-body">Dashboard</span></a>}
+                            else
+                            {<a class="pmd-ripple-effect" href="/Admin"><i class="material-icons media-left pmd-sm">dashboard</i> <span class="media-body">Dashboard</span></a>}
+
+                        </li>
+                    }
+                    else if (appState.UserViewAccess != null && appState.UserViewAccess.Any())
+                    {
+                        if (appState.UserViewAccess.Any(x => x.PageName.Equals("Dashboard")) && !appState.User.IsWebAdminGuestUser)
+                        {
+                            <li>
+                                @if (ViewBag.Page.MenuName.Equals("Dashboard"))
+                                {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-sm">dashboard</i><span class="media-body">Dashboard</span></a>}
+                                else
+                                {<a class="pmd-ripple-effect" href="/Admin"><i class="material-icons media-left pmd-sm">dashboard</i> <span class="media-body">Dashboard</span></a>}
+
+                            </li>
+                        }
+
+                        if (appState.UserViewAccess.Any(x => x.ModuleName.Equals("Health Records")))
+                        {
+                            <li class="dropdown pmd-dropdown @(ViewBag.Page.Module.Equals("Health Records") ? "open" : "")">
+                                @if (ViewBag.Page.Module.Equals("Health Records"))
+                                {
+                                    <a aria-expanded="true" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media active" data-sidebar="true" href="javascript:void(0);">
+                                        <i class="material-icons media-left pmd-sm">library_books</i> <span class="media-body">Health Records</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a aria-expanded="false" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+                                        <i class="material-icons media-left pmd-sm">library_books</i>
+                                        <span class="media-body">Health Records</span>
+                                    </a>
+                                }
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Appointments")))
+                                            {
+                                                if (ViewBag.Page.MenuName.Equals("Appointments"))
+                                                {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Appointments</span></a>}
+                                                else
+                                                {<a class="pmd-ripple-effect" href="/Admin/Appointments"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Appointments</span></a>}
+                                            }
+                                        </li>
+                                        <li>
+                                            @if (appState.UserViewAccess.Any(x => x.PageName.Equals("Patients")))
+                                            {
+                                                if (ViewBag.Page.MenuName.Equals("Patients"))
+                                                {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">Patients</span></a>}
+                                                else
+                                                {<a class="pmd-ripple-effect" href="/Admin/Patients"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">Patients</span></a>}
+                                            }
+                                        </li>
+                                    </ul>
+                            </li>
+                        }
+
+                        if (appState.UserViewAccess.Any(x => x.ModuleName.Equals("System Admin Security")))
+                        {
+
+                            <li class="dropdown pmd-dropdown @(ViewBag.Page.Module.Equals("System Admin Security") ? "open" : "")">
+                                @if (ViewBag.Page.Module.Equals("System Admin Security"))
+                                {
+                                    <a aria-expanded="true" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media active" data-sidebar="true" href="javascript:void(0);">
+                                        <i class="material-icons media-left pmd-sm">security</i> <span class="media-body">Security</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a aria-expanded="false" data-toggle="dropdown" class="btn-user pmd-ripple-effect dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+                                        <i class="material-icons media-left pmd-sm">security</i>
+                                        <span class="media-body">Security</span>
+                                    </a>
+                                }
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("System Role")))
+                                        {
+                                            if (ViewBag.Page.MenuName.Equals("System Role"))
+                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">System Role</span></a>}
+                                            else
+                                            {<a class="pmd-ripple-effect" href="/Admin/SystemWebAdminRoles"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">System Role</span></a>}
+                                        }
+                                    </li>
+                                    <li>
+                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("System User")))
+                                        {
+                                            if (ViewBag.Page.MenuName.Equals("System User"))
+                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">System User</span></a>}
+                                            else
+                                            {<a class="pmd-ripple-effect" href="/Admin/SystemUsers"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">System User</span></a>}
+
+                                        }
+                                    </li>
+                                    <li>
+                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("System Menu Roles")))
+                                        {
+                                            if (ViewBag.Page.MenuName.Equals("System Menu Roles"))
+                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">System Menu Roles</span></a>}
+                                            else
+                                            {<a class="pmd-ripple-effect" href="/Admin/SystemWebAdminMenuRoles"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">System Menu Roles</span></a>}
+
+                                        }
+                                    </li>
+                                    <li>
+                                        @if (appState.UserViewAccess.Any(x => x.PageName.Equals("System Role Privileges")))
+                                        {
+                                            if (ViewBag.Page.MenuName.Equals("System Role Privileges"))
+                                            {<a class="pmd-ripple-effect active" href="#"><i class="material-icons media-left pmd-xs md-dark">radio_button_checked</i><span class="media-body">System Role Privileges</span></a>}
+                                            else
+                                            {<a class="pmd-ripple-effect" href="/Admin/SystemWebAdminRolePrivileges"><i class="material-icons media-left pmd-xs md-light md-inactive">radio_button_unchecked</i> <span class="media-body">System Role Privileges</span></a>}
+                                        }
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                }
+            }
+        }
+
+    </ul>
+</aside>
+<!-- End Left sidebar -->
+<!-- Sidebar Ends -->  
+
+
+@section Scripts{
+    
+    <script>
+        $(document).ready(function () {
+            var sPath = window.location.pathname;
+            var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+            $(".pmd-sidebar-nav").each(function () {
+                $(this).find("a[href='" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='" + sPage + "']").addClass("active");
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        (function () {
+            "use strict";
+            var toggles = document.querySelectorAll(".c-hamburger");
+            for (var i = toggles.length - 1; i >= 0; i--) {
+                var toggle = toggles[i];
+                toggleHandler(toggle);
+            };
+            function toggleHandler(toggle) {
+                toggle.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    (this.classList.contains("is-active") === true) ? this.classList.remove("is-active") : this.classList.add("is-active");
+                });
+            }
+
+        })();
+    </script>
+}

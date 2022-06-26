@@ -14,6 +14,7 @@ namespace HRMS.Domain.BindingModel
         public DateTime? BirthDate { get; set; }
         public string EmailAddress { get; set; }
         public string MobileNumber { get; set; }
+        public string CompleteAddress { get; set; }
         public List<SystemWebAdminUserRolesBindingModel> SystemWebAdminUserRoles { get; set; }
     }
     public class CreateSystemUserBindingModel : SystemUserBindingModel
@@ -36,6 +37,7 @@ namespace HRMS.Domain.BindingModel
         public string MiddleName { get; set; }
         public DateTime? BirthDate { get; set; }
         public long? GenderId { get; set; }
+        public string CompleteAddress { get; set; }
     }
 
     public class CreateWebAccountSystemUserBindingModel : CreateAccountSystemUserBindingModel

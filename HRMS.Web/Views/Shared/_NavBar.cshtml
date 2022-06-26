@@ -7,7 +7,7 @@
 @{
     var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
 
-    if (appState != null)
+    if (appState != null && appState.User != null)
     {
         <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
 
@@ -23,7 +23,14 @@
                                     </div>
                                 </button>
                                 <ul aria-labelledby="dropdownMenuDivider" role="menu" class="dropdown-menu dropdown-menu-right">
-                                    <li role="presentation"><a href="/Account" tabindex="-1" role="menuitem">Account Settings</a></li>
+                                    @if (appState.User.SystemUserTypeId == 1)
+                                    {
+                                        <li role="presentation"><a href="/Admin/Account" tabindex="-1" role="menuitem">Account Settings</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li role="presentation"><a href="/Account" tabindex="-1" role="menuitem">Account Settings</a></li>
+                                    }
                                     <li role="presentation"><a href="javascript:void(0);" id="btnLogout" tabindex="-1" role="menuitem">Sign Out</a></li>
                                 </ul>
                             </span>

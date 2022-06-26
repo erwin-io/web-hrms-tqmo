@@ -15,6 +15,7 @@ namespace HRMS.Data.Entity
         public long? Age { get; set; }
         public string EmailAddress { get; set; }
         public string MobileNumber { get; set; }
+        public string CompleteAddress { get; set; }
         public List<LegalEntityAddressModel> LegalEntityAddress { get; set; }
         public EntityStatusModel EntityStatus { get; set; }
     }

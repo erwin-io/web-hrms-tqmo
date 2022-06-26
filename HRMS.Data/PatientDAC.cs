@@ -29,7 +29,8 @@ namespace HRMS.Data
                     model.LegalEntity.LegalEntityId,
                     model.CivilStatus.CivilStatusId,
                     model.Occupation,
-                    model.CompleteAddress,
+                    model.IsUser,
+                    model.SystemUserId,
                     model.SystemRecordManager.CreatedBy,
                 }, commandType: CommandType.StoredProcedure));
 
@@ -167,7 +168,6 @@ namespace HRMS.Data
                     model.PatientId,
                     model.CivilStatus.CivilStatusId,
                     model.Occupation,
-                    model.CompleteAddress,
                     model.SystemRecordManager.LastUpdatedBy
                 }, commandType: CommandType.StoredProcedure));
 
@@ -183,6 +183,33 @@ namespace HRMS.Data
             }
 
             return success;
+        }
+        public PatientModel GetBySystemUserId(string id)
+        {
+            try
+            {
+                using (var result = _dBConnection.QueryMultiple("usp_patient_getBySystemUserId", new
+                {
+                    SystemUserId = id
+                }, commandType: CommandType.StoredProcedure))
+                {
+                    var model = result.Read<PatientModel>().FirstOrDefault();
+                    if (model != null)
+                    {
+                        model.CivilStatus = result.Read<CivilStatusModel>().FirstOrDefault();
+                        model.LegalEntity = result.Read<LegalEntityModel>().FirstOrDefault();
+                        model.LegalEntity.Gender = result.Read<EntityGenderModel>().FirstOrDefault();
+                        model.SystemRecordManager = result.Read<SystemRecordManagerModel>().FirstOrDefault();
+                        model.EntityStatus = result.Read<EntityStatusModel>().FirstOrDefault();
+                    }
+
+                    return model;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -25,7 +25,7 @@
 @{
     var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
 
-    if (appState != null)
+    if (appState != null && appState.User != null && appState.ApplicationToken != null)
     {
         <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
 
@@ -51,13 +51,13 @@
                     @if (ViewBag.Page.Title == "Dashboard")
                     {
                         <a href="#" class="navbar-brand">
-                            SILUPOST
+                            HRMS
                         </a>
                     }
                     else
                     {
                         <a href="/" class="navbar-brand">
-                            SILUPOST
+                            HRMS
                         </a>
                     }
                 </div>
@@ -145,5 +145,5 @@
         account.init(@Html.Raw(Json.Encode(ViewBag.Lookup)));
     </script>
 
-    @Html.Partial("_Details")
+    @Html.Partial("~/Views/Account/_Details.cshtml")
 }

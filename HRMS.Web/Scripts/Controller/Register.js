@@ -1,10 +1,10 @@
 ﻿var registerController = function(){
 
     var apiService = function (apiURI){
-        var getUserByCredentials = function (Username, Password)
+        var getUserByCredentials = function (Username, Password, systemUserTypeId)
         {
             return $.ajax({
-                url: apiURI + "SystemUser/GetByCredentials?Username=" + Username + "&Password=" + Password,
+                url: apiURI + "SystemUser/GetByCredentials?Username=" + Username + "&Password=" + Password + "&SystemUserTypeId=" + systemUserTypeId,
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
@@ -36,17 +36,27 @@
                 dataType: "json"
             });
         }
-
         
-        var saveAccount = function (account) {
+        var createWebAdminAccount = function (account) {
             return $.ajax({
-                url: app.appSettings.HRMSAPIURI + "/SystemUser/CreateWebAdminAccount",
+                url: apiURI + "/SystemUser/CreateWebAdminAccount",
                 type: "POST",
                 dataType: "json",
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(account)
             });
         }
+
+        var createAccount = function (account) {
+            return $.ajax({
+                url: apiURI + "/SystemUser/CreateAccount",
+                type: "POST",
+                dataType: "json",
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(account)
+            });
+        }
+
         var getLookup = function (tableNames) {
             return $.ajax({
                 url: apiURI + "SystemLookup/GetAllByTableNames?TableNames=" + tableNames,
@@ -60,7 +70,8 @@
             setApplicationState: setApplicationState, 
             sendVerification: sendVerification, 
             getBySender: getBySender, 
-            saveAccount: saveAccount,
+            createWebAdminAccount: createWebAdminAccount,
+            createAccount: createAccount,
             getUserByCredentials: getUserByCredentials,
             getLookup: getLookup,
         };
@@ -254,6 +265,9 @@
                 },
                 GenderId: {
                     required: true
+                },
+                CompleteAddress: {
+                    required: true
                 }
             },
             messages: {
@@ -261,7 +275,8 @@
                 MiddleName: "Please enter Middlename",
                 LastName: "Please enter Lastname",
                 BirthDate: "Please select Birth Date",
-                GenderId: "Please select Gender"
+                GenderId: "Please select Gender",
+                CompleteAddress: "Please enter Complete Address"
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -402,7 +417,11 @@
         api.sendVerification(appSettings.confirmVerificationModel).done(function (result) {
             if (result.IsSuccess) {
                 circleProgress.close();
-                initStepConfirmVerification();
+                if (!result.Data.IsVerificationEnable) {
+                    appSettings.confirmVerificationModel.VerificationCode = result.Data.VerificationCode;
+                    initStepCredentials();
+                } else
+                    initStepConfirmVerification();
             }
         }).error(function (result) {
             Swal.fire('Error!', result.responseJSON.Message, 'error');
@@ -439,79 +458,161 @@
         if (!form.valid())
             return;
         circleProgress.show(false);
-        api.saveAccount(appSettings.model)
-            .done(function (result) {
-                if (result.IsSuccess) {
-                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                    api.getUserByCredentials(appSettings.model.VerificationSender, appSettings.model.Password)
-                        .done(function (result) {
-                            if (result.IsSuccess) {
-                                $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                                console.log(result);
-                                var appState = {
-                                    User: {
-                                        UserId: result.Data.SystemUserId,
-                                        Username: result.Data.UserName,
-                                        Password: result.Data.Password,
-                                        LegalEntityId: result.Data.LegalEntity.LegalEntityId,
-                                        Firstname: result.Data.LegalEntity.FullName,
-                                        Middlename: result.Data.LegalEntity.FirstName,
-                                        Lastname: result.Data.LegalEntity.LastName,
-                                        FullName: result.Data.LegalEntity.MiddleName,
-                                        ProfilePictureSource: app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId,
-                                        IsWebAdminGuestUser: result.Data.IsWebAdminGuestUser
-                                    },
-                                    ApplicationToken: {
-                                        AccessToken: result.Data.Token.access_token,
-                                        RefreshToken: result.Data.Token.refresh_token
-                                    },
-                                    UserViewAccess: []
-                                };
-                                for (var i in result.Data.SystemWebAdminMenus) {
-                                    appState.UserViewAccess.push({
-                                        MenuId: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuId,
-                                        PageName: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuName,
-                                        ModuleName: result.Data.SystemWebAdminMenus[i].SystemWebAdminModule.SystemWebAdminModuleName,
-                                    });
+        if (app.appSettings.SystemUserTypeId === 1) {
+            api.createWebAdminAccount(appSettings.model)
+                .done(function (result) {
+                    if (result.IsSuccess) {
+                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                        api.getUserByCredentials(appSettings.model.VerificationSender, appSettings.model.Password, 1)
+                            .done(function (result) {
+                                if (result.IsSuccess) {
+                                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                    console.log(result);
+                                    var appState = {
+                                        User: {
+                                            UserId: result.Data.SystemUserId,
+                                            SystemUserTypeId: result.Data.SystemUserType.SystemUserTypeId,
+                                            Username: result.Data.UserName,
+                                            Password: result.Data.Password,
+                                            LegalEntityId: result.Data.LegalEntity.LegalEntityId,
+                                            Firstname: result.Data.LegalEntity.FullName,
+                                            Middlename: result.Data.LegalEntity.FirstName,
+                                            Lastname: result.Data.LegalEntity.LastName,
+                                            FullName: result.Data.LegalEntity.MiddleName,
+                                            ProfilePictureSource: app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId,
+                                            IsWebAdminGuestUser: result.Data.IsWebAdminGuestUser
+                                        },
+                                        ApplicationToken: {
+                                            AccessToken: result.Data.Token.access_token,
+                                            RefreshToken: result.Data.Token.refresh_token
+                                        },
+                                        UserViewAccess: []
+                                    };
+                                    for (var i in result.Data.SystemWebAdminMenus) {
+                                        appState.UserViewAccess.push({
+                                            MenuId: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuId,
+                                            PageName: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuName,
+                                            ModuleName: result.Data.SystemWebAdminMenus[i].SystemWebAdminModule.SystemWebAdminModuleName,
+                                        });
 
-                                }
-
-                                api.setApplicationState(appState).done(function (result) {
-                                    if (result.Success) {
-                                        window.location.replace("/");
-                                    } else {
-                                        circleProgress.close();
-                                        Swal.fire('Error!', result.Message, 'error');
                                     }
-                                });
-                            } else {
+
+                                    api.setApplicationState(appState).done(function (result) {
+                                        if (result.Success) {
+                                            window.location.replace("/Admin");
+                                        } else {
+                                            circleProgress.close();
+                                            Swal.fire('Error!', result.Message, 'error');
+                                        }
+                                    });
+                                } else {
+                                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                    circleProgress.close();
+                                    Swal.fire('Error!', result.Message, 'error');
+                                }
+                            }).error(function (result) {
                                 $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                Swal.fire('Error!', result.responseJSON.Message, 'error');
                                 circleProgress.close();
-                                Swal.fire('Error!', result.Message, 'error');
-                            }
-                        }).error(function (result) {
-                            $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                            Swal.fire('Error!', result.responseJSON.Message, 'error');
-                            circleProgress.close();
-                        });
-                } else {
+                            });
+                    } else {
+                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                        circleProgress.close();
+                        Swal.fire('Error!', result.Message, 'error');
+                    }
+                }).error(function (result) {
+                    var errormessage = "";
+                    var errorTitle = "";
+                    if (result.responseJSON.DeveloperMessage !== null && result.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+                        erroTitle = "Not Allowed!";
+                        errormessage = "Already exist!";
+                    } else {
+                        erroTitle = "Error!";
+                        errormessage = result.responseJSON.Message;
+                    }
                     $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                    Swal.fire('Error!', errormessage, 'error');
                     circleProgress.close();
-                    Swal.fire('Error!', result.Message, 'error');
-                }
-            }).error(function (result) {
-                var errormessage = "";
-                var errorTitle = "";
-                if (result.responseJSON.DeveloperMessage !== null && result.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
-                    erroTitle = "Not Allowed!";
-                    errormessage = "Already exist!";
-                } else {
-                    erroTitle = "Error!";
-                    errormessage = result.responseJSON.Message;}
-                $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                Swal.fire('Error!', errormessage, 'error');
-                circleProgress.close();
-            });
+                });
+        }
+        else {
+
+            api.createAccount(appSettings.model)
+                .done(function (result) {
+                    if (result.IsSuccess) {
+                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                        api.getUserByCredentials(appSettings.model.VerificationSender, appSettings.model.Password, 2)
+                            .done(function (result) {
+                                if (result.IsSuccess) {
+                                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                    console.log(result);
+                                    var appState = {
+                                        User: {
+                                            UserId: result.Data.SystemUserId,
+                                            SystemUserTypeId: result.Data.SystemUserType.SystemUserTypeId,
+                                            Username: result.Data.UserName,
+                                            Password: result.Data.Password,
+                                            LegalEntityId: result.Data.LegalEntity.LegalEntityId,
+                                            Firstname: result.Data.LegalEntity.FullName,
+                                            Middlename: result.Data.LegalEntity.FirstName,
+                                            Lastname: result.Data.LegalEntity.LastName,
+                                            FullName: result.Data.LegalEntity.MiddleName,
+                                            ProfilePictureSource: app.appSettings.HRMSAPIURI + "File/getFile?FileId=" + result.Data.ProfilePicture.FileId,
+                                            IsWebAdminGuestUser: result.Data.IsWebAdminGuestUser
+                                        },
+                                        ApplicationToken: {
+                                            AccessToken: result.Data.Token.access_token,
+                                            RefreshToken: result.Data.Token.refresh_token
+                                        },
+                                        UserViewAccess: []
+                                    };
+                                    for (var i in result.Data.SystemWebAdminMenus) {
+                                        appState.UserViewAccess.push({
+                                            MenuId: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuId,
+                                            PageName: result.Data.SystemWebAdminMenus[i].SystemWebAdminMenuName,
+                                            ModuleName: result.Data.SystemWebAdminMenus[i].SystemWebAdminModule.SystemWebAdminModuleName,
+                                        });
+
+                                    }
+
+                                    api.setApplicationState(appState).done(function (result) {
+                                        if (result.Success) {
+                                            window.location.replace("/");
+                                        } else {
+                                            circleProgress.close();
+                                            Swal.fire('Error!', result.Message, 'error');
+                                        }
+                                    });
+                                } else {
+                                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                    circleProgress.close();
+                                    Swal.fire('Error!', result.Message, 'error');
+                                }
+                            }).error(function (result) {
+                                $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                                Swal.fire('Error!', result.responseJSON.Message, 'error');
+                                circleProgress.close();
+                            });
+                    } else {
+                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                        circleProgress.close();
+                        Swal.fire('Error!', result.Message, 'error');
+                    }
+                }).error(function (result) {
+                    var errormessage = "";
+                    var errorTitle = "";
+                    if (result.responseJSON.DeveloperMessage !== null && result.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+                        erroTitle = "Not Allowed!";
+                        errormessage = "Already exist!";
+                    } else {
+                        erroTitle = "Error!";
+                        errormessage = result.responseJSON.Message;
+                    }
+                    $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+                    Swal.fire('Error!', errormessage, 'error');
+                    circleProgress.close();
+                });
+        }
     }
 
     return  {

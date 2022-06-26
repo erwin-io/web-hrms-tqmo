@@ -1,0 +1,142 @@
+﻿@{
+    Layout = "~/Views/AccountAdmin/_Layout.cshtml";
+}
+@section Styles
+{
+
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/file-upload/css/upload-file.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/Proppeller-Material-Design-Bootstrap/components/file-upload/css/image-upload.css">
+    <style>
+        #camera_View, #capture_View {
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+            #camera_View video, #capture_View img {
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+
+        #table-legalEntityAddress tbody td:nth-child(0), #table-legalEntityAddress tbody td:last-child {
+            width: 1px !important;
+        }
+    </style>
+}
+@{
+    var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
+
+    if (appState != null)
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
+
+            <div class="container-fluid">
+
+                <div class="pull-right" style="margin-right:10px">
+                    <div class="row">
+                        <div class="pull-right">
+                            <span class="dropdown pmd-dropdown">
+                                <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="dropdownMenuBottomRight" data-toggle="dropdown" aria-expanded="true">
+                                    <div style="background-color: white;border-radius:100%;width:100%;height:100%;display:block;padding:2px"><img src="@(appState.User.ProfilePictureSource)" style="border-radius:100%;width:100%;height:100%;" /></div>
+                                </button>
+                                <ul aria-labelledby="dropdownMenuDivider" role="menu" class="dropdown-menu dropdown-menu-right">
+                                    <li role="presentation"><a href="/Admin/Account" tabindex="-1" role="menuitem">Account Settings</a></li>
+                                    <li role="presentation"><a href="javascript:void(0);" id="btnLogout" tabindex="-1" role="menuitem">Sign Out</a></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    @if (ViewBag.Page.Title == "Dashboard")
+                    {
+                        <a href="#" class="navbar-brand">
+                            HRMS
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Admin" class="navbar-brand">
+                            HRMS
+                        </a>
+                    }
+                </div>
+            </div>
+
+        </nav>
+    }
+}
+<!--content area start-->
+<div id="content" class="pmd-content content-area" style="margin-left:0px!important">
+
+    <div class="container-fluid">
+        <!-- Title -->
+        <h1 class="section-title" id="services"><span>@ViewBag.Page.ParentName</span></h1>
+        <!-- End Title -->
+        <!--breadcrum start-->
+        <ol class="breadcrumb text-left">
+            <li>
+                @ViewBag.Page.Title
+            </li>
+        </ol><!--breadcrum end-->
+        <div class="row">
+
+            <!-- table card code and example -->
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="component-box">
+                    <div class="page-content profile-edit">
+                        <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                            <div class="pmd-card-title">
+                                <h2 class="pmd-card-title-text">@ViewBag.Page.Title</h2>
+                            </div>
+                            <div class="pmd-card-body">
+                                <div class="group-fields clearfix row">
+                                    <div id="AccountDetails" class="col-xs-12"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- table card code and example end -->
+        </div>
+    </div>
+</div>
+<!--end content area-->
+<!-- Footer Starts -->
+<!--footer start-->
+<footer class="admin-footer">
+    <div class="container-fluid">
+        <ul class="list-unstyled list-inline">
+            <li>
+                <span class="pmd-card-subtitle-text">Propeller &copy; <span class="auto-update-year"></span>. All Rights Reserved.</span>
+                <h3 class="pmd-card-subtitle-text">Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license.</a></h3>
+            </li>
+            <li class="pull-right for-support">
+                <a href="mailto:support@propeller.in">
+                    <div>
+                    </div>
+                    <div>
+                        <span class="pmd-card-subtitle-text">For Support</span>
+                        <h3 class="pmd-card-title-text">support@propeller.in</h3>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+
+
+@Html.Partial("~/Views/Widget/_Modal.cshtml")
+@section Scripts{
+
+    <script src="~/Scripts/Widget/LegalEntity.js"></script>
+    <script src="~/Scripts/Controller/Account.js"></script>
+    <script>
+        account.init(@Html.Raw(Json.Encode(ViewBag.Lookup)));
+    </script>
+
+    @Html.Partial("~/Views/Account/_Details.cshtml")
+}

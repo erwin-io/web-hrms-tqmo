@@ -1,0 +1,241 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .btn:focus, .btn:active, button:focus, button:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        #image-gallery .modal-footer {
+            display: block;
+        }
+
+        .thumb {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        #tab-page-crimeIncidentReportMedia img,
+        #tab-page-crimeIncidentReportMedia video {
+            width: 100%;
+        }
+
+        .no-view-access {
+            display: flex;
+        }
+
+        .pmd-tabs nav-tabs li.active a {
+            border-bottom: 3px #9d0033 solid !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+}
+<!--breadcrum start-->
+<ol class="breadcrumb text-left">
+    <li>
+        @ViewBag.Page.Module
+    </li>
+    @if (ViewBag.Page.ParentName != null)
+    {
+        <li><a href="/Admin/@ViewBag.Page.ParentName/">@ViewBag.Page.ParentTitle</a></li>
+    }
+    <li>
+        @ViewBag.Page.Title
+    </li>
+</ol><!--breadcrum end-->
+
+<div class="row ">
+    <!-- table card code and example -->
+    <div class="col-md-12">
+        <div class="component-box">
+            <!-- table card example -->
+            <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                <div class="pmd-card-title">
+                    <h2 class="pmd-card-title-text">@ViewBag.Page.Title</h2>
+                </div>
+                <div class="pmd-card-body">
+                    <div id="patientDetailsContainer" class="group-fields clearfix row">
+                        <div class="col-xs-12">
+                            <br />
+                            <div id="patient-tab-control" class="pmd-tabs pmd-tabs-bg">
+                                <ul id="patient-details-tab-nav" class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active tab-control-patient"><a id="tab-control-patient" href="#tab-page-patient" aria-controls="tab-patient" role="tab" data-toggle="tab">Patient Details</a></li>
+                                    <li role="presentation" class="tab-control-diagnosis"><a id="tab-control-diagnosis" href="#tab-page-diagnosis" aria-controls="tab-diagnosis" role="tab" data-toggle="tab">Recent Diagnosis & Treatment</a></li>
+                                </ul>
+                            </div>
+                            <div class="pmd-card-body">
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="tab-page-patient">
+                                        <div class="clearfix row">
+                                            <div id="patientDetailsView" class="col-xs-12"></div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="tab-page-diagnosis">
+                                        <div class="group-fields clearfix row">
+                                            <div class="col-xs-12">
+                                                <table id="table-diagnosis" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Date Diagnosed</th>
+                                                            <th>Diagnosis</th>
+                                                            <th>Treatment</th>
+                                                            <th>Status</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="appointmentNotFoundContainer" class="group-fields clearfix row hidden">
+                        <div class="col-xs-12">
+                            <div class="pmd-card-body">
+                                <div style="display:flex!important;align-items: center;flex-direction:column;">
+                                    <h3 style="text-align:center">Patient not found</h3>
+                                    <a href="/Admin/Appointments/" class="btn pmd-ripple-effect btn-default" style="max-width:200px!important" data-toggle="tooltip" data-placement="left" title="View details">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- table card example end -->
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    @Html.Partial("~/Views/Widget/_Modal.cshtml")
+
+    <script src="~/Scripts/Controller/Patient-Details.js"></script>
+    <script>
+        var model = @Html.Raw(Json.Encode(ViewBag.AppSettings));
+        patient.init(model);
+    </script>
+
+
+    <script id="patient-template" type="text/x-jsrender">
+
+        <form id="form-patient">
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="FirstName" name="FirstName" data-link="FirstName" placeholder=" " />
+                        <span>First Name</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="MiddleName" name="MiddleName" data-link="MiddleName" placeholder=" " />
+                        <span>Middle Name</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="LastName" name="LastName" data-link="LastName" placeholder=" " />
+                        <span>Last Name</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="BirthDate" name="BirthDate" data-link="{formatDate:BirthDate}" placeholder=" " />
+                        <span>Birth Date</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="GenderName" name="GenderName" data-link="GenderName" placeholder=" " />
+                        <span>Gender</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="EmailAddress" name="EmailAddress" data-link="EmailAddress" placeholder=" " />
+                        <span>Email Address</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="MobileNumber" name="MobileNumber" data-link="MobileNumber" placeholder=" " />
+                        <span>Mobile Number</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="CivilStatusName" name="CivilStatusName" data-link="CivilStatusName" placeholder=" " />
+                        <span>Civil Status</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="Occupation" name="Occupation" data-link="Occupation" placeholder=" " />
+                        <span>Occupation</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="CompleteAddress" name="CompleteAddress" data-link="CompleteAddress" placeholder=" " />
+                        <span>Complete Address</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </script>
+
+
+    <script id="diagnosis-template" type="text/x-jsrender">
+        <form id="form-diagnosis">
+            <div class="group-fields clearfix row">
+                <div class="col-xs-4">
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="DiagnosisDate" class="control-label">Date Diagnosed</label>
+                        <input readonly type="text" id="DiagnosisDate" name="DiagnosisDate" data-link="{formatDate:DiagnosisDate}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="DescOfDiagnosis" name="DescOfDiagnosis" data-link="DescOfDiagnosis" placeholder=" " />
+                        <span>Description of the Diagnosis</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input readonly id="DescOfTreatment" name="DescOfTreatment" data-link="DescOfTreatment" placeholder=" " />
+                        <span>Description of the Treatment</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </script>
+}

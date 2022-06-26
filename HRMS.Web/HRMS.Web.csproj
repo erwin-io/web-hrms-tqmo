@@ -758,6 +758,7 @@
     <Content Include="plugins\webcamjs-master\webcam.swf" />
     <Content Include="Resources\Images\hrms_logo.png" />
     <Content Include="Resources\Images\icons8_user_90_gray.png" />
+    <Content Include="Scripts\App\appAdmin.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\dataFormat.js" />
     <Content Include="Scripts\App\globalConfig.js" />
@@ -809,7 +810,12 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controller\MyAppointments-Details.js" />
+    <Content Include="Scripts\Controller\Appointment-Details.js" />
+    <Content Include="Scripts\Controller\Appointment.js" />
     <Content Include="Scripts\Controller\Doctor.js" />
+    <Content Include="Scripts\Controller\MyAppointments.js" />
+    <Content Include="Scripts\Controller\Patient-Details.js" />
     <Content Include="Scripts\Controller\Patient.js" />
     <Content Include="Scripts\Controller\ResetPassword.js" />
     <Content Include="Scripts\Controller\Register.js" />
@@ -843,8 +849,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeAdminController.cs" />
+    <Compile Include="Controllers\MyAppointmentsController.cs" />
     <Compile Include="Controllers\LegalEntityController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
@@ -906,6 +916,24 @@
     <Content Include="Views\Doctor\_Details.cshtml" />
     <Content Include="Views\Doctor\_Table.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\_Details.cshtml" />
+    <Content Include="Views\Appointment\_Table.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\HomeAdmin\Index.cshtml" />
+    <Content Include="Views\AccountAdmin\_Details.cshtml" />
+    <Content Include="Views\AccountAdmin\_Layout.cshtml" />
+    <Content Include="Views\AccountAdmin\Index.cshtml" />
+    <Content Include="Views\AccountAdmin\Login.cshtml" />
+    <Content Include="Views\AccountAdmin\Register.cshtml" />
+    <Content Include="Views\AccountAdmin\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_SideBarAdmin.cshtml" />
+    <Content Include="Views\Patient\Details.cshtml" />
+    <Content Include="Views\Home\MyDiagnosis.cshtml" />
+    <Content Include="Views\MyAppointments\_Table.cshtml" />
+    <Content Include="Views\MyAppointments\Details.cshtml" />
+    <Content Include="Views\MyAppointments\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

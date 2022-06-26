@@ -1,0 +1,158 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .bootstrap-datetimepicker-widget .list-unstyled .timepicker-picker .ampmview {
+            cursor: pointer !important;
+        }
+    </style>
+}
+<!--breadcrum start-->
+<ol class="breadcrumb text-left">
+    <li>
+        @ViewBag.Page.Module
+    </li>
+    @if (ViewBag.Page.ParentName != null)
+    {
+        <li><a href="@ViewBag.Page.ParentName">@ViewBag.Page.ParentTitle</a></li>
+    }
+    <li>
+        @ViewBag.Page.Title
+    </li>
+</ol><!--breadcrum end-->
+
+<div class="row ">
+    <!-- table card code and example -->
+    <div class="col-md-12">
+        <div class="component-box">
+            <!-- table card example -->
+            <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                <div class="pmd-card-title">
+                    <h2 class="pmd-card-title-text">@ViewBag.Page.Title</h2>
+                </div>
+                <div class="pmd-card-body">
+                    <div class="group-fields row clearfix">
+                        <div class="pull-right">
+                            <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary pmd-tooltip" type="button" id="btnToggleAdvanceSearch" data-toggle="tooltip" data-placement="left" title="Advance search mode">
+                                <i class="material-icons pmd-sm">filter_list</i>
+                            </button>
+                        </div>
+                        <div class="col-xs-8 pull-left" id="filterAppointmentStatusView">
+                        </div>
+                    </div>
+                    <div id="advanceSearchView"></div>
+                    @Html.Partial("_Table")
+                </div>
+
+            </div>
+            <!-- table card example end -->
+
+        </div>
+    </div>
+    <!-- table card code and example end -->
+    <div class="custom-floating-action">
+        <button id="btnOpen" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="View details">
+            <i class="material-icons pmd-sm">open_in_new</i>
+        </button>
+        <button id="btnProcess" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="Process selected appointment">
+            <i class="material-icons pmd-sm">archive</i>
+        </button>
+        <button id="btnCancelProcess" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-danger pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="Cancel process">
+            <i class="material-icons pmd-sm">unarchive</i>
+        </button>
+        <button id="btnApprove" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-success pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="Approve appointment">
+            <i class="material-icons pmd-sm">done</i>
+        </button>
+        <button id="btnComplete" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-success pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="Mark appointment as Completed">
+            <i class="material-icons pmd-sm">check_circle_outline</i>
+        </button>
+        <button id="btnDecline" class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-danger pmd-tooltip hidden" data-toggle="tooltip" data-placement="top" title="Decline this appointment">
+            <i class="material-icons pmd-sm">clear</i>
+        </button>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script id="filterAppointmentStatus-template" type="text/x-jsrender">
+        <form id="form-filterAppointmentStatus">
+
+            <div class="group-fields clearfix row">
+                <div class="col-xs-4">
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label>Filter By AppointmentStatus</label>
+                        <select id="AppointmentStatusId" name="AppointmentStatusId" data-link="AppointmentStatusId" class="select-simple form-control pmd-select2">
+                            <option value="">Show All</option>
+                            {^{for lookup.AppointmentStatus}}
+                            <option value="{{>Id}}">{{>Name}}</option>
+                            {{/for}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script id="advanceSearch-template" type="text/x-jsrender">
+
+        <form id="form-advanceSearch" class="hidden table-bordered" style="padding: 0px 10px;">
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <h5>Advance Search</h5>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="AppointmentId" name="AppointmentId" data-link="AppointmentId" placeholder=" " />
+                        <span>AppointmentId</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="Patient" name="Patient" data-link="Patient" placeholder=" " />
+                        <span>Patient Name</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="ProcessedBy" name="ProcessedBy" data-link="ProcessedBy" placeholder=" " />
+                        <span>Processed By</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="AppointmentDateFrom" class="control-label">Appointment Date From</label>
+                        <input type="text" id="AppointmentDateFrom" name="AppointmentDateFrom" data-link="{formatDate:AppointmentDateFrom}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="AppointmentDateTo" class="control-label">Appointment Date To</label>
+                        <input type="text" id="AppointmentDateTo" name="AppointmentDateTo" data-link="{formatDate:AppointmentDateTo}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="form-group">
+                        <a class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary" id="btnAdvanceSearch">
+                            <i class="material-icons pmd-sm">search</i>
+                        </a>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script src="~/Scripts/Controller/Appointment.js"></script>
+    <script>
+        appointment.init(@Html.Raw(Json.Encode(ViewBag.Lookup)));
+    </script>
+
+}

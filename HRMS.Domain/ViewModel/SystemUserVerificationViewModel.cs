@@ -10,6 +10,7 @@ namespace HRMS.Domain.ViewModel
         public string VerificationTypeId { get; set; }
         public string VerificationCode { get; set; }
         public bool IsVerified { get; set; }
+        public bool IsVerificationEnable { get; set; }
         public EntityStatusViewModel EntityStatus { get; set; }
     }
 }

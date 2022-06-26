@@ -180,9 +180,9 @@ namespace HRMS.Facade
                     //end store file directory
 
                     //Start Saving User
-                    addModel.UserName = addModel.LegalEntity.EmailAddress;
+                    addModel.UserName = model.VerificationSender;
                     addModel.LegalEntity.LegalEntityId = legalEntityId;
-                    addModel.SystemUserType.SystemUserTypeId = (int)SYSTEM_USER_TYPE_ENUMS.USER_MOBILE;
+                    addModel.SystemUserType.SystemUserTypeId = (int)SYSTEM_USER_TYPE_ENUMS.USER_PORTAL;
                     id = _systemUserRepository.CreateAccount(addModel);
                     if (string.IsNullOrEmpty(id))
                     {

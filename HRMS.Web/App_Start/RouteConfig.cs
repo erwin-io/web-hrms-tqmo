@@ -13,7 +13,7 @@ namespace HRMS.Web.App_Start
         {
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 "Error",
                 "Error/{ErrorCode}",

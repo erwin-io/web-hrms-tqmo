@@ -56,13 +56,13 @@ var appController = function () {
     var api = new apiService();
 
     var appSettings = {
-        HRMSAPIURI: "http://localhost:8100/api/v1/",//api link
+        HRMSAPIURI: "http://localhost:8100/api/v1/",
         //HRMSAPIURI: "http://api-web-hrms.somee.com/api/v1/",
         apiToken: "",
         authorized: false,
         apiRefreshToken: "",
         refreshTokenInterval: 10000000,
-        apiCLient: "silupost",
+        apiCLient: "hrms",
         mapBoxToken: "pk.eyJ1IjoiZXJ3aW5yYW1pcmV6MjIwIiwiYSI6ImNrZ3U1cHJzazAwYTAycm82MDRmdWNmczAifQ.TarlRjuzi62vw_hPR6uTGg"
     }
 
@@ -75,6 +75,7 @@ var appController = function () {
         setTimeout(removeSomeDiv(), 1000);
         //removeSomeDiv();
         initEvent();
+        getUrlVars();
     }
 
     var initEvent = function () {
@@ -85,9 +86,17 @@ var appController = function () {
                 });
             });
         });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover({
+            container: 'body'
+        });
     };
 
     var initAppUser = function () {
+        if (app.appSettings.SystemUserTypeId === 1) {
+            window.location.replace("/Admin/Account/Login");
+            return;
+        }
         if (window.location.pathname === "/Account/Login") {
             appSettings.authorized = false;
         } else if (window.location.pathname === "/Account/Register") {
@@ -101,6 +110,10 @@ var appController = function () {
                     appSettings.apiToken = result.Data.ApplicationToken.AccessToken;
                     appSettings.apiRefreshToken = result.Data.ApplicationToken.RefreshToken;
                     appSettings.authorized = true;
+                    //if (result.Data.User.SystemUserTypeId === 1) {
+                    //    window.location.replace("/Admin/Account/Login");
+                    //    return;
+                    //}
                 }
                 if (appSettings.authorized) {
                     api.getRefreshToken(appSettings.apiRefreshToken).done(function (result) {
@@ -158,7 +171,18 @@ var appController = function () {
 				}
 			}
 		});
-	}
+    }
+
+    var getUrlVars = function () {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        appSettings.urlParams = vars;
+    }
 
 	return {
 		appSettings: appSettings,

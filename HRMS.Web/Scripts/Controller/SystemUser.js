@@ -101,6 +101,9 @@ var systemUserController = function() {
                 MobileNumber: {
                     required: true,
                     digits: true
+                },
+                CompleteAddress: {
+                    required: true
                 }
             },
             Messages: {
@@ -116,6 +119,9 @@ var systemUserController = function() {
                 MobileNumber: {
                 	required: "Please enter Mobile Number",
                     digits : "Please enter valid Mobile Number",
+                },
+                CompleteAddress: {
+                    required: "Please enter Complete Address"
                 }
             },
         }
@@ -422,7 +428,7 @@ var systemUserController = function() {
             var sizeInKb=sizeInBytes/1000;
 
             
-            appSettings.model.ProfilePicture.FileName = "SILUPOST_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") + ".jpeg";
+            appSettings.model.ProfilePicture.FileName = "HRMS_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") + ".jpeg";
             appSettings.model.ProfilePicture.MimeType = "image/jpeg";
             appSettings.model.ProfilePicture.FileSize = parseInt(sizeInKb);
             // appSettings.model.ProfilePicture.IsDefault = false;
@@ -734,52 +740,52 @@ var systemUserController = function() {
 
         $("#btnOpenWebCam").on("click", OpenWebCam);
 
-        appSettings.model.LegalEntityAddress = [];
-        initGridLegalEntityAddress();
-        $('#table-legalEntityAddress tbody').on('click', 'tr button', function () {
-            for(var i in appSettings.model.LegalEntityAddress){
-                if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
-                    appSettings.model.LegalEntityAddress.splice(i, 1);
-                    dataTableLegalEntityAddress.row($(this).parents("tr")).remove().draw();
-                }
-            }
-        });
+        //appSettings.model.LegalEntityAddress = [];
+        //initGridLegalEntityAddress();
+        //$('#table-legalEntityAddress tbody').on('click', 'tr button', function () {
+        //    for(var i in appSettings.model.LegalEntityAddress){
+        //        if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
+        //            appSettings.model.LegalEntityAddress.splice(i, 1);
+        //            dataTableLegalEntityAddress.row($(this).parents("tr")).remove().draw();
+        //        }
+        //    }
+        //});
 
 
-        $("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
-            if (!formLegalEntityAddress.valid()) {
-                return;
-            }
-            if(appSettings.status.IsNew){
-                appSettings.model.LegalEntityAddress.push(appSettings.LegalEntityAddressModel);
-                dataTableLegalEntityAddress.row.add(
-                    {
-                        LegalEntityAddressId :appSettings.LegalEntityAddressModel.LegalEntityAddressId, 
-                        Address: appSettings.LegalEntityAddressModel.Address 
-                    }).draw();
-                dataTableLegalEntityAddress.columns.adjust();
-                $("#modal-dialog-legalEntityAddress").modal("hide");
-            }
-        });
-        $("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
-            var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-            $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
-            $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
-            $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
+        //$("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
+        //    if (!formLegalEntityAddress.valid()) {
+        //        return;
+        //    }
+        //    if(appSettings.status.IsNew){
+        //        appSettings.model.LegalEntityAddress.push(appSettings.LegalEntityAddressModel);
+        //        dataTableLegalEntityAddress.row.add(
+        //            {
+        //                LegalEntityAddressId :appSettings.LegalEntityAddressModel.LegalEntityAddressId, 
+        //                Address: appSettings.LegalEntityAddressModel.Address 
+        //            }).draw();
+        //        dataTableLegalEntityAddress.columns.adjust();
+        //        $("#modal-dialog-legalEntityAddress").modal("hide");
+        //    }
+        //});
+        //$("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
+        //    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
+        //    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
 
-            appSettings.LegalEntityAddressModel = { LegalEntityAddressId :moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") };
-            appSettings.LegalEntityAddressModel.IsNew = true;
-            appSettings.LegalEntityAddressModel.LegalEntityId = appSettings.model.LegalEntityId;
-            legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+        //    appSettings.LegalEntityAddressModel = { LegalEntityAddressId :moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss") };
+        //    appSettings.LegalEntityAddressModel.IsNew = true;
+        //    appSettings.LegalEntityAddressModel.LegalEntityId = appSettings.model.LegalEntityId;
+        //    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-            //show modal
-            $("#modal-dialog-legalEntityAddress").modal('show');
-            $("body").addClass("modal-open");
+        //    //show modal
+        //    $("#modal-dialog-legalEntityAddress").modal('show');
+        //    $("body").addClass("modal-open");
 
-            formLegalEntityAddress = $("#form-legalEntityAddress");
+        //    formLegalEntityAddress = $("#form-legalEntityAddress");
 
-            initValidationLegalEntityAddress();
-        });
+        //    initValidationLegalEntityAddress();
+        //});
 
     }
     var Edit = function () {
@@ -864,205 +870,205 @@ var systemUserController = function() {
 
                 $("#btnOpenWebCam").on("click", OpenWebCam);
 
-                appSettings.model.LegalEntityAddress = [];
-                initGridLegalEntityAddress();
-                LoadSystemUserAddress();
-                $('#table-legalEntityAddress tbody').on('click', 'tr a.edit', function () {
+            //    appSettings.model.LegalEntityAddress = [];
+            //    initGridLegalEntityAddress();
+            //    LoadSystemUserAddress();
+            //    $('#table-legalEntityAddress tbody').on('click', 'tr a.edit', function () {
 
 
-                    for(var i in appSettings.model.LegalEntityAddress){
-                        if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
+            //        for(var i in appSettings.model.LegalEntityAddress){
+            //            if(appSettings.model.LegalEntityAddress[i].LegalEntityAddressId == $(this).attr("data-value")){
 
-                            appSettings.LegalEntityAddress = appSettings.model.LegalEntityAddress[i];
-                        }
-                    }
+            //                appSettings.LegalEntityAddress = appSettings.model.LegalEntityAddress[i];
+            //            }
+            //        }
 
-                    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('Update Address');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Update');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Update");
+            //        var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-title').html('Update Address');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Update');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Update");
 
-                    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+            //        legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-                    //show modal
-                    $("#modal-dialog-legalEntityAddress").modal('show');
-                    $("body").addClass("modal-open");
+            //        //show modal
+            //        $("#modal-dialog-legalEntityAddress").modal('show');
+            //        $("body").addClass("modal-open");
 
                     
-                    formLegalEntityAddress = $("#form-legalEntityAddress");
+            //        formLegalEntityAddress = $("#form-legalEntityAddress");
 
-                    initValidationLegalEntityAddress();
+            //        initValidationLegalEntityAddress();
 
-                });
-                $('#table-legalEntityAddress tbody').on('click', 'tr a.remove', function () {
+            //    });
+            //    $('#table-legalEntityAddress tbody').on('click', 'tr a.remove', function () {
 
-                    Swal.fire({
-                        title: 'Save',
-                        text: "Do you want to continue!",
-                        type: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',  
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes',
-                        allowOutsideClick: false
-                    })
-                        .then((result) => {
-                            if (result.value) {
-                            circleProgress.show(true);
-                            $.ajax({
-                                    url: app.appSettings.HRMSAPIURI + "/SystemUser/RemoveSystemUserAddress/" + $(this).attr("data-value"),
-                                    type: 'DELETE',
-                                    dataType: "json",
-                                    contentType: 'application/json;charset=utf-8',
-                                    headers: {
-                                        Authorization: 'Bearer ' + app.appSettings.apiToken
-                                    },
-                                    data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                    success: function (result) {
-                                        if (result.IsSuccess) {
-                                            circleProgress.close();
-                                            Swal.fire('Success!',result.Message,'success');
-                                            LoadSystemUserAddress();
-                                        } else {
-                                            Swal.fire('Error!',result.Message,'error');
-                                        }
-                                    },
-                                    failure: function (response) {
-                                        alert(response.responseText);
-                                    },
-                                    error: function (errormessage) {
-                                        $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
-                                        Swal.fire('Error!',errormessage.Message,'error');
-                                        circleProgress.close();
-                                    }
-                                });
-                        }
-                    });
-                });
+            //        Swal.fire({
+            //            title: 'Save',
+            //            text: "Do you want to continue!",
+            //            type: 'question',
+            //            showCancelButton: true,
+            //            confirmButtonColor: '#3085d6',  
+            //            cancelButtonColor: '#d33',
+            //            confirmButtonText: 'Yes',
+            //            allowOutsideClick: false
+            //        })
+            //            .then((result) => {
+            //                if (result.value) {
+            //                circleProgress.show(true);
+            //                $.ajax({
+            //                        url: app.appSettings.HRMSAPIURI + "/SystemUser/RemoveSystemUserAddress/" + $(this).attr("data-value"),
+            //                        type: 'DELETE',
+            //                        dataType: "json",
+            //                        contentType: 'application/json;charset=utf-8',
+            //                        headers: {
+            //                            Authorization: 'Bearer ' + app.appSettings.apiToken
+            //                        },
+            //                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
+            //                        success: function (result) {
+            //                            if (result.IsSuccess) {
+            //                                circleProgress.close();
+            //                                Swal.fire('Success!',result.Message,'success');
+            //                                LoadSystemUserAddress();
+            //                            } else {
+            //                                Swal.fire('Error!',result.Message,'error');
+            //                            }
+            //                        },
+            //                        failure: function (response) {
+            //                            alert(response.responseText);
+            //                        },
+            //                        error: function (errormessage) {
+            //                            $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
+            //                            Swal.fire('Error!',errormessage.Message,'error');
+            //                            circleProgress.close();
+            //                        }
+            //                    });
+            //            }
+            //        });
+            //    });
 
-                $("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
-                    if (!formLegalEntityAddress.valid()) {
-                        return;
-                    }
+            //    $("#modal-dialog-legalEntityAddress #btnSave").on("click", function(){
+            //        if (!formLegalEntityAddress.valid()) {
+            //            return;
+            //        }
                     
-                    Swal.fire({
-                        title: 'Save',
-                        text: "Do you want to continue!",
-                        type: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',  
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes',
-                        allowOutsideClick: false
-                    })
-                    .then((result) => {
-                        if (result.value){
-                            circleProgress.show(true);
-                            if(appSettings.LegalEntityAddressModel.IsNew){
-                                $.ajax({
-                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/createSystemUserAddress",
-                                        type: 'POST',
-                                        dataType: "json",
-                                        contentType: 'application/json;charset=utf-8',
-                                        headers: {
-                                            Authorization: 'Bearer ' + app.appSettings.apiToken
-                                        },
-                                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                        success: function (result) {
-                                            if (result.IsSuccess) {
-                                                circleProgress.close();
-                                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
-                                                    $("#modal-dialog-legalEntityAddress").modal("hide");
-                                                    LoadSystemUserAddress();
-                                                });
-                                            } else {
-                                                Swal.fire("Error!", result.Message, "error").then((result) => {
-                                                });
-                                            }
-                                        },
-                                        failure: function (response) {
-                                            alert(response.responseText);
-                                        },
-                                        error: function (data) {
-                                            var errormessage = "";
-                                            var errorTitle = "";
-                                            if (data.responseJSON.Message != null) {
-                                                erroTitle = "Error!";
-                                                errormessage = data.responseJSON.Message;
-                                            }
-                                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
-                                                erroTitle = "Not Allowed!";
-                                                errormessage = "Already exist!";
-                                            }
-                                            Swal.fire(erroTitle, errormessage, 'error');
-                                            circleProgress.close();
-                                        }
-                                    });
-                            }
-                            else{
+            //        Swal.fire({
+            //            title: 'Save',
+            //            text: "Do you want to continue!",
+            //            type: 'question',
+            //            showCancelButton: true,
+            //            confirmButtonColor: '#3085d6',  
+            //            cancelButtonColor: '#d33',
+            //            confirmButtonText: 'Yes',
+            //            allowOutsideClick: false
+            //        })
+            //        .then((result) => {
+            //            if (result.value){
+            //                circleProgress.show(true);
+            //                if(appSettings.LegalEntityAddressModel.IsNew){
+            //                    $.ajax({
+            //                            url: app.appSettings.HRMSAPIURI + "/SystemUser/createSystemUserAddress",
+            //                            type: 'POST',
+            //                            dataType: "json",
+            //                            contentType: 'application/json;charset=utf-8',
+            //                            headers: {
+            //                                Authorization: 'Bearer ' + app.appSettings.apiToken
+            //                            },
+            //                            data: JSON.stringify(appSettings.LegalEntityAddressModel),
+            //                            success: function (result) {
+            //                                if (result.IsSuccess) {
+            //                                    circleProgress.close();
+            //                                    Swal.fire("Success!", result.Message, "success").then((prompt) => {
+            //                                        $("#modal-dialog-legalEntityAddress").modal("hide");
+            //                                        LoadSystemUserAddress();
+            //                                    });
+            //                                } else {
+            //                                    Swal.fire("Error!", result.Message, "error").then((result) => {
+            //                                    });
+            //                                }
+            //                            },
+            //                            failure: function (response) {
+            //                                alert(response.responseText);
+            //                            },
+            //                            error: function (data) {
+            //                                var errormessage = "";
+            //                                var errorTitle = "";
+            //                                if (data.responseJSON.Message != null) {
+            //                                    erroTitle = "Error!";
+            //                                    errormessage = data.responseJSON.Message;
+            //                                }
+            //                                if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+            //                                    erroTitle = "Not Allowed!";
+            //                                    errormessage = "Already exist!";
+            //                                }
+            //                                Swal.fire(erroTitle, errormessage, 'error');
+            //                                circleProgress.close();
+            //                            }
+            //                        });
+            //                }
+            //                else{
 
-                                $.ajax({
-                                        url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdateSystemUserAddress",
-                                        type: 'PUT',
-                                        dataType: "json",
-                                        contentType: 'application/json;charset=utf-8',
-                                        headers: {
-                                            Authorization: 'Bearer ' + app.appSettings.apiToken
-                                        },
-                                        data: JSON.stringify(appSettings.LegalEntityAddressModel),
-                                        success: function (result) {
-                                            if (result.IsSuccess) {
-                                                circleProgress.close();
-                                                Swal.fire("Success!", result.Message, "success").then((prompt) => {
-                                                    $("#modal-dialog-legalEntityAddress").modal("hide");
-                                                    LoadSystemUserAddress();
-                                                });
-                                            } else {
-                                                Swal.fire("Error!", result.Message, "error").then((result) => {
-                                                });
-                                            }
-                                        },
-                                        failure: function (response) {
-                                            alert(response.responseText);
-                                        },
-                                        error: function (data) {
-                                            var errormessage = "";
-                                            var errorTitle = "";
-                                            if (data.responseJSON.Message != null) {
-                                                erroTitle = "Error!";
-                                                errormessage = data.responseJSON.Message;
-                                            }
-                                            if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
-                                                erroTitle = "Not Allowed!";
-                                                errormessage = "Already exist!";
-                                            }
-                                            Swal.fire(erroTitle, errormessage, 'error');
-                                            circleProgress.close();
-                                        }
-                                    });
-                            }
+            //                    $.ajax({
+            //                            url: app.appSettings.HRMSAPIURI + "/SystemUser/UpdateSystemUserAddress",
+            //                            type: 'PUT',
+            //                            dataType: "json",
+            //                            contentType: 'application/json;charset=utf-8',
+            //                            headers: {
+            //                                Authorization: 'Bearer ' + app.appSettings.apiToken
+            //                            },
+            //                            data: JSON.stringify(appSettings.LegalEntityAddressModel),
+            //                            success: function (result) {
+            //                                if (result.IsSuccess) {
+            //                                    circleProgress.close();
+            //                                    Swal.fire("Success!", result.Message, "success").then((prompt) => {
+            //                                        $("#modal-dialog-legalEntityAddress").modal("hide");
+            //                                        LoadSystemUserAddress();
+            //                                    });
+            //                                } else {
+            //                                    Swal.fire("Error!", result.Message, "error").then((result) => {
+            //                                    });
+            //                                }
+            //                            },
+            //                            failure: function (response) {
+            //                                alert(response.responseText);
+            //                            },
+            //                            error: function (data) {
+            //                                var errormessage = "";
+            //                                var errorTitle = "";
+            //                                if (data.responseJSON.Message != null) {
+            //                                    erroTitle = "Error!";
+            //                                    errormessage = data.responseJSON.Message;
+            //                                }
+            //                                if (data.responseJSON.DeveloperMessage != null && data.responseJSON.DeveloperMessage.includes("Cannot insert duplicate")) {
+            //                                    erroTitle = "Not Allowed!";
+            //                                    errormessage = "Already exist!";
+            //                                }
+            //                                Swal.fire(erroTitle, errormessage, 'error');
+            //                                circleProgress.close();
+            //                            }
+            //                        });
+            //                }
                                 
-                        }
-                    });
-                });
-                $("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
-                    var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
-                    $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
+            //            }
+            //        });
+            //    });
+            //    $("#tab-page-legalEntityAddress #btnNewAddress").on("click", function(){
+            //        var legalEntityAddressTemplate = $.templates('#legalEntityAddress-template');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-title').html('New Address');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').html('Save');
+            //        $("#modal-dialog-legalEntityAddress").find('.modal-footer #btnSave').attr("data-name","Save");
 
-                    appSettings.LegalEntityAddressModel = { LegalEntityId: appSettings.model.LegalEntityId};
-                    appSettings.LegalEntityAddressModel.IsNew = true;
-                    legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
+            //        appSettings.LegalEntityAddressModel = { LegalEntityId: appSettings.model.LegalEntityId};
+            //        appSettings.LegalEntityAddressModel.IsNew = true;
+            //        legalEntityAddressTemplate.link("#modal-dialog-legalEntityAddress .modal-body", appSettings.LegalEntityAddressModel);
 
-                    //show modal
-                    $("#modal-dialog-legalEntityAddress").modal('show');
-                    $("body").addClass("modal-open");
+            //        //show modal
+            //        $("#modal-dialog-legalEntityAddress").modal('show');
+            //        $("body").addClass("modal-open");
 
-                    formLegalEntityAddress = $("#form-legalEntityAddress");
+            //        formLegalEntityAddress = $("#form-legalEntityAddress");
 
-                    initValidationLegalEntityAddress();
-                });
+            //        initValidationLegalEntityAddress();
+            //    });
             });
         }
     }

@@ -4,6 +4,7 @@ using HRMS.API.Helpers;
 using HRMS.API.Models;
 using HRMS.Domain.ViewModel;
 using HRMS.Domain.BindingModel;
+using HRMS.Domain.Enumerations;
 using HRMS.Facade.Interface;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -24,7 +25,7 @@ using System.Net.Http.Headers;
 
 namespace HRMS.API.Controllers
 {
-    [SilupostAuthorizationFilter]
+    [HRMSAuthorizationFilter]
     [RoutePrefix("api/v1/SystemUser")]
     public class SystemUserController : ApiController
     {
@@ -72,7 +73,7 @@ namespace HRMS.API.Controllers
                 response.recordsTotal = recordsTotal;
                 response.data = pageResults.Items.ToList();
 
-                return new SilupostAPIHttpActionResult<DataTableResponseModel<IList<SystemUserViewModel>>>(Request, HttpStatusCode.OK, response);
+                return new HRMSAPIHttpActionResult<DataTableResponseModel<IList<SystemUserViewModel>>>(Request, HttpStatusCode.OK, response);
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace HRMS.API.Controllers
                 exception.DeveloperMessage = ex.Message;
                 exception.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, exception);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, exception);
             }
         }
 
@@ -97,7 +98,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -108,12 +109,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -122,7 +123,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -139,7 +140,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -150,12 +151,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -164,84 +165,91 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("GetByCredentials")]
         [HttpGet]
         [SwaggerOperation("GetByCredentials")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> GetByCredentials(string username, string password)
+        public async Task<IHttpActionResult> GetByCredentials(string username, string password, long systemUserTypeId)
         {
             AppResponseModel<SystemUserViewModel> response = new AppResponseModel<SystemUserViewModel>();
 
             if (string.IsNullOrEmpty(username))
             {
                 response.Message = string.Format(Messages.CustomError, "Invalid Username!");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             if (string.IsNullOrEmpty(password))
             {
                 response.Message = string.Format(Messages.CustomError, "Invalid Password!");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
-
-            try
+            if (systemUserTypeId == (int)SYSTEM_USER_TYPE_ENUMS.USER_PORTAL || systemUserTypeId == (int)SYSTEM_USER_TYPE_ENUMS.USER_WEBADMIN)
             {
-                SystemUserViewModel result = null;
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(GlobalVariables.goOAuthURI);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage responseMessage = new HttpResponseMessage();
-                    List<KeyValuePair<string, string>> allIputParams = new List<KeyValuePair<string, string>>();
-                    allIputParams.Add(new KeyValuePair<string, string>("grant_type", "password"));
-                    allIputParams.Add(new KeyValuePair<string, string>("username", username));
-                    allIputParams.Add(new KeyValuePair<string, string>("password", password));
-                    allIputParams.Add(new KeyValuePair<string, string>("client_id", GlobalVariables.goClientId));
-                    HttpContent requestParams = new FormUrlEncodedContent(allIputParams);
-                    responseMessage = await client.PostAsync("oauth2/token", requestParams);
-
-                    string _json = await responseMessage.Content.ReadAsStringAsync();
-
-                    JObject obj = JsonConvert.DeserializeObject<JObject>(_json);
-                    var token = obj.ToObject<SystemTokenViewModel>();
-
-                    if (responseMessage.IsSuccessStatusCode)
+                    SystemUserViewModel result = null;
+                    using (var client = new HttpClient())
                     {
-                        result = _systemUserFacade.Find(username, password);
+                        client.BaseAddress = new Uri(GlobalVariables.goOAuthURI);
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        HttpResponseMessage responseMessage = new HttpResponseMessage();
+                        List<KeyValuePair<string, string>> allIputParams = new List<KeyValuePair<string, string>>();
+                        allIputParams.Add(new KeyValuePair<string, string>("grant_type", "password"));
+                        allIputParams.Add(new KeyValuePair<string, string>("username", username));
+                        allIputParams.Add(new KeyValuePair<string, string>("password", password));
+                        allIputParams.Add(new KeyValuePair<string, string>("client_id", GlobalVariables.goClientId));
+                        HttpContent requestParams = new FormUrlEncodedContent(allIputParams);
+                        responseMessage = await client.PostAsync("oauth2/token", requestParams);
 
-                        if (result != null)
+                        string _json = await responseMessage.Content.ReadAsStringAsync();
+
+                        JObject obj = JsonConvert.DeserializeObject<JObject>(_json);
+                        var token = obj.ToObject<SystemTokenViewModel>();
+
+                        if (responseMessage.IsSuccessStatusCode)
                         {
-                            result.Token = token;
-                            response.IsSuccess = true;
-                            response.Data = result;
-                            return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                            result = _systemUserFacade.Find(username, password);
+
+                            if (result != null && result.SystemUserType.SystemUserTypeId == systemUserTypeId)
+                            {
+                                result.Token = token;
+                                response.IsSuccess = true;
+                                response.Data = result;
+                                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                            }
+                            else
+                            {
+                                response.Message = string.Format(Messages.CustomError, "Username or Password is incorrect!");
+                                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
+                            }
                         }
                         else
                         {
-                            response.Message = string.Format(Messages.CustomError, "Username or Password is incorrect!");
-                            return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
+                            response.Message = string.IsNullOrEmpty(token.ErrorDescription) ? token.Error : token.ErrorDescription;
+                            response.DeveloperMessage = string.IsNullOrEmpty(token.ErrorDescription) ? token.Error : token.ErrorDescription;
+                            return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
                         }
                     }
-                    else
-                    {
-                        response.Message = string.IsNullOrEmpty(token.ErrorDescription)? token.Error : token.ErrorDescription;
-                        response.DeveloperMessage = string.IsNullOrEmpty(token.ErrorDescription) ? token.Error : token.ErrorDescription;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.NotFound, response);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    response.DeveloperMessage = ex.Message;
+                    response.Message = Messages.ServerError;
+                    //TODO Logging of exceptions
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                response.DeveloperMessage = ex.Message;
-                response.Message = Messages.ServerError;
-                //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                response.Message = string.Format(Messages.CustomError, "Invalid systemUserTypeId!");
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -278,12 +286,12 @@ namespace HRMS.API.Controllers
                     response.IsSuccess = true;
                     response.Message = Messages.Created;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -292,11 +300,11 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("CreateAccount")]
         [HttpPost]
         [ValidateModel]
@@ -312,7 +320,7 @@ namespace HRMS.API.Controllers
                 if (string.IsNullOrEmpty(model.VerificationCode))
                 {
                     response.Message = string.Format(Messages.InvalidId, "Verification Code");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 var verification = _systemUserVerificationFacade.FindBySender(model.VerificationSender, model.VerificationCode);
@@ -320,14 +328,14 @@ namespace HRMS.API.Controllers
                 if (verification == null)
                 {
                     response.Message = "User is not verified";
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 else
                 {
                     if (verification.IsVerified)
                     {
                         response.Message = "Username or Email already in used";
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                 }
                 FileBindingModel profilePic = null;
@@ -354,7 +362,7 @@ namespace HRMS.API.Controllers
                 if(profilePic == null)
                 {
                     response.Message = string.Format(Messages.CustomError, "There is a problem ecountered while creating System User, Default ProfilePic not found");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 string id = _systemUserFacade.CreateAccount(model, profilePic);
@@ -366,12 +374,12 @@ namespace HRMS.API.Controllers
                     response.IsSuccess = true;
                     response.Message = Messages.Created;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -380,11 +388,11 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("CreateWebAdminAccount")]
         [HttpPost]
         [ValidateModel]
@@ -401,7 +409,7 @@ namespace HRMS.API.Controllers
                 {
                     response.Message = string.Format(Messages.InvalidId, "Verification Code");
                     response.DeveloperMessage = response.Message;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 var verification = _systemUserVerificationFacade.FindBySender(model.VerificationSender, model.VerificationCode);
@@ -410,7 +418,7 @@ namespace HRMS.API.Controllers
                 {
                     response.Message = "User is not verified";
                     response.DeveloperMessage = response.Message;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 else
                 {
@@ -418,7 +426,7 @@ namespace HRMS.API.Controllers
                     {
                         response.Message = "Username or Email already in used";
                         response.DeveloperMessage = response.Message;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                 }
 
@@ -447,7 +455,7 @@ namespace HRMS.API.Controllers
                 {
                     response.Message = string.Format(Messages.CustomError, "There is a problem ecountered while creating System User, Default ProfilePic not found");
                     response.DeveloperMessage = response.Message;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 string id = _systemUserFacade.CreateWebAdminAccount(model, profilePic);
@@ -459,12 +467,12 @@ namespace HRMS.API.Controllers
                     response.IsSuccess = true;
                     response.Message = Messages.Created;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.Created, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -473,7 +481,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -492,7 +500,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -506,7 +514,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System User");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 if (model.ProfilePicture != null)
                 {
@@ -541,7 +549,7 @@ namespace HRMS.API.Controllers
                     if (profilePic == null)
                     {
                         response.Message = string.Format(Messages.CustomError, "There is a problem ecountered while creating System User, Default ProfilePic not found");
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                     model.ProfilePicture = profilePic;
                 }
@@ -554,12 +562,12 @@ namespace HRMS.API.Controllers
                     result = _systemUserFacade.Find(model.SystemUserId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -567,7 +575,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -586,7 +594,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -600,7 +608,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System User");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 var root = HttpContext.Current.Server.MapPath(GlobalVariables.goDefaultSystemUploadRootDirectory);
 
@@ -616,12 +624,12 @@ namespace HRMS.API.Controllers
                     result = _systemUserFacade.Find(model.SystemUserId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -629,7 +637,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -648,7 +656,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserId))
             {
                 response.Message = string.Format(Messages.InvalidId, "SystemUserId");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -662,7 +670,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _systemUserFacade.UpdateUsername(model, RecordedBy);
@@ -673,12 +681,12 @@ namespace HRMS.API.Controllers
                     result = _systemUserFacade.Find(model.SystemUserId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -686,11 +694,11 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("ResetPassword")]
         [HttpPut]
         [ValidateModel]
@@ -705,7 +713,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -714,7 +722,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "SystemUserId");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _systemUserFacade.ResetPassword(model, model.SystemUserId);
@@ -725,12 +733,12 @@ namespace HRMS.API.Controllers
                     result = _systemUserFacade.Find(model.SystemUserId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -738,7 +746,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -757,7 +765,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -771,13 +779,13 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "SystemUserId");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 var userLogin = _systemUserFacade.Find(result.UserName, model.OldPassword);
                 if (userLogin == null)
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _systemUserFacade.UpdatePassword(model, RecordedBy);
@@ -788,12 +796,12 @@ namespace HRMS.API.Controllers
                     result = _systemUserFacade.Find(model.SystemUserId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -801,7 +809,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -818,7 +826,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User");
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -833,7 +841,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System User");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _systemUserFacade.Remove(id, RecordedBy);
@@ -842,12 +850,12 @@ namespace HRMS.API.Controllers
                 if (success)
                 {
                     response.Message = Messages.Removed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -856,7 +864,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -873,7 +881,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(legalEntityId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User LegalEntity Address");
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -884,12 +892,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -898,7 +906,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<LegalEntityAddressViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -924,12 +932,12 @@ namespace HRMS.API.Controllers
                     response.IsSuccess = true;
                     response.Message = Messages.Created;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.Created, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.Created, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -938,7 +946,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -957,7 +965,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.LegalEntityAddressId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User LegalEntity Address");
-                return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -966,7 +974,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System User LegalEntity Address");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 bool success = _legalEntityAddressFacade.Update(model);
                 response.IsSuccess = success;
@@ -976,12 +984,12 @@ namespace HRMS.API.Controllers
                     result = _legalEntityAddressFacade.Find(model.LegalEntityAddressId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -989,7 +997,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<LegalEntityAddressViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -1006,7 +1014,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User LegalEntity Address");
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -1016,7 +1024,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System User LegalEntity Address");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _legalEntityAddressFacade.Remove(id);
@@ -1025,12 +1033,12 @@ namespace HRMS.API.Controllers
                 if (success)
                 {
                     response.Message = Messages.Removed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -1039,12 +1047,12 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("GetRefreshToken")]
         [HttpGet]
         [SwaggerOperation("GetRefreshToken")]
@@ -1057,7 +1065,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(RefreshToken))
             {
                 response.Message = string.Format(Messages.CustomError, "Invalid Refresh Token!");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -1085,20 +1093,20 @@ namespace HRMS.API.Controllers
                         {
                             response.IsSuccess = true;
                             response.Data = token;
-                            return new SilupostAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.OK, response);
+                            return new HRMSAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.OK, response);
                         }
                         else
                         {
                             response.Message = Messages.ServerError;
                             response.DeveloperMessage = responseMessage.Content.ReadAsAsync<HttpError>().Result.ExceptionMessage;
-                            return new SilupostAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.NotFound, response);
+                            return new HRMSAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.NotFound, response);
                         }
                     }
                     else
                     {
                         response.Message = token.Error;
                         response.DeveloperMessage = responseMessage.Content.ReadAsAsync<HttpError>().Result.ExceptionMessage;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.NotFound, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.NotFound, response);
                     }
                 }
             }
@@ -1107,7 +1115,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemTokenViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -1127,7 +1135,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemUserConfigId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System User Config");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -1143,12 +1151,12 @@ namespace HRMS.API.Controllers
                 if (success)
                 {
                     response.Message = Messages.Updated;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -1156,7 +1164,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
     }

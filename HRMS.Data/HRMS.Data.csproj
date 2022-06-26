@@ -45,9 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentDAC.cs" />
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\RepositoryBase.cs" />
+    <Compile Include="DiagnosisDAC.cs" />
+    <Compile Include="Entity\AppointmentStatusModel.cs" />
     <Compile Include="Entity\CivilStatusModel.cs" />
+    <Compile Include="Entity\AppointmentModel.cs" />
+    <Compile Include="Entity\DiagnosisModel.cs" />
     <Compile Include="Entity\EntityApprovalStatusModel.cs" />
     <Compile Include="Entity\LegalEntityAddressModel.cs" />
     <Compile Include="Entity\LookupModel.cs" />
@@ -74,6 +79,8 @@
     <Compile Include="Entity\SystemWebAdminRolePrivilegesModel.cs" />
     <Compile Include="Entity\SystemUserModel.cs" />
     <Compile Include="Entity\SystemWebAdminUserRolesModel.cs" />
+    <Compile Include="Interface\IAppointmentRepositoryDAC.cs" />
+    <Compile Include="Interface\IDiagnosisRepositoryDAC.cs" />
     <Compile Include="Interface\IDoctorRepositoryDAC.cs" />
     <Compile Include="Interface\ISystemConfigRepositoryDAC.cs" />
     <Compile Include="Interface\IPatientRepositoryDAC.cs" />

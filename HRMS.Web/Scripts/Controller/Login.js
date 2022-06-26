@@ -4,7 +4,7 @@
         var getUserByCredentials = function(model)
         {
             return $.ajax({
-                url: apiURI + "SystemUser/GetByCredentials?Username=" + model.Username + "&Password=" + model.Password,
+                url: apiURI + "SystemUser/GetByCredentials?Username=" + model.Username + "&Password=" + model.Password + "&SystemUserTypeId=" + app.appSettings.SystemUserTypeId,
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
@@ -20,9 +20,20 @@
             });
         }
 
+        var setApplicationStateAdmin = function (ApplicationState) {
+            return $.ajax({
+                url: "/Admin/Account/SetApplicationState",
+                data: JSON.stringify(ApplicationState),
+                type: "POST",
+                contentType: 'application/json;charset=utf-8',
+                dataType: "json",
+            });
+        }
+
         return {
             getUserByCredentials: getUserByCredentials,
-            setApplicationState: setApplicationState
+            setApplicationState: setApplicationState,
+            setApplicationStateAdmin: setApplicationStateAdmin,
         };
     }
 
@@ -97,6 +108,7 @@
                         var appState = {
                             User: {
                                 UserId: result.Data.SystemUserId,
+                                SystemUserTypeId: result.Data.SystemUserType.SystemUserTypeId,
                                 Username: result.Data.UserName,
                                 Password: result.Data.Password,
                                 LegalEntityId: result.Data.LegalEntity.LegalEntityId,
@@ -130,16 +142,28 @@
                             });
 
                         }
-
-                        api.setApplicationState(appState).done(function (result) {
-                            if (result.Success) {
-                                window.location.replace("/");
-                                circleProgress.close();
-                            } else {
-                                Swal.fire('Error!', result.Message, 'error');
-                                circleProgress.close();
-                            }
-                        });
+                        if (app.appSettings.SystemUserTypeId === 1) {
+                            api.setApplicationStateAdmin(appState).done(function (result) {
+                                if (result.Success) {
+                                    window.location.replace("/Admin/");
+                                    circleProgress.close();
+                                } else {
+                                    Swal.fire('Error!', result.Message, 'error');
+                                    circleProgress.close();
+                                }
+                            });
+                        }
+                        else {
+                            api.setApplicationState(appState).done(function (result) {
+                                if (result.Success) {
+                                    window.location.replace("/");
+                                    circleProgress.close();
+                                } else {
+                                    Swal.fire('Error!', result.Message, 'error');
+                                    circleProgress.close();
+                                }
+                            });
+                        }
                     } else {
                         $(".content").find("input,button,a").prop("disabled", false).removeClass("disabled");
                         circleProgress.close();

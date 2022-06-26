@@ -25,7 +25,7 @@ using System.Net.Http.Headers;
 
 namespace HRMS.API.Controllers
 {
-    [SilupostAuthorizationFilter]
+    [HRMSAuthorizationFilter]
     [RoutePrefix("api/v1/SystemUserVerification")]
     public class SystemUserVerificationController : ApiController
     {
@@ -52,13 +52,13 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(sender))
             {
                 response.Message = string.Format(Messages.CustomError, "Invalid Sender!");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             if (string.IsNullOrEmpty(code))
             {
                 response.Message = string.Format(Messages.CustomError, "Invalid Code!");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -69,12 +69,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -83,7 +83,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -114,33 +114,55 @@ namespace HRMS.API.Controllers
                     //    response.IsSuccess = true;
                     //    response.Message = Messages.Created;
                     //    response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
-                    //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                    //    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     //}
                     //else
                     //{
                     //    response.Message = Messages.Failed;
-                    //    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    //    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     //}
 
-                    var success = SMSService.SendVerification(model.VerificationSender, result.VerificationCode);
-
-                    if (success)
+                    var success = false;
+                    if (string.IsNullOrEmpty(GlobalVariables.goUserVerificationEnable))
                     {
-                        response.IsSuccess = true;
-                        response.Message = Messages.Created;
-                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                        response.Message = string.Format(Messages.CustomError, "Invalid User Verification Enable value!");
+                        response.DeveloperMessage = string.Format(Messages.CustomError, "Invalid User Verification Enable value!");
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    }
+
+
+                    string[] stringArray = { "1", "true", "Yes", "Enable" };
+                    var userVerificationEnable = stringArray.ToList().Any(x => GlobalVariables.goUserVerificationEnable.ToLower().Contains(x.ToLower()));
+                    if (userVerificationEnable)
+                    {
+                        success = SMSService.SendVerification(model.VerificationSender, result.VerificationCode);
+                        if (success)
+                        {
+                            response.IsSuccess = true;
+                            response.Message = Messages.Created;
+                            response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender, IsVerificationEnable = true, };
+                            return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                        }
+                        else
+                        {
+                            response.Message = Messages.Failed;
+                            return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        }
                     }
                     else
                     {
-                        response.Message = Messages.Failed;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        response.IsSuccess = true;
+                        response.Message = Messages.Created;
+                        response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender, IsVerificationEnable = false, VerificationCode = code };
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     }
+
+
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -149,7 +171,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
         
@@ -181,18 +203,18 @@ namespace HRMS.API.Controllers
                         response.IsSuccess = true;
                         response.Message = Messages.Created;
                         response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     }
                     else
                     {
                         response.Message = Messages.Failed;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -201,7 +223,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -229,7 +251,7 @@ namespace HRMS.API.Controllers
                     if(result == null)
                     {
                         response.Message = Messages.NoRecord;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.NotFound, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.NotFound, response);
                     }
                     var verification = _systemUserVerificationFacade.FindById(id);
 
@@ -240,18 +262,18 @@ namespace HRMS.API.Controllers
                         response.IsSuccess = true;
                         response.Message = Messages.Created;
                         response.Data = new SystemUserVerificationViewModel() { VerificationSender = model.VerificationSender };
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.Created, response);
                     }
                     else
                     {
                         response.Message = Messages.Failed;
-                        return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                        return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
                     }
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -260,7 +282,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemUserVerificationViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
     }

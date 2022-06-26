@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Title -->
+<h1 class="section-title" id="services"><span>Dashboard</span></h1>
+<!-- End Title -->
+<!--breadcrum start-->
+<ol class="breadcrumb text-left">
+    <li>
+        @ViewBag.Page.Module
+    </li>
+    @if (ViewBag.Page.ParentName != null)
+    {
+        <li><a href="@ViewBag.Page.ParentName">@ViewBag.Page.ParentTitle</a></li>
+    }
+    <li>
+        @ViewBag.Page.Title
+    </li>
+</ol><!--breadcrum end-->
+<div class="row ">
+
+			<!-- table card code and example -->
+			<div class="col-md-12">
+				<div class="component-box">
+					<!-- table card example -->
+                    <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+					    <div class="pmd-card-title">
+						    <h2 class="pmd-card-title-text">@ViewBag.Page.Title</h2>
+					    </div>	
+                        <div class="pmd-card-body">
+					        
+
+                        </div>
+				    </div> 
+                    <!-- table card example end -->
+
+				</div>
+			</div>
+			<!-- table card code and example end -->
+</div>
+
+@section Scripts{
+}

@@ -33,6 +33,7 @@ namespace HRMS.Data
                     model.BirthDate,
                     model.EmailAddress,
                     model.MobileNumber,
+                    model.CompleteAddress,
                 }, commandType: CommandType.StoredProcedure));
 
                 if (id.Contains("Error"))
@@ -67,6 +68,7 @@ namespace HRMS.Data
                     model.BirthDate,
                     model.EmailAddress,
                     model.MobileNumber,
+                    model.CompleteAddress,
                 }, commandType: CommandType.StoredProcedure));
 
                 if (result.Contains("Error"))

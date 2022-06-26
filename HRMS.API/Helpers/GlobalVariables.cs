@@ -22,6 +22,10 @@ namespace HRMS.API.Helpers
         public static string goDefaultItemTypeIconFilePath { get; set; }
         public static string goDefaultItemBrandIconFilePath { get; set; }
         public static string goDefaultItemIconFilePath { get; set; }
+        //Verification
+        public static string goUserVerificationEnable { get; set; }
+
+
         //Email Service
         public static string goEmailVerificationTempPath { get; set; }
         public static string goChangePasswordTempPath { get; set; }

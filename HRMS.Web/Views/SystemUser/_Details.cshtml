@@ -3,7 +3,7 @@
     <div id="user-details-tab-control" class="pmd-tabs pmd-tabs-bg">
         <ul id="user-details-tab-nav" class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a id="tab-control-legalentity" href="#tab-page-legalentity" aria-controls="tab-legalentity" role="tab" data-toggle="tab">Details</a></li>
-            <li role="presentation"><a id="tab-control-legalEntityAddress" href="#tab-page-legalEntityAddress" aria-controls="tab-legalEntityAddress" role="tab" data-toggle="tab">Address/Location</a></li>
+            @*<li role="presentation"><a id="tab-control-legalEntityAddress" href="#tab-page-legalEntityAddress" aria-controls="tab-legalEntityAddress" role="tab" data-toggle="tab">Address/Location</a></li>*@
             <li role="presentation"><a id="tab-control-credentials" href="#tab-page-credentials" aria-controls="tab-credentials" role="tab" data-toggle="tab">Credentials</a></li>
             <li role="presentation"><a id="tab-control-roles" href="#tab-page-roles" aria-controls="tab-roles" role="tab" data-toggle="tab">Roles</a></li>
         </ul>
@@ -33,7 +33,7 @@
 
                 @Html.Partial("~/Views/LegalEntity/_LegalEntity.cshtml")
             </div>
-            <div role="tabpanel" class="tab-pane" id="tab-page-legalEntityAddress">
+            @*<div role="tabpanel" class="tab-pane" id="tab-page-legalEntityAddress">
 
                 <div class="group-fields clearfix row">
                     <div class="col-xs-12">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>*@
             <div role="tabpanel" class="tab-pane" id="tab-page-credentials">
                 <form id="form-systemUser">
                     <div class="group-fields clearfix row">

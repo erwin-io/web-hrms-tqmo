@@ -259,3 +259,11 @@
 .select2-container--bootstrap .select2-selection--single {
     padding: 6px 24px 6px 6px!important;
 }
+
+.btn-default {
+    background-color: #ffffff!important;
+}
+
+.breadcrumb {
+    margin-top: 20px !important;
+}

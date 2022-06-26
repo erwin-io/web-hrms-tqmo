@@ -8,7 +8,7 @@ using HRMS.API.Helpers;
 
 namespace HRMS.API.Filters
 {
-    public class SilupostAuthorizationFilter : AuthorizeAttribute
+    public class HRMSAuthorizationFilter : AuthorizeAttribute
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {

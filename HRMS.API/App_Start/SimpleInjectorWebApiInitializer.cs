@@ -44,6 +44,8 @@ namespace HRMS.API.App_Start
             GlobalVariables.goDefaultSystemUserProfilePicPath = GlobalVariables.GetApplicationConfig("DefaultSystemUserProfilePic");
             GlobalVariables.goDefaultSystemUploadRootDirectory = GlobalVariables.GetApplicationConfig("DefaultSystemUploadRootDirectory");
 
+            GlobalVariables.goUserVerificationEnable = GlobalVariables.GetApplicationConfig("UserVerificationEnable");
+
             GlobalVariables.goEmailVerificationTempPath = GlobalVariables.GetApplicationConfig("EmailVerificationTempPath");
             GlobalVariables.goChangePasswordTempPath = GlobalVariables.GetApplicationConfig("ChangePasswordTempPath");
             GlobalVariables.goForgotPasswordTempPath = GlobalVariables.GetApplicationConfig("ForgotPasswordTempPath");
@@ -77,6 +79,8 @@ namespace HRMS.API.App_Start
             container.Register<ISystemConfigRepositoryDAC, SystemConfigDAC>(Lifestyle.Scoped);
             container.Register<IPatientRepositoryDAC, PatientDAC>(Lifestyle.Scoped);
             container.Register<IDoctorRepositoryDAC, DoctorDAC>(Lifestyle.Scoped);
+            container.Register<IAppointmentRepositoryDAC, AppointmentDAC>(Lifestyle.Scoped);
+            container.Register<IDiagnosisRepositoryDAC, DiagnosisDAC>(Lifestyle.Scoped);
             #endregion
 
             #region Facade
@@ -92,6 +96,8 @@ namespace HRMS.API.App_Start
             container.Register<ISystemConfigFacade, SystemConfigFacade>(Lifestyle.Scoped);
             container.Register<IPatientFacade, PatientFacade>(Lifestyle.Scoped);
             container.Register<IDoctorFacade, DoctorFacade>(Lifestyle.Scoped);
+            container.Register<IAppointmentFacade, AppointmentFacade>(Lifestyle.Scoped);
+            container.Register<IDiagnosisFacade, DiagnosisFacade>(Lifestyle.Scoped);
             #endregion
         }
     }

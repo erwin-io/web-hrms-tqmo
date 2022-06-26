@@ -24,7 +24,7 @@ using System.Net.Http.Headers;
 
 namespace HRMS.API.Controllers
 {
-    [SilupostAuthorizationFilter]
+    [HRMSAuthorizationFilter]
     [RoutePrefix("api/v1/Doctor")]
     public class DoctorController : ApiController
     {
@@ -66,7 +66,7 @@ namespace HRMS.API.Controllers
                 response.recordsTotal = recordsTotal;
                 response.data = pageResults.Items.ToList();
 
-                return new SilupostAPIHttpActionResult<DataTableResponseModel<IList<DoctorViewModel>>>(Request, HttpStatusCode.OK, response);
+                return new HRMSAPIHttpActionResult<DataTableResponseModel<IList<DoctorViewModel>>>(Request, HttpStatusCode.OK, response);
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace HRMS.API.Controllers
                 exception.DeveloperMessage = ex.Message;
                 exception.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, exception);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, exception);
             }
         }
 
@@ -91,7 +91,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "Doctor");
-                return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -102,12 +102,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -116,7 +116,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -148,12 +148,12 @@ namespace HRMS.API.Controllers
                     response.IsSuccess = true;
                     response.Message = Messages.Created;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.Created, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.Created, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
 
                 }
             }
@@ -162,7 +162,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -181,7 +181,7 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.DoctorId))
             {
                 response.Message = string.Format(Messages.InvalidId, "Doctor");
-                return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -195,7 +195,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "Doctor");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _doctor.Update(model, RecordedBy);
@@ -206,12 +206,12 @@ namespace HRMS.API.Controllers
                     result = _doctor.Find(model.DoctorId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -219,7 +219,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<DoctorViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -236,7 +236,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "Doctor");
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -251,7 +251,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "Doctor");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
                 }
 
                 bool success = _doctor.Remove(id, RecordedBy);
@@ -260,12 +260,12 @@ namespace HRMS.API.Controllers
                 if (success)
                 {
                     response.Message = Messages.Removed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -274,7 +274,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<object>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
     }

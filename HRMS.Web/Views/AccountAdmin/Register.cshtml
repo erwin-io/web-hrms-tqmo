@@ -1,0 +1,313 @@
+﻿
+@{
+    Layout = "~/Views/AccountAdmin/_Layout.cshtml";
+}
+
+
+@section Styles{
+    <style type="text/css">
+        body, html {
+            height: 100%;
+        }
+
+        .account-h-100 {
+            height: 100% !important;
+        }
+
+        .account-align-items-center {
+            -ms-flex-align: center !important;
+            align-items: center !important;
+        }
+
+        .account-container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .account-justify-content-center {
+            -ms-flex-pack: center !important;
+            justify-content: center !important;
+        }
+
+        .account-row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .accountcard {
+            min-width: 400px;
+            max-width: 400px;
+        }
+
+            .accountcard .pmd-checkbox [type=checkbox]:checked,
+            .accountcard .pmd-radio [type=radio]:checked,
+            .accountcard .pmd-checkbox [type=checkbox]:not(:checked),
+            .accountcard .pmd-radio [type=radio]:not(:checked) {
+                position: relative !important;
+                left: 0 !important;
+                margin: 0 !important;
+                display: inline !important;
+            }
+    </style>
+}
+<div class="account-container account-h-100">
+    <div class="account-row account-h-100 account-justify-content-center account-align-items-center">
+
+        <div id="accountcard" class="accountcard">
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script src="~/Scripts/Controller/Register.js"></script>
+    <script>
+        register.init();
+    </script>
+    <script id="verification-template" type="text/x-jsrender">
+
+        <div class="pmd-card card-default pmd-z-depth">
+            <div class="login-card">
+                <div class="pmd-card-title card-header-border text-center">
+                    <a href="javascript:void(0);"><img width="100" height="100" src="/Resources/Images/hrms_logo.png" alt="Logo"></a>
+                    <br />
+                    <br />
+                    <h3>Create account</h3>
+                </div>
+
+                <div class="pmd-card-body">
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <div class="radio">
+                                <label class="pmd-radio pmd-radio-ripple-effect">
+                                    <input type="radio" name="btnRadioVerification" id="btnRadioMobileNumberVerification" value="MobileNumber" checked>
+                                    <span for="btnRadioMobileNumberVerification">Mobile Number</span>
+                                </label>
+                            </div>
+                            <div class="radio hidden">
+                                <label class="pmd-radio pmd-radio-ripple-effect">
+                                    <input type="radio" name="btnRadioVerification" id="btnRadioEmailVerification" value="Email">
+                                    <span for="btnRadioEmailVerification">Email</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="form-verification-number">
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="MobileNumberVerification" name="MobileNumberVerification" data-link="MobileNumberVerification" type="text" placeholder=" " />
+                                    <span>Mobile Number</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="form-verification-email">
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="EmailVerification" name="EmailVerification" data-link="EmailVerification" placeholder=" " type="email" />
+                                    <span>Email</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <button type="submit" href="javascript:void(0);" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" style="width:100%!important" id="btn-verify">Submit</button>
+                    <p class="redirection-link">Already have an account? <a href="/Account/Login" class="register-login">Sign In</a>. </p>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+    <script id="confirmVerification-template" type="text/x-jsrender">
+
+        <div class="pmd-card card-default pmd-z-depth">
+            <div class="login-card">
+                <div class="pmd-card-title card-header-border text-center">
+                    <a href="javascript:void(0);"><img width="100" height="100" src="/Resources/Images/SIGIN_LOGO.png" alt="Logo"></a>
+                    <h3>Create account <span>with <strong>HRMS</strong></span></h3>
+                </div>
+
+                <div class="pmd-card-body">
+                    <form id="form-confirmVerification">
+                        <div class="group-fields clearfix row hidden">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="VerificationSender" name="VerificationSender" data-link="VerificationSender" type="text" placeholder=" " disabled />
+                                    <span>Verification Sender</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="VerificationCode" name="VerificationCode" data-link="VerificationCode" type="text" placeholder=" " />
+                                    <span>Verification code</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <button type="submit" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" style="width:100%!important" id="btn-step-confirmverification">Submit</button>
+                    <br />
+                    <br />
+                    <button class="btn pmd-ripple-effect btn-default" id="btn-step-confirmverification-back">Back</button>
+                    <p class="redirection-link">Already have an account? <a href="/Account/Login" class="register-login">Sign In</a>. </p>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+    <script id="credentials-template" type="text/x-jsrender">
+
+        <div class="pmd-card card-default pmd-z-depth">
+            <div class="login-card">
+                <div class="pmd-card-title card-header-border text-center">
+                    <a href="javascript:void(0);"><img width="100" height="100" src="/Resources/Images/SIGIN_LOGO.png" alt="Logo"></a>
+                    <h3>Create account <span>with <strong>HRMS</strong></span></h3>
+                </div>
+
+                <div class="pmd-card-body">
+                    <form id="form-credentials">
+                        {^{if IsMobile}}
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="MobileNumberVerification" name="MobileNumberVerification" data-link="MobileNumberVerification" type="text" placeholder=" " disabled />
+                                    <span>Mobile Number (Username)</span>
+                                </label>
+                            </div>
+                        </div>
+                        {{/if}}
+                        {^{if IsEmail}}
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="EmailVerification" name="EmailVerification" data-link="EmailVerification" placeholder=" " type="email" disabled />
+                                    <span>Email (Username)</span>
+                                </label>
+                            </div>
+                        </div>
+                        {{/if}}
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="Password" type="password" name="Password" data-link="Password" placeholder=" " />
+                                    <span>Password</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="ConfirmPassword" type="password" name="ConfirmPassword" data-link="ConfirmPassword" placeholder=" " />
+                                    <span>ConfirmPassword</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <button type="submit" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" style="width:100%!important" id="btn-step-credentials">Next</button>
+                    <br />
+                    <br />
+                    <button class="btn pmd-ripple-effect btn-default" id="btn-step-credentials-back">Back</button>
+                    <p class="redirection-link">Already have an account? <a href="/Account/Login" class="register-login">Sign In</a>. </p>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+    <script id="basicinfo-template" type="text/x-jsrender">
+
+        <div class="pmd-card card-default pmd-z-depth">
+            <div class="login-card">
+                <div class="pmd-card-title card-header-border text-center">
+                    <a href="javascript:void(0);"><img width="100" height="100" src="/Resources/Images/SIGIN_LOGO.png" alt="Logo"></a>
+                    <h3>Create account <span>with <strong>HRMS</strong></span></h3>
+                </div>
+
+                <div class="pmd-card-body">
+                    <form id="form-basicinfo">
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="FirstName" name="FirstName" data-link="FirstName" placeholder=" " />
+                                    <span>FirstName</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="MiddleName" name="MiddleName" data-link="MiddleName" placeholder=" " />
+                                    <span>MiddleName</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <input id="LastName" name="LastName" data-link="LastName" placeholder=" " />
+                                    <span>LastName</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="BirthDate" class="control-label">Birth Date</label>
+                                    <input type="text" id="BirthDate" name="BirthDate" data-link="{formatDate:BirthDate}" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label>Gender</label>
+                                    <select id="GenderId" name="GenderId" data-link="GenderId" class="select-simple form-control pmd-select2">
+                                        {^{for lookup.EntityGender}}
+                                        <option value="{{>Id}}">{{>Name}}</option>
+                                        {{/for}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-fields clearfix row">
+                            <div class="col-xs-12">
+                                <label class="form-group pure-material-textfield-outlined">
+                                    <textarea id="CompleteAddress" name="CompleteAddress" data-link="CompleteAddress" placeholder=" "></textarea>
+                                    <span>Complete Address</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                    <button type="submit" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" style="width:100%!important" id="btn-step-basicinfo">Create Account</button>
+                    <br />
+                    <br />
+                    <button class="btn pmd-ripple-effect btn-default" id="btn-step-basicinfo-back">Back</button>
+                    <p class="redirection-link">Already have an account? <a href="/Admin/Account/Login" class="register-login">Sign In</a>. </p>
+                </div>
+
+            </div>
+        </div>
+    </script>
+
+}
+

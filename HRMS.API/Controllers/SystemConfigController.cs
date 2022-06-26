@@ -37,7 +37,7 @@ namespace HRMS.API.Controllers
         }
         #endregion
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("")]
         [HttpGet]
         [SwaggerOperation("getAll")]
@@ -54,12 +54,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.NotFound, response);
                 }
             }
             catch (Exception ex)
@@ -67,11 +67,11 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<IList<SystemConfigViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("{id}/detail")]
         [HttpGet]
         [SwaggerOperation("get")]
@@ -83,7 +83,7 @@ namespace HRMS.API.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 response.Message = string.Format(Messages.InvalidId, "System Config");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -94,12 +94,12 @@ namespace HRMS.API.Controllers
                 {
                     response.IsSuccess = true;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.NoRecord;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.NotFound, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.NotFound, response);
                 }
 
             }
@@ -108,7 +108,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
@@ -125,8 +125,8 @@ namespace HRMS.API.Controllers
             try
             {
                 response.IsSuccess = true;
-                response.Data = GlobalVariables.goEnableAPI ? (int)SilupostServerStatusEnums.ACTIVE : (int)SilupostServerStatusEnums.DISABLED;
-                return new SilupostAPIHttpActionResult<AppResponseModel<int>>(Request, HttpStatusCode.OK, response);
+                response.Data = GlobalVariables.goEnableAPI ? (int)HRMSServerStatusEnums.ACTIVE : (int)HRMSServerStatusEnums.DISABLED;
+                return new HRMSAPIHttpActionResult<AppResponseModel<int>>(Request, HttpStatusCode.OK, response);
 
             }
             catch (Exception ex)
@@ -134,11 +134,11 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<int>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<int>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
 
-        [SilupostAuthorizationFilter]
+        [HRMSAuthorizationFilter]
         [Route("")]
         [HttpPut]
         [ValidateModel]
@@ -153,7 +153,7 @@ namespace HRMS.API.Controllers
             if (model != null && model.SystemConfigId == 0)
             {
                 response.Message = string.Format(Messages.InvalidId, "System Config Id");
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -167,7 +167,7 @@ namespace HRMS.API.Controllers
                 if (result == null)
                 {
                     response.Message = string.Format(Messages.InvalidId, "System Config");
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
                 }
                 bool success = _systemConfigFacade.Update(model);
                 response.IsSuccess = success;
@@ -177,12 +177,12 @@ namespace HRMS.API.Controllers
                     result = _systemConfigFacade.Find(model.SystemConfigId);
                     response.Message = Messages.Updated;
                     response.Data = result;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -190,7 +190,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<SystemConfigViewModel>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
     }

@@ -43,12 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentFacade.cs" />
+    <Compile Include="Interface\IAppointmentFacade.cs" />
     <Compile Include="Interface\IDoctorFacade.cs" />
+    <Compile Include="Interface\IDiagnosisFacade.cs" />
     <Compile Include="Interface\ISystemConfigFacade.cs" />
     <Compile Include="Interface\IPatientFacade.cs" />
     <Compile Include="Interface\ISystemUserVerificationFacade.cs" />
     <Compile Include="Interface\ISystemWebAdminRolePrivilegesFacade.cs" />
     <Compile Include="DoctorFacade.cs" />
+    <Compile Include="DiagnosisFacade.cs" />
     <Compile Include="SystemConfigFacade.cs" />
     <Compile Include="PatientFacade.cs" />
     <Compile Include="SystemUserVerificationFacade.cs" />

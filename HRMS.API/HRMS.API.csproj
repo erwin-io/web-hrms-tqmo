@@ -294,6 +294,8 @@
     <Compile Include="App_Start\SimpleInjectorWebApiInitializer.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\SystemConfigController.cs" />

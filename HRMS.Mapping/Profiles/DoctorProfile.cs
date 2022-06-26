@@ -22,6 +22,7 @@ namespace HRMS.Mapping.Profiles
                         EmailAddress = src.EmailAddress,
                         MobileNumber = src.MobileNumber,
                         BirthDate = src.BirthDate,
+                        CompleteAddress = src.CompleteAddress,
                         Gender = new EntityGenderModel() { GenderId = src.GenderId },
                     }))
                 .ForPath(dest => dest.SystemRecordManager, opt => opt.MapFrom(src =>
@@ -38,6 +39,7 @@ namespace HRMS.Mapping.Profiles
                         EmailAddress = src.EmailAddress,
                         MobileNumber = src.MobileNumber,
                         BirthDate = src.BirthDate,
+                        CompleteAddress = src.CompleteAddress,
                         Age = 0,
                         Gender = new EntityGenderModel() { GenderId = src.GenderId }
                     }))

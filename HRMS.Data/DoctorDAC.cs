@@ -27,7 +27,6 @@ namespace HRMS.Data
                 var id = Convert.ToString(_dBConnection.ExecuteScalar("usp_doctor_add", new
                 {
                     model.LegalEntity.LegalEntityId,
-                    model.CompleteAddress,
                     model.SystemRecordManager.CreatedBy,
                 }, commandType: CommandType.StoredProcedure));
 
@@ -162,7 +161,6 @@ namespace HRMS.Data
                 var result = Convert.ToString(_dBConnection.ExecuteScalar("usp_doctor_update", new
                 {
                     model.DoctorId,
-                    model.CompleteAddress,
                     model.SystemRecordManager.LastUpdatedBy
                 }, commandType: CommandType.StoredProcedure));
 

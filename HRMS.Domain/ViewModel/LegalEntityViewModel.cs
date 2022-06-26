@@ -15,6 +15,7 @@ namespace HRMS.Domain.ViewModel
         public long? Age { get; set; }
         public string EmailAddress { get; set; }
         public long? MobileNumber { get; set; }
+        public string CompleteAddress { get; set; }
         public List<LegalEntityAddressViewModel> LegalEntityAddress { get; set; }
         public EntityStatusViewModel EntityStatus { get; set; }
     }

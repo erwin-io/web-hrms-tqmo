@@ -7,6 +7,7 @@ using HRMS.Web.Models;
 
 namespace HRMS.Web.Controllers
 {
+    [RoutePrefix("Admin/Patients")]
     public class PatientController : Controller
     {
 
@@ -14,6 +15,9 @@ namespace HRMS.Web.Controllers
         {
         }
 
+
+        [HttpGet]
+        [Route]
         //
         // GET: /Home/
         [AuthorizationPrivilegeFilter(Pagename = "Patients", DisplayName = "Patients", EnablePrivilegeFilter = true)]
@@ -26,5 +30,24 @@ namespace HRMS.Web.Controllers
             ViewBag.Page = page;
             return View();
         }
-	}
+
+        [HttpGet]
+        [Route("{id}")]
+        [AuthorizationPrivilegeFilter(Pagename = "Patients", DisplayName = "Patients", EnablePrivilegeFilter = true)]
+        public ActionResult Details(string id)
+        {
+            var page = new PageModel();
+            page.MenuName = "Patients";
+            page.Module = "Health Records";
+            page.ParentName = "Patients";
+            page.ParentTitle = "Patients";
+            page.Title = id;
+            ViewBag.Page = page;
+
+            Dictionary<string, object> appSettings = new Dictionary<string, object>();
+            appSettings.Add("PatientId", id);
+            ViewBag.AppSettings = appSettings;
+            return View();
+        }
+    }
 }

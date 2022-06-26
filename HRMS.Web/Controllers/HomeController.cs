@@ -14,9 +14,11 @@ namespace HRMS.Web.Controllers
         {
         }
 
+        [HttpGet]
+        [Route]
         //
         // GET: /Home/
-        [AuthorizationPrivilegeFilter(Pagename = "Dashboard", DisplayName = "Dashboard", EnablePrivilegeFilter = true)]
+        [AuthorizationPrivilegeFilter(Pagename = "Dashboard", DisplayName = "Dashboard")]
         public ActionResult Index()
         {
             var page = new PageModel();
@@ -26,5 +28,17 @@ namespace HRMS.Web.Controllers
             ViewBag.Page = page;
             return View();
         }
-	}
+
+        [HttpGet]
+        [Route("MyDiagnosis")]
+        [AuthorizationPrivilegeFilter(Pagename = "My Diagnosis and Treatment", DisplayName = "My Diagnosis and Treatment")]
+        public ActionResult MyDiagnosis()
+        {
+            var page = new PageModel();
+            page.MenuName = "My Diagnosis and Treatment";
+            page.Title = "My Diagnosis and Treatment";
+            ViewBag.Page = page;
+            return View("~/Views/Home/MyDiagnosis.cshtml");
+        }
+    }
 }

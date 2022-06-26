@@ -7,6 +7,7 @@ using HRMS.Web.Models;
 
 namespace HRMS.Web.Controllers
 {
+    [RoutePrefix("Admin/SystemWebAdminMenuRoles")]
     public class SystemWebAdminMenuRolesController : Controller
     {
 
@@ -14,6 +15,8 @@ namespace HRMS.Web.Controllers
         {
         }
 
+        [HttpGet]
+        [Route]
         //
         // GET: /Home/
         [AuthorizationPrivilegeFilter(Pagename = "System Menu Roles", DisplayName = "System Menu Roles", EnablePrivilegeFilter = true)]

@@ -17,6 +17,7 @@ namespace HRMS.Web.Models
     public class ApplicationUserModel
     {
         public string UserId { get; set; }
+        public long SystemUserTypeId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string LegalEntityId { get; set; }

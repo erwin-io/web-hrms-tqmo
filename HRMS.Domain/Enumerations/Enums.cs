@@ -9,7 +9,7 @@ namespace HRMS.Domain.Enumerations
     public enum SYSTEM_USER_TYPE_ENUMS
     {
         USER_WEBADMIN = 1,
-        USER_MOBILE = 2
+        USER_PORTAL = 2
     }
     public enum ICON_PROFILE_FORMAT_ENUMS
     {
@@ -32,9 +32,18 @@ namespace HRMS.Domain.Enumerations
         VIDEO = 2,
         AUDIO = 3
     }
-    public enum SilupostServerStatusEnums
+    public enum HRMSServerStatusEnums
     {
         ACTIVE = 1,
         DISABLED = 2,
+    }
+    public enum APPOINTMENT_STATUS
+    {
+        Pending = 1,
+        Processed = 2,
+        Approved = 3,
+        Completed = 4,
+        Canceled = 5,
+        Declined = 6
     }
 }

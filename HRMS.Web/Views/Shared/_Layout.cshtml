@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="SILUPOST WEB ADMIN">
+    <meta name="description" content="HEALTH RECORD MANAGEMENT WEB ADMIN">
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
     <title>@ViewBag.Page.Title - HEALTH RECORD MANAGEMENT</title>
 
@@ -78,6 +78,21 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed web-theme">
 
+    @{
+        var appState = HRMS.Web.Models.GlobalFunctions.GetAppState();
+
+        if (appState != null && appState.User != null)
+        {
+            if (appState.User.SystemUserTypeId == 1)
+            {
+                Response.Redirect("/Admin/Account/Login");
+            }
+        }
+        else
+        {
+            Response.Redirect("/Account/Login");
+        }
+    }
     @Html.Partial("_NavBar")
     @Html.Partial("_SideBar")
 
@@ -183,7 +198,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
-    <script>app.init()</script>
+    <script>app.init({ SystemUserTypeId: 2 })</script>
     @RenderSection("scripts", required: false)
     <div class="lastDivTag"></div>
 </body>

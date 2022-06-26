@@ -100,7 +100,10 @@ var patientController = function() {
                 MobileNumber: {
                     required: true,
                     digits: true
-                }
+                },
+                CompleteAddress: {
+                    required: true
+                },
             },
             Messages: {
                 FirstName: "Please enter a Firstname",
@@ -115,7 +118,10 @@ var patientController = function() {
                 MobileNumber: {
                     required: "Please enter Mobile Number",
                     digits : "Please enter valid Mobile Number",
-                }
+                },
+                CompleteAddress: {
+                    required: "Please select Complete Address"
+                },
             },
         }
 
@@ -159,9 +165,6 @@ var patientController = function() {
                 Occupation: {
                     required: true
                 },
-                CompleteAddress: {
-                    required: true
-                },
                 CivilStatusId: {
                     required: true
                 }
@@ -169,9 +172,6 @@ var patientController = function() {
             messages: {
                 Occupation: {
                     required: "Please select Occupation"
-                },
-                CompleteAddress: {
-                    required: "Please select Complete Address"
                 },
                 CivilStatusId: {
                     required: "Please select Civil Status"
@@ -302,7 +302,7 @@ var patientController = function() {
             var sizeInKb=sizeInBytes/1000;
 
             
-            appSettings.model.ProfilePicture.FileName = "SILUPOST_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss");
+            appSettings.model.ProfilePicture.FileName = "HRMS_CAPTURE_" + moment(new Date()).format("YYYY-MM-DD_HH:mm:ss.sss");
             appSettings.model.ProfilePicture.MimeType = "image/jpeg";
             appSettings.model.ProfilePicture.FileSize = parseInt(sizeInKb);
             appSettings.model.ProfilePicture.IsDefault = false;
@@ -348,7 +348,7 @@ var patientController = function() {
             },
             columnDefs: [
                 {
-                    targets: [0,6], width:1
+                    targets: [0], width:1
                 },
                 {
                     className: 'control',
@@ -362,24 +362,30 @@ var patientController = function() {
                         return '';
                     }
                 },
-                { "data": "PatientId","sortable":false, "orderable": false, "searchable": false},
+                {
+                    "data": "PatientId",
+                    render: function (data, type, full, meta) {
+                        return '<a href="/Admin/Patients/' + full.PatientId + '" title="View details">' + full.PatientId + '</a>';
+                    }
+                },
                 { "data": "LegalEntity.FullName" },
                 { "data": "LegalEntity.Gender.GenderName" },
                 { "data": "LegalEntity.EmailAddress" },
                 { "data": "LegalEntity.MobileNumber" },
-                { "data": null, "searchable": false, "orderable": false, 
-                    render: function(data, type, full, meta){
-                        return '<span class="dropdown pmd-dropdown dropup clearfix">'
-                                +'<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="drop-role-'+full.PatientId+'" data-toggle="dropdown" aria-expanded="true">'
-                                    +'<i class="material-icons pmd-sm">more_vert</i>'
-                                +'</button>'
-                                +'<ul aria-labelledby="drop-role-'+full.PatientId+'" role="menu" class="dropdown-menu pmd-dropdown-menu-top-right">'
-                                    +'<li role="presentation"><a class="edit" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.PatientId+'" role="menuitem">Edit</a></li>'
-                                    +'<li role="presentation"><a class="remove" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.PatientId+'" role="menuitem">Remove</a></li>'
-                                +'</ul>'
-                                +'</span>'
-                    }
-                }
+                { "data": "LegalEntity.CompleteAddress" },
+                //{ "data": null, "searchable": false, "orderable": false, 
+                //    render: function(data, type, full, meta){
+                //        return '<span class="dropdown pmd-dropdown dropup clearfix">'
+                //                +'<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button" id="drop-role-'+full.PatientId+'" data-toggle="dropdown" aria-expanded="true">'
+                //                    +'<i class="material-icons pmd-sm">more_vert</i>'
+                //                +'</button>'
+                //                +'<ul aria-labelledby="drop-role-'+full.PatientId+'" role="menu" class="dropdown-menu pmd-dropdown-menu-top-right">'
+                //                    +'<li role="presentation"><a class="edit" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.PatientId+'" role="menuitem">Edit</a></li>'
+                //                    +'<li role="presentation"><a class="remove" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="'+full.PatientId+'" role="menuitem">Remove</a></li>'
+                //                +'</ul>'
+                //                +'</span>'
+                //    }
+                //}
             ],
             "order": [[1, "asc"]],
             select: {
@@ -511,7 +517,7 @@ var patientController = function() {
         appSettings.status.IsNew = true;
         legalEntity.appSettings.status.IsNew = true;
         var patientTemplate = $.templates('#patient-template');
-        $("#modal-dialog").find('.modal-title').html('New Enforcement Unit');
+        $("#modal-dialog").find('.modal-title').html('New Patient');
         $("#modal-dialog").find('.modal-footer #btnSave').html('Save');
         $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Save");
 
@@ -613,7 +619,7 @@ var patientController = function() {
         if (appSettings.currentId !== null || appSettings.currentId !== undefined || appSettings.currentId !== "") {
             appSettings.status.IsNew = false;
             var patientTemplate = $.templates('#patient-template');
-            $("#modal-dialog").find('.modal-title').html('Update Enforcement Unit');
+            $("#modal-dialog").find('.modal-title').html('Update Patient');
             $("#modal-dialog").find('.modal-footer #btnSave').html('Update');
             $("#modal-dialog").find('.modal-footer #btnSave').attr("data-name","Update");
             circleProgress.show(true);

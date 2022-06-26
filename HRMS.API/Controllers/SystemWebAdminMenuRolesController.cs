@@ -22,7 +22,7 @@ using System.Security.Claims;
 namespace HRMS.API.Controllers
 {
     [Authorize]
-    [SilupostAuthorizationFilter]
+    [HRMSAuthorizationFilter]
     [RoutePrefix("api/v1/SystemWebAdminMenuRoles")]
     public class SystemWebAdminMenuRolesController : ApiController
     {
@@ -49,7 +49,7 @@ namespace HRMS.API.Controllers
                 var data = _systemWebAdminMenuRolesFacade.FindBySystemWebAdminRoleIdandSystemWebAdminModuleId(SystemWebAdminRoleId, SystemWebAdminModuleId);
                 response.Data = data;
                 response.IsSuccess = true;
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
 
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
             }
         }
 
@@ -75,19 +75,19 @@ namespace HRMS.API.Controllers
             if (model != null && string.IsNullOrEmpty(model.SystemWebAdminRoleId))
             {
                 response.Message = string.Format(Messages.InvalidId, "System Web Admin Menu Role");
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             if (!model.SystemWebAdminMenu.Any())
             {
                 response.Message = string.Format(Messages.InvalidId, "System Web Admin Menu Role");
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             if (model.SystemWebAdminMenu.Any(m=>m.SystemWebAdminMenuId == null || m.SystemWebAdminMenuId <= 0))
             {
                 response.Message = string.Format(Messages.InvalidId, "System Web Admin Menu Role");
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
 
             try
@@ -105,12 +105,12 @@ namespace HRMS.API.Controllers
                     var data = _systemWebAdminMenuRolesFacade.FindBySystemWebAdminRoleId(model.SystemWebAdminRoleId);
                     response.Message = Messages.Updated;
                     response.Data = data;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.OK, response);
                 }
                 else
                 {
                     response.Message = Messages.Failed;
-                    return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadGateway, response);
+                    return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadGateway, response);
                 }
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace HRMS.API.Controllers
                 response.DeveloperMessage = ex.Message;
                 response.Message = Messages.ServerError;
                 //TODO Logging of exceptions
-                return new SilupostAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
+                return new HRMSAPIHttpActionResult<AppResponseModel<List<SystemWebAdminMenuRolesViewModel>>>(Request, HttpStatusCode.BadRequest, response);
             }
         }
     }
