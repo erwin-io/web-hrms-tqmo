@@ -129,40 +129,48 @@
     <script id="appointment-template" type="text/x-jsrender">
         <form id="form-appointment">
             <div class="group-fields row">
-                {^{if !IsNew}}
                 <div class="col-xs-12 col-md-4 col-lg-4">
-                    <label class="form-group pure-material-textfield-outlined">
-                        <input readonly id="AppointmentId" name="AppointmentId" data-link="AppointmentId" />
-                        <span>AppointmentId</span>
-                    </label>
-                </div>
-                {{/if}}
-                <div class="col-xs-12 col-md-4 col-lg-4">
-                    <label class="form-group pure-material-textfield-outlined">
-                        <input id="AppointmentDate" name="AppointmentDate" data-link="{formatDate:AppointmentDate}" placeholder=" " />
-                        <span>Appointment Date</span>
-                    </label>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="AppointmentDate" class="control-label">Appointment date</label>
+                        <input type="text" id="AppointmentDate" name="AppointmentDate" data-link="{formatDate:AppointmentDate}" class="form-control" />
+                    </div>
                 </div>
                 <div class="col-xs-12 col-md-4 col-lg-4">
-                    <label class="form-group pure-material-textfield-outlined">
-                        <input id="AppointmentTime" name="AppointmentTime" data-link="AppointmentTime" placeholder=" " />
-                        <span>Appointment Time</span>
-                    </label>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="AppointmentTime" class="control-label">Appointment time</label>
+                        <input type="text" id="AppointmentTime" name="AppointmentTime" data-link="AppointmentTime" class="form-control" />
+                    </div>
                 </div>
             </div>
             <div class="group-fields row">
                 <div class="col-xs-4">
-                    <label class="form-group pure-material-textfield-outlined">
-                        <input id="DateSymtomsFirstNoted" name="DateSymtomsFirstNoted" data-link="{formatDate:DateSymtomsFirstNoted}" placeholder=" " />
-                        <span>Date symtoms first noted</span>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="DateSymtomsFirstNoted" class="control-label">Date symtoms first noted</label>
+                        <input type="text" id="DateSymtomsFirstNoted" name="DateSymtomsFirstNoted" data-link="{formatDate:DateSymtomsFirstNoted}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12">
+                    <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                        <input id="HasPrevMedTreatment" name="HasPrevMedTreatment" data-link="HasPrevMedTreatment" type="checkbox" class="pm-ini">
+                        <span class="pmd-checkbox-label"></span>
+                        <span>Have previous medical consultation and treatment?</span>
+                    </label>
+                </div>
+                <div class="col-xs-12">
+                    <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                        <input id="IsTakingBloodThinningDrugs" name="IsTakingBloodThinningDrugs" data-link="IsTakingBloodThinningDrugs" type="checkbox" class="pm-ini">
+                        <span class="pmd-checkbox-label"></span>
+                        <span>Is taking blood thinning drugs such as aspirinm coumadinm clopidogrel?</span>
                     </label>
                 </div>
             </div>
             <div class="group-fields row">
                 <div class="col-xs-12">
                     <label class="form-group pure-material-textfield-outlined">
-                        <input id="PrimaryReason" name="PrimaryReason" data-link="PrimaryReason" placeholder=" " />
-                        <span>Primary Reason</span>
+                        <textarea id="PrimaryReason" name="PrimaryReason" data-link="PrimaryReason" placeholder=" "></textarea>
+                        <span>Primary reason</span>
                     </label>
                 </div>
             </div>
@@ -171,6 +179,34 @@
                     <label class="form-group pure-material-textfield-outlined">
                         <textarea id="DescOfCharOfSymtoms" name="DescOfCharOfSymtoms" data-link="DescOfCharOfSymtoms" placeholder=" "></textarea>
                         <span>Description of characteristics of the symtoms</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="PatientGuardian" name="PatientGuardian" data-link="PatientGuardian" placeholder=" " />
+                        <span>Patient's guardian</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="PatientGuardianMobileNumber" name="PatientGuardianMobileNumber" data-link="PatientGuardianMobileNumber" placeholder=" " />
+                        <span>Guardian's mobile number</span>
+                    </label>
+                </div>
+            </div>
+            <div class="group-fields clearfix row">
+                <div class="col-xs-12 col-md-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="PatientRelative" name="PatientRelative" data-link="PatientRelative" placeholder=" " />
+                        <span>Patient's relative</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label class="form-group pure-material-textfield-outlined">
+                        <input id="PatientRelativeMobileNumber" name="PatientRelativeMobileNumber" data-link="PatientRelativeMobileNumber" placeholder=" " />
+                        <span>Relative's mobile number</span>
                     </label>
                 </div>
             </div>

@@ -537,7 +537,6 @@ var patientController = function() {
         appSettings.model.lookup = {
             EntityGender: appSettings.lookup.EntityGender,
             CivilStatus: appSettings.lookup.CivilStatus,
-            EnforcementStation: appSettings.lookup.EnforcementStation
         };
         //end reset model
         //render template

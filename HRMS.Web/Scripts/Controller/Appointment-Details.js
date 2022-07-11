@@ -444,7 +444,7 @@ var appointmentDetailsController = function() {
                                 + '<i class="material-icons pmd-sm">more_vert</i>'
                                 + '</button>'
                                 + '<ul aria-labelledby="drop-role-' + full.DiagnosisId + '" role="menu" class="dropdown-menu pmd-dropdown-menu-top-right">'
-                                + '<li role="presentation"><a class="status" style="color:#000" href="javascript:void(0);" tabindex="-1" data-key="' + full.DiagnosisId + '" data-value="' + full.IsActive + '" role="menuitem">' + (full.IsActive ? 'Set as not Active' : 'Set as Active') + '</a></li>'
+                                //+ '<li role="presentation"><a class="status" style="color:#000" href="javascript:void(0);" tabindex="-1" data-key="' + full.DiagnosisId + '" data-value="' + full.IsActive + '" role="menuitem">' + (full.IsActive ? 'Set as not Active' : 'Set as Active') + '</a></li>'
                                 + '<li role="presentation"><a class="edit" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="' + full.DiagnosisId + '" role="menuitem">Edit</a></li>'
                                 + '<li role="presentation"><a class="remove" style="color:#000" href="javascript:void(0);" tabindex="-1" data-value="' + full.DiagnosisId + '" role="menuitem">Remove</a></li>'
                                 + '</ul>'

@@ -72,6 +72,19 @@ namespace HRMS.Facade
 
                     if (!model.IsPatientInRecord)
                     {
+                        addModel.Patient.CivilStatus = new CivilStatusModel() { CivilStatusId = 1 };
+                        addModel.Patient.Occupation = string.Empty;
+                        addModel.Patient.LegalEntity = new LegalEntityModel()
+                        {
+                            FirstName = getUser.LegalEntity.FirstName,
+                            MiddleName = getUser.LegalEntity.MiddleName,
+                            LastName = getUser.LegalEntity.LastName,
+                            Gender = getUser.LegalEntity.Gender,
+                            BirthDate = getUser.LegalEntity.BirthDate,
+                            EmailAddress = getUser.LegalEntity.EmailAddress,
+                            MobileNumber = getUser.LegalEntity.MobileNumber,
+                            CompleteAddress = getUser.LegalEntity.CompleteAddress,
+                        };
                         //Start Saving LegalEntity
                         var legalEntityId = _legalEntityRepository.Add(addModel.Patient.LegalEntity);
                         if (string.IsNullOrEmpty(legalEntityId))
